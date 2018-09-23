@@ -12,38 +12,46 @@
           <p>Home</p></router-link>
       </div>
       <div class="vertical-bar">
-        <span>|</span>
       </div>
       <div class="link">
         <router-link to="/album"><i class="fas fa-compact-disc fa-2x"></i>
           <p>Album</p></router-link>
       </div>
       <div class="vertical-bar">
-        <span>|</span>
       </div>
       <div class="link">
         <router-link to="/artist"><i class="fas fa-user-astronaut fa-2x"></i>
           <p>Artist</p></router-link>
       </div>
       <div class="vertical-bar">
-        <span>|</span>
       </div>
       <div class="link">
         <router-link to="/playlist"><i class="fas fa-headphones fa-2x"></i>
           <p>Playlist</p></router-link>
       </div>
       <div class="vertical-bar">
-        <span>|</span>
       </div>
       <div class="link">
         <router-link to="/account">
           <i class="fas fa-user fa-2x"></i>
-          <p>&nbsp;</p>
+          <p>Account</p>
         </router-link>
         <ul>
-          <li><a href="#" id="user-name">Uncle Bob</a></li>
-          <li><a href="#"><i class="fas fa-cog"></i>&nbsp;Settings</a></li>
-          <li><a href="#"><i class="fas fa-sign-out-alt"></i>&nbsp;Log out</a></li>
+          <li>
+            <router-link to="/account">
+              <a href="#" id="user-name">Uncle Bob</a>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/settings">
+              <a href="#"><i class="fas fa-cog"></i>&nbsp;Settings</a>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/logout">
+              <a href="#"><i class="fas fa-sign-out-alt"></i>&nbsp;Log out</a>
+            </router-link>
+          </li>
         </ul>
       </div>
     </div>
@@ -52,26 +60,28 @@
 
 <style>
   nav {
-    height: 7em;
+    height: 9em;
     width: 100%;
     background: rgba(21, 54, 65, 1);
-    padding: 2.1em 0;
   }
 
   #bar {
+    height: 100%;
     width: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    overflow: hidden;
   }
 
   .vertical-bar {
     display: flex;
     align-items: center;
-    height: 100%;
-    color: rgba(148, 207, 201, 1);
+    height: 50%;
+    min-height: 50px;
     font-weight: bold;
     font-size: 1.1em;
+    border-right: 3px solid rgba(148, 207, 201, 1);
   }
 
   .search-link {
@@ -125,13 +135,13 @@
     list-style: none;
     height: auto;
     width: auto;
-    top: 90px;
+    top: 130px;
     right: 10px;
     background: rgba(34, 85, 110, 0.98);
     color: rgba(148, 207, 201, 1);;
   }
 
-  .link ul li{
+  .link ul li {
     margin-top: 30px;
     margin-bottom: 30px;
     padding-right: 60px;
@@ -148,6 +158,10 @@
 
   .link:hover > ul {
     display: initial;
+  }
+
+  .link ul li a:hover {
+    color: white;
   }
 
   a {
