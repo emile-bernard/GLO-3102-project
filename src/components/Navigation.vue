@@ -27,10 +27,12 @@
           <p>Playlist</p></router-link>
       </div>
     </div>
-    <div id="navigation-burger">
-      <span></span>
-      <span></span>
-      <span></span>
+    <div id="navigation-burger" @click="showSideBar = !showSideBar">
+      <div v-if="!showSideBar">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   </nav>
 </template>
@@ -90,7 +92,7 @@
   }
 
   #navigation-burger {
-    display: none;
+    /*display: none;*/
   }
 
   /*Tablet*/
@@ -109,27 +111,32 @@
   }
 
   /*Mobile*/
+  /*
   @media only screen and (max-device-width: 750px) {
     nav {
       height: 6em;
-      /*background: none;*/
+      background: none;
     }
     #bar {
       display: none;
     }
+  */
 
-    #navigation-burger {
-      display: block;
-      background: none;
-    }
-
-    #navigation-burger span {
-      display: block;
-      width: 6em;
-      height: 0.85em;
-      margin: 0.75em;
-      background: rgba(148, 207, 201, 1);
-    }
+  #navigation-burger {
+    display: block;
+    background: none;
+    margin-left: 1.5em;
   }
 
+  #navigation-burger:hover {
+    cursor: pointer;
+  }
+
+  #navigation-burger span {
+    display: block;
+    width: 6em;
+    height: 0.85em;
+    margin: 0.75em;
+    background: rgba(148, 207, 201, 1);
+  }
 </style>
