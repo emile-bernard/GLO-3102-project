@@ -55,6 +55,13 @@
         </ul>
       </div>
     </div>
+    <div id="navigation-burger" @click="showSideBar = !showSideBar">
+      <div v-if="!showSideBar">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
   </nav>
 </template>
 
@@ -173,6 +180,11 @@
     margin: 0.5em;
   }
 
+  #navigation-burger {
+    /*display: none;*/
+  }
+
+  /*Tablet*/
   @media only screen and (max-device-width: 1200px) {
     nav {
       height: 2em;
@@ -199,4 +211,33 @@
     }
   }
 
+  /*Mobile*/
+  /*
+  @media only screen and (max-device-width: 750px) {
+    nav {
+      height: 6em;
+      background: none;
+    }
+    #bar {
+      display: none;
+    }
+  */
+
+  #navigation-burger {
+    display: block;
+    background: none;
+    margin-left: 1.5em;
+  }
+
+  #navigation-burger:hover {
+    cursor: pointer;
+  }
+
+  #navigation-burger span {
+    display: block;
+    width: 6em;
+    height: 0.85em;
+    margin: 0.75em;
+    background: rgba(148, 207, 201, 1);
+  }
 </style>

@@ -19,11 +19,11 @@ export default new Router({
     }, {
       path: '/artist',
       name: 'Artist',
-      component: Artist
+      component: Artist,
     }, {
       path: '/album',
       name: 'Album',
-      component: Album
+      component: Album,
     }, {
       path: '/playlist',
       name: 'Playlist',
