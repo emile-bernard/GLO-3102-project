@@ -10,9 +10,6 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
-  data: {
-    showSideBar: false,
-  },
   template: '<App/>',
   components: { App },
 });

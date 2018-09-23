@@ -47,8 +47,13 @@
         </ul>
       </div>
     </div>
-    <div id="navigation-burger" @click="showSideBar = !showSideBar">
+    <div id="navigation-burger" @click="toggleSideBar">
       <div v-if="!showSideBar">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div v-else class="side-bar-opened">
         <span></span>
         <span></span>
         <span></span>
@@ -138,7 +143,7 @@
     color: rgba(148, 207, 201, 1);;
   }
 
-  .link ul li{
+  .link ul li {
     margin-top: 30px;
     margin-bottom: 30px;
     padding-right: 60px;
@@ -225,5 +230,23 @@
     height: 0.85em;
     margin: 0.75em;
     background: rgba(148, 207, 201, 1);
+    transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  }
+
+  .side-bar-opened > span {
+    transform: rotate(45deg) ;
   }
 </style>
+
+<script>
+  export default {
+    data() {
+      return { showSideBar: false };
+    },
+    methods: {
+      toggleSideBar() {
+        this.showSideBar = !this.showSideBar;
+      }
+    }
+  };
+</script>
