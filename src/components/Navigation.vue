@@ -1,266 +1,32 @@
 <template>
   <nav>
-    <div id="bar">
-      <div class="link search-link">
-        <form class="search-form">
-          <button type="submit"><i class="fas fa-search fa-2x"></i></button>
-          <input type="text" placeholder="Search..."/>
-        </form>
-      </div>
-      <div class="link">
-        <router-link to="/"><i class="fas fa-home fa-2x"></i>
-          <p>Home</p></router-link>
-      </div>
-      <div class="vertical-bar">
-      </div>
-      <div class="link">
-        <router-link to="/album"><i class="fas fa-compact-disc fa-2x"></i>
-          <p>Album</p></router-link>
-      </div>
-      <div class="vertical-bar">
-      </div>
-      <div class="link">
-        <router-link to="/artist"><i class="fas fa-user-astronaut fa-2x"></i>
-          <p>Artist</p></router-link>
-      </div>
-      <div class="vertical-bar">
-      </div>
-      <div class="link">
-        <router-link to="/playlist"><i class="fas fa-headphones fa-2x"></i>
-          <p>Playlist</p></router-link>
-      </div>
-      <div class="vertical-bar">
-      </div>
-      <div class="link">
-        <router-link to="/account">
-          <i class="fas fa-user fa-2x"></i>
-          <p>Account</p>
-        </router-link>
-        <ul>
-          <li>
-            <router-link to="/account">
-              <a href="#" id="user-name">Uncle Bob</a>
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/settings">
-              <a href="#"><i class="fas fa-cog"></i>&nbsp;Settings</a>
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/logout">
-              <a href="#"><i class="fas fa-sign-out-alt"></i>&nbsp;Log out</a>
-            </router-link>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div id="navigation-burger" @click="toggleSideBar">
-      <div v-if="!showSideBar">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <div v-else class="side-bar-opened">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
+    <navigation-bar></navigation-bar>
+    <navigation-burger></navigation-burger>
   </nav>
 </template>
 
 <style>
   nav {
-    height: 9em;
+    height: auto;
     width: 100%;
     background: rgba(21, 54, 65, 1);
   }
 
-  #bar {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    overflow: hidden;
-  }
-
-  .vertical-bar {
-    display: flex;
-    align-items: center;
-    height: 50%;
-    min-height: 50px;
-    font-weight: bold;
-    font-size: 1.1em;
-    border-right: 3px solid rgba(148, 207, 201, 1);
-  }
-
-  .search-link {
-    margin-right: auto;
-  }
-
-  .search-form {
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-
-  .search-form button {
-    border-right: none;
-    height: 100%;
-    background: rgba(34, 85, 110, 1);
-    color: rgba(148, 207, 201, 1);
-    border-radius: 10px 0 0 10px;
-    cursor: pointer;
-    float: left;
-  }
-
-  .search-form button:hover {
-    color: white;
-  }
-
-  form.search-form input {
-    padding-left: 15px;
-    min-height: 27px;
-    background: rgba(148, 207, 201, 1);
-    color: white;
-    border-radius: 0 10px 10px 0;
-    cursor: pointer;
-  }
-
-  .link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    height: 100%;
-    font-family: monospace;
-    font-size: 1.5em;
-    padding: 0 2.1em;
-  }
-
-  .link ul {
-    display: none;
-    position: absolute;
-    list-style: none;
-    height: auto;
-    width: auto;
-    top: 130px;
-    right: 10px;
-    background: rgba(34, 85, 110, 0.98);
-    color: rgba(148, 207, 201, 1);;
-  }
-
-  .link ul li {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    padding-right: 60px;
-  }
-
-  .link:hover {
-    background: rgba(34, 85, 110, 1);
-    font-weight: bold;
-  }
-
-  .link:hover > a {
-    color: white;
-  }
-
-  .link:hover > ul {
-    display: initial;
-  }
-
-  .link ul li a:hover {
-    color: white;
-  }
-
-  a {
-    color: rgba(148, 207, 201, 1);
-    text-decoration: none;
-  }
-
-  p {
-    margin: 0.5em;
-  }
-
-  #navigation-burger {
-    /*display: none;*/
-  }
-
-  /*Tablet*/
-  @media only screen and (max-device-width: 1200px) {
-    nav {
-      height: 2em;
-    }
-
-    #bar {
-      justify-content: space-between;
-    }
-
-    .fas {
-      display: none;
-    }
-
-    .search-form {
-      margin-left: 10px;
-    }
-
-    form.search-form button {
-      display: none;
-    }
-
-    form.search-form input {
-      border-radius: 10px 10px 10px 10px;
-    }
-  }
-
-  /*Mobile*/
-  /*
   @media only screen and (max-device-width: 750px) {
     nav {
-      height: 6em;
       background: none;
     }
-    #bar {
-      display: none;
-    }
-  */
-
-  #navigation-burger {
-    display: block;
-    background: none;
-    margin-left: 1.5em;
-  }
-
-  #navigation-burger:hover {
-    cursor: pointer;
-  }
-
-  #navigation-burger span {
-    display: block;
-    width: 6em;
-    height: 0.85em;
-    margin: 0.75em;
-    background: rgba(148, 207, 201, 1);
-    transition: all 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
-  }
-
-  .side-bar-opened > span {
-    transform: rotate(45deg) ;
   }
 </style>
 
 <script>
+  import NavigationBar from '@/components/NavigationBar';
+  import NavigationBurger from '@/components/NavigationBurger';
+
   export default {
-    data() {
-      return { showSideBar: false };
-    },
-    methods: {
-      toggleSideBar() {
-        this.showSideBar = !this.showSideBar;
-      }
+    components: {
+      'navigation-bar': NavigationBar,
+      'navigation-burger': NavigationBurger
     }
   };
 </script>
