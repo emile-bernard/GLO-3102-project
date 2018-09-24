@@ -1,3 +1,27 @@
+# GLO-3102
+
+# Membres
+
+- Bernard, Émile (EMBER89 - 111 128 181)
+- Cabral Cruz, Samuel (SACAC1 - 111 006 369)
+- Chevalier, Guillaume (GUCHE29 - 111 131 607)
+- Lawless, Pamela (IDUL - XXX XXX XXX)
+
+# Get Started
+
+- Repo source du projet [UBeat](https://github.com/GLO3102/UBeat)
+- [Slack du projet](https://glo3102-a2018.slack.com/)
+
+# Dates importantes
+
+| Date | Objet | Pondération |
+| :---: | :---: | :---: |
+| 30/09/18 | 1ère remise | 10% |
+| 11/09/18 | 2ième remise | 10% |
+| 16/09/18 | Évaluation des pairs intermédiaire | 2.5% |
+| 09/12/18 | Remise finale | 25% |
+| 14/12/18 | Autoévaluation finale | 2.5% |
+
 # vue-starter
 
 Kit de départ préconfiguré incluant [VueJS](https://github.com/vuejs/vue), [Babel](https://babeljs.io/), [Webpack](https://webpack.js.org/) et [ESLint](https://eslint.org/) pour le cours GLO-3102.
