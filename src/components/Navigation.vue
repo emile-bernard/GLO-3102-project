@@ -1,18 +1,32 @@
 <template>
-    <nav>
-        <ul>
-            <li>
-                <router-link to="/">Home</router-link>
-            </li>
-            <li>
-                <router-link to="/album">Album</router-link>
-            </li>
-            <li>
-                <router-link to="/artist">Artist</router-link>
-            </li>
-        </ul>
-    </nav>
+  <nav>
+    <navigation-bar></navigation-bar>
+    <navigation-burger></navigation-burger>
+  </nav>
 </template>
 
 <style>
+  nav {
+    height: auto;
+    width: 100%;
+    background: rgba(21, 54, 65, 1);
+  }
+
+  @media only screen and (max-device-width: 750px) {
+    nav {
+      background: none;
+    }
+  }
 </style>
+
+<script>
+  import NavigationBar from '@/components/NavigationBar';
+  import NavigationBurger from '@/components/NavigationBurger';
+
+  export default {
+    components: {
+      'navigation-bar': NavigationBar,
+      'navigation-burger': NavigationBurger
+    }
+  };
+</script>
