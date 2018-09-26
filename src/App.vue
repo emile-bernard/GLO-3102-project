@@ -16,9 +16,13 @@
   };
 </script>
 
-<style>
+<style lang="scss">
+  @import '@/../node_modules/bulma/bulma.sass';
+  @import '@/../node_modules/bulmaswatch/superhero/bulmaswatch.scss';
+
   body {
     margin: 0;
     padding: 0;
+    color: $grey-lighter;
   }
 </style>
