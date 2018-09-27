@@ -17,8 +17,8 @@
 </script>
 
 <style lang="scss">
-  @import "@/../node_modules/bulma/bulma.sass";
-  @import "@/../node_modules/bulmaswatch/superhero/bulmaswatch.scss";
+  @import "~bulma/bulma.sass";
+  @import "~bulmaswatch/superhero/bulmaswatch.scss";
 
   body {
     margin: 0;
