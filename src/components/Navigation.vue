@@ -11,12 +11,6 @@
     width: 100%;
     background: rgba(21, 54, 65, 1);
   }
-
-  @media only screen and (max-device-width: 750px) {
-    #navigation {
-      /*background: none;*/
-    }
-  }
 </style>
 
 <script>
