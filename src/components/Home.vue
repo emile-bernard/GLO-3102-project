@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="container">
-      <div id="brand-name">Ubeat</div>
+      <div id="brand-name">Ubeat <i class="fas fa-music fa-2x"></i></div>
       <br/>
       <div id="flip-container-text">Listen to</div>
       <div id="flip-container">
@@ -65,6 +65,33 @@
     100% {
       margin-top: -270px;
     }
+  }
+
+  @media only screen and (max-device-width: 750px) {
+    #container {
+      height: 10%;
+      color: #94CFC9;
+      text-transform: uppercase;
+      font-size: 60px;
+      font-weight: bold;
+      position: fixed;
+      width: 100%;
+      display: block;
+      margin: 1em;
+    }
+
+    #flip-container {
+      overflow: hidden;
+      color: #93eeff;
+      height: 130%;
+      display: block;
+    }
+
+    #flip-container-text{
+      font-size: 40px;
+    }
+
+
   }
 </style>
 
