@@ -124,7 +124,7 @@
     }
   }
 
-  @media only screen and (max-device-width: 750px) {
+  @media only screen and (max-width: 1087px) {
     #navigation-bar {
       display: none;
     }
