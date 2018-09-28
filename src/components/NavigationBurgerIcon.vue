@@ -31,7 +31,7 @@
 
   #navigation-burger-icon span {
     position: absolute;
-    height: 15px;
+    height: 10px;
     width: 100%;
     background: rgba(148, 207, 201, 1);
     border-radius: 9px;
@@ -52,11 +52,11 @@
   }
 
   #navigation-burger-icon .middle {
-    top: 25px;
+    top: 15px;
   }
 
   #navigation-burger-icon .bottom {
-    top: 50px;
+    top: 30px;
   }
 
   #navigation-burger-icon.open .top {

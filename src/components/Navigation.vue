@@ -14,7 +14,7 @@
 
   @media only screen and (max-device-width: 750px) {
     #navigation {
-      background: none;
+      /*background: none;*/
     }
   }
 </style>
