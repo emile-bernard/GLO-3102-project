@@ -1,19 +1,19 @@
 <template>
-  <nav>
+  <div id="navigation">
     <navigation-bar></navigation-bar>
     <navigation-burger></navigation-burger>
-  </nav>
+  </div>
 </template>
 
 <style>
-  nav {
+  #navigation {
     height: auto;
     width: 100%;
     background: rgba(21, 54, 65, 1);
   }
 
   @media only screen and (max-device-width: 750px) {
-    nav {
+    #navigation {
       background: none;
     }
   }

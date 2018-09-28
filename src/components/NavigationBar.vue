@@ -1,106 +1,103 @@
 <template>
-  <div id="navigation-bar">
-    <navigation-bar-search></navigation-bar-search>
-    <div class="link">
-      <router-link to="/"><i class="fas fa-home fa-2x"></i>
-        <p>Home</p></router-link>
+  <nav id="navigation-bar" class="navbar" role="navigation">
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <div id="navigation-bar-search" class="navbar-item">
+          <navigation-bar-search></navigation-bar-search>
+        </div>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-item">
+          <router-link to="/">
+            <i class="fas fa-home fa-2x"></i>
+            <p>Home</p>
+          </router-link>
+        </div>
+        <div class="navbar-item">
+          <router-link to="/album">
+            <i class="fas fa-compact-disc fa-2x"></i>
+            <p>Album</p>
+          </router-link>
+        </div>
+        <div class="navbar-item">
+          <router-link to="/artist">
+            <i class="fas fa-user-astronaut fa-2x"></i>
+            <p>Artist</p>
+          </router-link>
+        </div>
+        <div class="navbar-item">
+          <router-link to="/playlist">
+            <i class="fas fa-headphones fa-2x"></i>
+            <p>Playlist</p>
+          </router-link>
+        </div>
+      </div>
+      <div class="navbar-item">
+        <navigation-bar-account-menu></navigation-bar-account-menu>
+      </div>
     </div>
-    <div class="vertical-bar">
-    </div>
-    <div class="link">
-      <router-link to="/album"><i class="fas fa-compact-disc fa-2x"></i>
-        <p>Album</p></router-link>
-    </div>
-    <div class="vertical-bar">
-    </div>
-    <div class="link">
-      <router-link to="/artist"><i class="fas fa-user-astronaut fa-2x"></i>
-        <p>Artist</p></router-link>
-    </div>
-    <div class="vertical-bar">
-    </div>
-    <div class="link">
-      <router-link to="/playlist"><i class="fas fa-headphones fa-2x"></i>
-        <p>Playlist</p></router-link>
-    </div>
-    <div class="vertical-bar">
-    </div>
-    <div class="link">
-      <router-link to="/account">
-        <i class="fas fa-user fa-2x"></i>
-        <p>Account</p>
-      </router-link>
-      <navigation-bar-account-menu></navigation-bar-account-menu>
-    </div>
-  </div>
+  </nav>
 </template>
 
 <style>
+  .navbar-menu {
+    /*align-items: stretch;*/
+    /*display: flex;*/
+    /*padding: 0;*/
+    /*flex-grow: 1;*/
+    /*flex-shrink: 0;*/
+  }
+  .navbar-start {
+    justify-content: flex-start;
+    margin-right: auto;
+  }
   #navigation-bar {
     height: 100%;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    overflow: hidden;
-  }
-
-  .vertical-bar {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    min-height: 75px;
-    font-weight: bold;
     font-size: 1.1em;
-    border-right: 3px solid rgba(148, 207, 201, 1);
+    overflow: visible;
   }
-
-  .link {
+  .navbar-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     height: 100%;
+    margin-left: auto;
+    margin-right: auto;
     font-family: monospace;
-    font-size: 1.5em;
-    padding: 2.1em;
+    padding: 1.1em;
   }
-
-  .link:hover {
+  .navbar-item:hover {
     background: rgba(34, 85, 110, 1);
     font-weight: bold;
   }
-
-  .link:hover > a {
-    color: white;
+  #navigation-bar-search:hover {
+    background: none;
+    font-weight: bold;
   }
-
-  a {
+  .fas {
     color: rgba(148, 207, 201, 1);
-    text-decoration: none;
   }
-
-  p {
-    margin: 0.5em;
-  }
-
   @media only screen and (max-width: 1200px) {
-    .link {
+    .navbar-item {
       padding-left: 1em;
       padding-right: 1em;
     }
-
-    #navigation-bar {
-      justify-content: space-between;
-    }
-
     .fas {
       display: none;
     }
   }
-
+  @media only screen and (max-width: 1200px) {
+    .navbar-item {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+    .fas {
+      display: none;
+    }
+  }
   @media only screen and (max-device-width: 750px) {
     #navigation-bar {
       display: none;
