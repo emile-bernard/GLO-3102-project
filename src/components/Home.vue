@@ -82,7 +82,7 @@
   }
 
   #flip-container div:first-child {
-    animation: show 5s linear infinite;
+    animation: show 8s linear infinite;
   }
 
   @keyframes show {
