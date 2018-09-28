@@ -8,24 +8,24 @@
       </div>
       <div class="navbar-end">
         <router-link to="/">
-          <div class="navbar-item">
+          <div class="navbar-item" @click="updateTabs('navigation-tab-home')">
             <i class="fas fa-home fa-2x"></i>
             <p>Home</p>
           </div>
         </router-link>
-        <router-link to="/album">
-          <div class="navbar-item">
-            <i class="fas fa-compact-disc fa-2x"></i>
-            <p>Album</p>
-          </div>
-        </router-link>
         <router-link to="/artist">
-          <div class="navbar-item">
+          <div class="navbar-item" @click="updateTabs('navigation-tab-artist')">
             <i class="fas fa-user-astronaut fa-2x"></i>
             <p>Artist</p>
           </div>
         </router-link>
-        <router-link to="/playlist">
+        <router-link to="/album">
+          <div class="navbar-item" @click="updateTabs('navigation-tab-album')">
+            <i class="fas fa-compact-disc fa-2x"></i>
+            <p>Album</p>
+          </div>
+        </router-link>
+        <router-link to="/playlist" @click="updateTabs('navigation-tab-playlist')">
           <div class="navbar-item">
             <i class="fas fa-headphones fa-2x"></i>
             <p>Playlist</p>
@@ -139,6 +139,22 @@
     components: {
       'navigation-bar-search': NavigationBarSearch,
       'navigation-bar-account-menu': NavigationBarAccountMenu
+    },
+    methods: {
+      updateTabs(tabId) {
+        this.resetAllTabs();
+        document.getElementById(tabId).className = 'is-active';
+      },
+      resetAllTabs() {
+        const tabs = document.getElementById('navigation-tabs')
+          .getElementsByTagName('li');
+        for (let i = 0; i < tabs.length; i += 1) {
+          const tab = document.getElementById(tabs[i].id);
+          if (tab.classList.contains('is-active')) {
+            tab.classList.remove('is-active');
+          }
+        }
+      }
     }
   };
 </script>
