@@ -1,8 +1,12 @@
 <template>
   <div>
+    <div class="background"></div>
+    <div class="background second-background"></div>
+
+
     <div id="container">
       <div id="brand-name">Ubeat <i class="fas fa-music fa-2x"></i></div>
-      <br/>
+
       <div id="flip-container-text">Listen to</div>
       <div id="flip-container">
         <div class="flip-element">Rock</div>
@@ -17,6 +21,37 @@
 </template>
 
 <style>
+
+
+  .background {
+    animation: slide 6s infinite alternate;
+    background-image: linear-gradient(-40deg, #22556E 50%, #4799B7 50%);
+    top: 0;
+    bottom: 0;
+    left: -50%;
+    right: -50%;
+    opacity: .3;
+    position: fixed;
+    z-index: -1;
+  }
+
+  .second-background {
+    animation-duration: 8s;
+  }
+
+  h1 {
+    font-family: monospace;
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translateX(-25%);
+    }
+    100% {
+      transform: translateX(25%);
+    }
+  }
+
   #container {
     height: 10%;
     color: #94CFC9;
@@ -27,6 +62,8 @@
     width: 100%;
     display: block;
     margin: 1em;
+    border-radius: .25em;
+    text-align: center;
   }
 
   #flip-container {
@@ -77,7 +114,7 @@
       position: fixed;
       width: 100%;
       display: block;
-      margin: 1em;
+      margin: 0em;
     }
 
     #flip-container {
@@ -87,10 +124,9 @@
       display: block;
     }
 
-    #flip-container-text{
+    #flip-container-text {
       font-size: 40px;
     }
-
 
   }
 </style>
