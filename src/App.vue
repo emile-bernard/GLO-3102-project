@@ -5,17 +5,6 @@
   </div>
 </template>
 
-<script>
-  import Navigation from '@/components/Navigation';
-
-  export default {
-    name: 'app',
-    components: {
-      'nav-menu': Navigation,
-    },
-  };
-</script>
-
 <style lang="scss">
   @import "~bulma/bulma.sass";
   @import "~bulmaswatch/superhero/bulmaswatch.scss";
@@ -26,3 +15,14 @@
     color: $grey-lighter;
   }
 </style>
+
+<script>
+  import Navigation from '@/components/Navigation';
+
+  export default {
+    name: 'app',
+    components: {
+      'nav-menu': Navigation,
+    },
+  };
+</script>
