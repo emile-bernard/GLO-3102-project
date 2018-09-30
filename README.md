@@ -4,8 +4,9 @@
 
 - Bernard, Émile (EMBER89 - 111 128 181)
 - Cabral Cruz, Samuel (SACAC1 - 111 006 369)
+- Cadotte Lawless, Pamella (PACAL7 - 111 047 949)
 - Chevalier, Guillaume (GUCHE29 - 111 131 607)
-- Lawless, Pamela (IDUL - XXX XXX XXX)
+
 
 # Get Started
 
@@ -46,8 +47,7 @@ npm -v
 npm install
 ```
 
-## Développement
-```bash
+## Développement ```bash
 # serve with hot reload at localhost:8080
 npm start
 ```
@@ -65,3 +65,4 @@ Ce projet a été généré avec [vue-cli](https://github.com/vuejs/vue-cli) en 
 
 ### ESLint
 ESLint est configuré afin de respecter un certain standard de code à travers votre équipe. Il est basé sur la [configuration airbnb](https://github.com/airbnb/javascript) qui rassemble les règles de base populaires. Libre à vous de modifier cette configuration via `.eslintrc.js`.
+
