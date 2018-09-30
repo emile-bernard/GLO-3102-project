@@ -13,7 +13,7 @@
       <h1 class="title">Artist: Savant</h1>
       <h2 class="subtitle">Genres: Dance, Electronica, House, Pop, House, Electronic, Hardcore</h2>
 
-      <section class="hero hero-artist">
+      <section class="hero hero-parralax-bg">
         <div class="hero-body">
 
           <a href="https://www.apple.com/ca/itunes/link/">
@@ -994,12 +994,12 @@
     column-gap: 0;
   }
 
-  .hero-artist {
+  .hero-parralax-bg {
     overflow: auto;
     position: relative;
   }
 
-  .hero-artist:before {
+  .hero-parralax-bg:before {
     content: "";
     position: absolute;
     display: block;
@@ -1014,7 +1014,7 @@
     height: 100%;
   }
 
-  .hero-artist * {
+  .hero-parralax-bg * {
     z-index: 10;
   }
 
