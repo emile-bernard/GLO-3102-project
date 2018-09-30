@@ -28,6 +28,9 @@
   @import "~bulma/bulma.sass";
   @import "~bulmaswatch/superhero/bulmaswatch.scss";
 
+  #navigation-tabs:hover {
+    background-color: #94CFC9;
+  }
   .tabs {
     display: none;
   }
