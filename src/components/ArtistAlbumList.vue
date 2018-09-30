@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="subtitle"><b>Albums</b></h2>
+    <h2 class="subtitle is-size-3"><b>Albums</b></h2>
     <div id="album-list">
       <artist-album
         v-for="(album, index) in albums"
@@ -21,7 +21,7 @@
     width: 100%;
     margin: 10px;
     padding: 10px;
-    color: $ grey-lighter;
+    color: $grey-lighter;
     display: flex;
     flex-wrap: wrap;
     justify-content: left;

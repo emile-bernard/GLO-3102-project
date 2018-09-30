@@ -62,7 +62,7 @@
     height: 10%;
     color: #94CFC9;
     text-transform: uppercase;
-    font-size: 60px;
+    font-size: 5vw;
     font-weight: bold;
     position: fixed;
     width: 100%;
@@ -76,8 +76,12 @@
     overflow: hidden;
     color: #93eeff;
     height: 100%;
-    display: block;
+    display: inline-block;
   }
+
+    #flip-container-text {
+      font-size: 3vw;
+    }
 
   #flip-container div:first-child {
     animation: show 8s linear infinite;
@@ -113,6 +117,7 @@
   #button-container {
     padding: auto;
     margin-top: 1em;
+    display: inline-list-item;
   }
 
   @media only screen and (max-device-width: 750px) {
@@ -126,17 +131,6 @@
       width: 100%;
       display: block;
       margin: 0em;
-    }
-
-    #flip-container {
-      overflow: hidden;
-      color: #93eeff;
-      height: 130%;
-      display: block;
-    }
-
-    #flip-container-text {
-      font-size: 40px;
     }
   }
 </style>

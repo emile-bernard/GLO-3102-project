@@ -1,6 +1,7 @@
 <template>
   <div class="artist-album">
-    <div><h3><b>{{title}}</b></h3>
+    <div>
+      <h3 class="subtitle is-size-4">{{title}}</h3>
       <p>{{genre}}</p><a :href=refLink><img
         :src=imgSrc></a>
       <p>{{copyright}}</p></div>
