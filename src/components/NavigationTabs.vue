@@ -24,13 +24,12 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
+  @import "~bulma/bulma.sass";
+  @import "~bulmaswatch/superhero/bulmaswatch.scss";
+
   .tabs {
     display: none;
-  }
-
-  a {
-    color: white;
   }
 
   @media only screen and (max-width: 1087px) {
