@@ -7,6 +7,7 @@ import Playlist from '@/components/Playlist';
 import Account from '@/components/Account';
 import Settings from '@/components/Settings';
 import Logout from '@/components/Logout';
+import Search from '@/components/Search';
 
 Vue.use(Router);
 
@@ -48,6 +49,11 @@ const router = new Router({
       name: 'Logout',
       component: Logout,
       meta: { tab: 'home' }
+    }, {
+      path: '/search',
+      name: 'Search',
+      component: Search,
+      meta: { tab: 'search' }
     }
   ],
 });
