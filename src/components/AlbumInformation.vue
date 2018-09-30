@@ -1,93 +1,91 @@
 <template>
-     <div id="albumInfo">
-        <div id="album-Title">{{albumTitle}}</div>
-        <div id="album-genre">Genre : {{albumGenre}}</div>
-        <div id="release-date">Release : {{releaseDate}} </div>
-        <div id="track-count">Track count : {{trackCount}}</div>
-       <ul id="songList" >
-           <li id="song" v-for="song in Tension" >
-             <i id="second-play-icon" class="far fa-play-circle fa-1x"></i>
-             {{Tension.indexOf(song) + 1}}-{{song.song[0].Name}}
-             {{song.song[1].Time}}
-           </li>
-       </ul>
-     </div>
+  <div id="albumInfo">
+    <div id="album-artist"><b>Die Antword</b></div>
+    <div id="album-title"><b>{{albumTitle}}</b></div>
+    <div id="album-genre"><b>Genre:</b> {{albumGenre}}</div>
+    <div id="album-release-date"><b>Release:</b> {{releaseDate}}</div>
+    <div id="album-track-count"><b>Track count:</b> {{trackCount}}</div>
+    <br>
+    <ul id="songList">
+      <album-track-display-content
+        v-for="(song, index) in Tension"
+        v-bind:key="index"
+        v-bind:id="index"
+        v-bind:title="song[0].title"
+        v-bind:time="song[1].time"
+      ></album-track-display-content>
+    </ul>
+  </div>
 </template>
 
-
-
 <style lang="scss">
-
   @import "~bulma/bulma.sass";
   @import "~bulmaswatch/superhero/bulmaswatch.scss";
 
-#albumInfo {
-    flex-wrap: wrap;
+  #albumInfo {
     max-width: 100vw;
     max-height: 100vh;
-    display: -webkit-inline-flex;
+    display: inline-flex;
+    flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    margin: 20px;
+    color: $turquoise;
+    font-size: 24px;
+  }
+
+  #album-artist {
+    font-size: 34px;
+  }
+
+  #album-title {
+    font-size: 30px;
+  }
+
+  #album-genre {
+    font-size: 20px;
+  }
+
+  #album-release-date {
+    font-size: 20px;
+  }
+
+  #album-track-count {
+    font-size: 20px;
+  }
+
+  #songList {
+    display: inline-flex;
     flex-direction: column;
-  }
-
-  #album-Title{
-    font-size: 2vw;
-    color: $grey-lighter;
-  }
-
-  #album-genre{
-     font-size: 0.8vw;
-    color: $grey-lighter;
-  }
-
-  #release-date{
-     font-size: 0.8vw;
-    color: $grey-lighter;
-  }
-
-  #track-count{
-     font-size: 0.8vw;
-    color: $grey-lighter;
-  }
-
-  #songList{
-     display: -webkit-inline-flex;
     justify-content: flex-start;
     align-items: start;
-    flex-direction: column;
-    position: relative;
-    -webkit-margin-before: 10%;
-    -webkit-margin-start: 20%;
+    text-align: left;
   }
-
-  #song{
-     font-size: 1vw;
-    color: $grey-lighter;
-  }
-
 </style>
 
-
 <script>
-  export default {
-    name: 'AlbumInformation',
+  import AlbumTrackDisplayContent from './AlbumTrackDisplayContent';
 
+  export default {
+    components: { AlbumTrackDisplayContent },
+    component: {
+      'album-track-display-content': AlbumTrackDisplayContent,
+    },
     data() {
       return {
-        Tension: [{ song: [{ Name: 'Never Le Nkemise' }, { Time: '2:52' }] },
-          { song: [{ Name: 'I Fink U Freeky' }, { Time: '4:40' }] },
-          { song: [{ Name: 'Pielie (Skit)' }, { Time: '0:09' }] },
-          { song: [{ Name: 'Hey Sexy' }, { Time: '5:08' }] },
-          { song: [{ Name: 'Fatty Boom Boom' }, { Time: '3:45' }] },
-          { song: [{ Name: 'Zefside Zol (Interlude)' }, { Time: '0:56' }] },
-          { song: [{ Name: 'So What? (Interlude)' }, { Time: '3:51' }] },
-          { song: [{ Name: 'Uncle Jimmy (Skit)' }, { Time: '1:21' }] },
-          { song: [{ Name: 'Baby\'s On Fire' }, { Time: '3:56' }] },
-          { song: [{ Name: 'U Make A Ninja Wanna Fuck' }, { Time: '3:16' }] },
-          { song: [{ Name: 'Fok Julie Naaiers' }, { Time: '3:54' }] },
-          { song: [{ Name: 'DJ Hi-Tek Rulez' }, { Time: '1:37' }] },
-          { song: [{ Name: 'Never Le Nkemise' }, { Time: '3:21' }] },
+        Tension: [[{ title: 'Never Le Nkemise' }, { time: '2:52' }],
+          [{ title: 'I Fink U Freeky' }, { time: '4:40' }],
+          [{ title: 'Pielie (Skit)' }, { time: '0:09' }],
+          [{ title: 'Hey Sexy' }, { time: '5:08' }],
+          [{ title: 'Fatty Boom Boom' }, { time: '3:45' }],
+          [{ title: 'Zefside Zol (Interlude)' }, { time: '0:56' }],
+          [{ title: 'So What? (Interlude)' }, { time: '3:51' }],
+          [{ title: 'Uncle Jimmy (Skit)' }, { time: '1:21' }],
+          [{ title: 'Baby\'s On Fire' }, { time: '3:56' }],
+          [{ title: 'U Make A Ninja Wanna Fuck' }, { time: '3:16' }],
+          [{ title: 'Fok Julie Naaiers' }, { time: '3:54' }],
+          [{ title: 'DJ Hi-Tek Rulez' }, { time: '1:37' }],
+          [{ title: 'Never Le Nkemise' }, { time: '3:21' }],
         ],
         albumTitle: 'Tension',
         albumGenre: 'Hip-Hop/Rap',

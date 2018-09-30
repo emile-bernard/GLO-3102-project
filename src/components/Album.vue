@@ -10,22 +10,22 @@
     <br/>
     <!--comment exemple!!!-->
     <section class="hero">
-        <div class="hero-body">
-          <div id="album_container">
-            <div class="AlbumCover">
-              <a id="cover-link" href="https://itunes.apple.com/gb/album/ten%24ion/732912112" rel="nofollow">
-                <img id="artist-image-album" src="https://bit.ly/2P2Lo1n" alt="artist-img"/>
-                <div id="play-logo-container">
-                  <a id="play-link" href="https://www.youtube.com/watch?v=GmwhBSh2rOs" rel="nofollow">
-                    <i id="play-icon" class="far fa-play-circle fa-6x"></i>
-                  </a>
-                </div>
-              </a>
-             </div>
-            <album-information></album-information>
+      <div class="hero-body">
+        <div id="album_container">
+          <div class="AlbumCover">
+            <a id="cover-link" href="https://itunes.apple.com/gb/album/ten%24ion/732912112" rel="nofollow">
+              <img id="artist-image-album" src="https://bit.ly/2P2Lo1n" alt="artist-img"/>
+              <div id="play-logo-container">
+                <a id="play-link" href="https://www.youtube.com/watch?v=GmwhBSh2rOs" rel="nofollow">
+                  <i id="play-icon" class="far fa-play-circle fa-6x"></i>
+                </a>
+              </div>
+            </a>
           </div>
+          <album-information></album-information>
         </div>
-      </section>
+      </div>
+    </section>
     <div class="album-timeLine">Todo: timeline into another component</div>
   </section>
 </template>
@@ -36,14 +36,14 @@
 
   .hero-body {
     background-color: rgba(0, 0, 0, 0.1);
-    text-align: center;
   }
 
   #album_container {
-    display: -webkit-flex;
+    display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
   }
 
   .AlbumCover {
@@ -59,7 +59,7 @@
     opacity: 0.2;
   }
 
- #cover-link {
+  #cover-link {
     width: 100%;
     height: 100%;
     display: -webkit-inline-flex;
@@ -73,18 +73,18 @@
     height: auto;
   }
 
- #play-link {
-    width: 100%;
+  #play-logo-container {
     height: 100%;
+    position: absolute;
     display: -webkit-inline-flex;
     justify-content: center;
     align-items: center;
     text-align: center;
   }
 
-  #play-logo-container {
+  #play-link {
+    width: 100%;
     height: 100%;
-    position: absolute;
     display: -webkit-inline-flex;
     justify-content: center;
     align-items: center;
@@ -95,6 +95,10 @@
     position: absolute;
     opacity: 1;
     z-index: 1;
+  }
+
+  .separator {
+    width: 10%;
   }
 
   .album-timeLine {
