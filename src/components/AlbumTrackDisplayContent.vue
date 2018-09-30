@@ -1,5 +1,9 @@
 <template>
-  <li id="track-name">{{TrackName}} {{Time}}</li>
+  <li id="track-name">
+    {{TrackName}}
+    {{Time}}
+     <i id="second-play-icon" class="far fa-play-circle fa-1x"></i>
+  </li>
 </template>
 
 

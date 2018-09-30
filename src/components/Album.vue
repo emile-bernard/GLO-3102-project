@@ -9,26 +9,36 @@
     </p>
     <br/>
     <!--comment exemple!!!-->
-    <div id="album_container">
-      <div class="AlbumCover">
-        <a id="cover-link" href="https://itunes.apple.com/gb/album/ten%24ion/732912112" rel="nofollow">
-          <img id="artist-image-album" src="https://bit.ly/2xTsdiZ" alt="artist-img"/>
-
-              <div id="play-logo-container">
-                <a id="play-link" href="https://github.com/GLO3102/UBeat/issues?q=is%3Aissue+is%3Aclosed" rel="nofollow">
-                 <i id="play-icon" class="far fa-play-circle fa-6x"></i>
-                </a>
-              </div>
-
-        </a>
-      </div>
-      <album-information></album-information>
-    </div>
+    <section class="hero">
+        <div class="hero-body">
+          <div id="album_container">
+            <div class="AlbumCover">
+              <a id="cover-link" href="https://itunes.apple.com/gb/album/ten%24ion/732912112" rel="nofollow">
+                <img id="artist-image-album" src="https://bit.ly/2P2Lo1n" alt="artist-img"/>
+                <div id="play-logo-container">
+                  <a id="play-link" href="https://www.youtube.com/watch?v=GmwhBSh2rOs" rel="nofollow">
+                    <i id="play-icon" class="far fa-play-circle fa-6x"></i>
+                  </a>
+                </div>
+              </a>
+             </div>
+            <album-information></album-information>
+          </div>
+        </div>
+      </section>
     <div class="album-timeLine">Todo: timeline into another component</div>
   </section>
 </template>
 
-<style>
+<style lang="scss">
+  @import "~bulma/bulma.sass";
+  @import "~bulmaswatch/superhero/bulmaswatch.scss";
+
+  .hero-body {
+    background-color: rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
   #album_container {
     display: -webkit-flex;
     flex-direction: row;
