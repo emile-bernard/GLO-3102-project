@@ -1,18 +1,11 @@
 <template>
   <div id="navigation-burger-menu">
     <div id="navigation-burger-menu-items" class="navigation-burger-menu-items-close">
-      <a href="http://www.catipsum.com/" target="_blank">
-        CatIpsum
-      </a>
-      <a href="https://www.buzzfeed.com/expresident/best-cat-pictures" target="_blank">
-        Source
-      </a>
-      <a href="https://github.com/SamuelCabralCruz/" target="_blank">
-        GitHub
-      </a>
-      <a href="https://www.linkedin.com/in/samuel-cabral-cruz-42b84a117/" target="_blank">
-        LinkedIn
-      </a>
+      <router-link to="/">Home</router-link>
+      <router-link to="/artist">Artist</router-link>
+      <router-link to="/album">Album</router-link>
+      <router-link to="/playlist">Playlist</router-link>
+      <router-link to="/account">Account</router-link>
     </div>
   </div>
 </template>
@@ -26,7 +19,7 @@
     flex-direction: column;
     text-align: center;
     width: 100%;
-    font-size: 3em;
+    font-size: 2em;
     background: rgba(34, 85, 110, 1);
     list-style-type: none;
     float: left;
