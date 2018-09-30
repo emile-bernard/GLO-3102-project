@@ -1,6 +1,6 @@
 <template>
   <router-link to="/account">
-    <div class="navbar-item has-dropdown is-hoverable" @click="updateTabs('navigation-tab-account')">
+    <div class="navbar-item has-dropdown is-hoverable">
       <i class="fas fa-user fa-2x"></i>
       <p>Account</p>
       <div class="navbar-dropdown">
@@ -44,22 +44,4 @@
 </style>
 
 <script>
-  export default {
-    methods: {
-      updateTabs(tabId) {
-        this.resetAllTabs();
-        document.getElementById(tabId).className = 'is-active';
-      },
-      resetAllTabs() {
-        const tabs = document.getElementById('navigation-tabs')
-          .getElementsByTagName('li');
-        for (let i = 0; i < tabs.length; i += 1) {
-          const tab = document.getElementById(tabs[i].id);
-          if (tab.classList.contains('is-active')) {
-            tab.classList.remove('is-active');
-          }
-        }
-      }
-    }
-  };
 </script>

@@ -25,21 +25,5 @@
       'navigation-tabs': NavigationTabs,
       'navigation-burger': NavigationBurger
     },
-    methods: {
-      updateTabs(tabId) {
-        this.resetAllTabs();
-        document.getElementById(tabId).className = 'is-active';
-      },
-      resetAllTabs() {
-        const tabs = document.getElementById('navigation-tabs')
-          .getElementsByTagName('li');
-        for (let i = 0; i < tabs.length; i += 1) {
-          const tab = document.getElementById(tabs[i].id);
-          if (tab.classList.contains('is-active')) {
-            tab.classList.remove('is-active');
-          }
-        }
-      }
-    }
   };
 </script>
