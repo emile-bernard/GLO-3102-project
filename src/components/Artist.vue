@@ -13,7 +13,7 @@
       <h1 class="title">Artist: Savant</h1>
       <h2 class="subtitle">Genres: Dance, Electronica, House, Pop, House, Electronic, Hardcore</h2>
 
-      <section class="hero">
+      <section class="hero hero-artist">
         <div class="hero-body">
 
           <a href="https://www.apple.com/ca/itunes/link/">
@@ -22,6 +22,14 @@
                  alt="Savant artist"
             />
           </a>
+          <!-- TODO: potentially add this:
+          <div class="hero-album">
+            <div><h3>Most recent album: Savior - Single</h3>
+              <p>Pop</p><a href="https://itunes.apple.com/us/album/savior-single/1423941730?uo=4"><img
+                src="https://is4-ssl.mzstatic.com/image/thumb/Music128/v4/b2/fe/ef/b2feefec-d096-2656-734f-3b3cf4850f76/source/100x100bb.jpg"></a>
+              <p>℗ 2016 Vybz</p></div>
+          </div>
+          -->
 
         </div>
       </section>
@@ -945,34 +953,69 @@
   @import "~bulma/bulma.sass";
   @import "~bulmaswatch/superhero/bulmaswatch.scss";
 
-  .hero-body {
-    background-color: rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-
-  #artist-img {
-    width: 30%;
-    min-width: 180px;
-  }
-
   #album-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-content: flex-start;
-    color: $grey-lighter;
     column-gap: 0;
   }
 
-  #album-list .album {
+  #album-list .album, .hero-album {
     background-color: rgba(0, 0, 0, 0.1);
     width: 200px;
     margin: 10px;
     padding: 10px;
+    color: $grey-lighter;
   }
 
-  #album-list .album div img {
+  #album-list .album div img, .hero-album div img {
     width: 100%;
+  }
+
+  .hero-album {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 50%;
+    min-width: 180px;
+  }
+
+  #artist-img {
+    width: 50%;
+    min-width: 180px;
+  }
+
+  .hero-body {
+    background-color: rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+    column-gap: 0;
+  }
+
+  .hero-artist {
+    overflow: auto;
+    position: relative;
+  }
+
+  .hero-artist:before {
+    content: "";
+    position: absolute;
+    display: block;
+    background: url('https://is3-ssl.mzstatic.com/image/thumb/Music19/v4/57/fb/61/57fb61dc-a5c9-7211-0a97-0204abaf4da6/source/570x570cc.png') no-repeat center center fixed;
+    background-size: cover;
+    -webkit-filter: blur(50px);
+    -moz-filter: blur(50px);
+    -o-filter: blur(50px);
+    -ms-filter: blur(50px);
+    filter: blur(50px);
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-artist * {
+    z-index: 10;
   }
 
 </style>
