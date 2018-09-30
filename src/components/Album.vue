@@ -8,26 +8,20 @@
       <router-link to="/album"><span>Die Antword</span></router-link>
     </p>
     <br/>
-    <hi class="title">Die Antword</hi>
-    <!--comment exemple!!!-->
-    <section class="hero">
+    <h1 class="title">Die Antword</h1>
+    <section class="hero hero-parralax-bg">
       <div class="hero-body">
-        <div id="album_container">
-          <div class="AlbumCover">
-            <a id="cover-link" href="https://itunes.apple.com/gb/album/ten%24ion/732912112" rel="nofollow">
-              <img id="artist-image-album" src="https://bit.ly/2P2Lo1n" alt="artist-img"/>
-              <div id="play-logo-container">
-                <a id="play-link" href="https://www.youtube.com/watch?v=GmwhBSh2rOs" rel="nofollow">
-                  <i id="play-icon" class="far fa-play-circle fa-6x"></i>
-                </a>
-              </div>
-            </a>
-          </div>
+        <div id="album-container">
+          <album-cover
+            v-bind:refLink="'https://itunes.apple.com/gb/album/ten%24ion/732912112'"
+            v-bind:imgSrc="'https://bit.ly/2P2Lo1n'"
+            v-bind:playRef="'https://www.youtube.com/watch?v=GmwhBSh2rOs'"
+          ></album-cover>
           <album-information></album-information>
         </div>
       </div>
     </section>
-    <div class="album-timeLine">Todo: timeline into another component</div>
+    <!--Todo: timeline into another component-->
   </section>
 </template>
 
@@ -35,85 +29,50 @@
   @import "~bulma/bulma.sass";
   @import "~bulmaswatch/superhero/bulmaswatch.scss";
 
+  .hero-parralax-bg {
+    overflow: auto;
+    position: relative;
+  }
+
+  .hero-parralax-bg:before {
+    content: '';
+    position: absolute;
+    display: block;
+    background: url('https://bit.ly/2P2Lo1n') no-repeat center center fixed;
+    background-size: cover;
+    -webkit-filter: blur(50px);
+    -moz-filter: blur(50px);
+    -o-filter: blur(50px);
+    -ms-filter: blur(50px);
+    filter: blur(50px);
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-parralax-bg * {
+    z-index: 10;
+  }
+
   .hero-body {
     background-color: rgba(0, 0, 0, 0.1);
   }
 
-  #album_container {
+  #album-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
     flex-wrap: wrap;
   }
-
-  .AlbumCover {
-    flex-wrap: wrap;
-    max-width: 100vw;
-    max-height: 100vh;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .AlbumCover:hover #artist-image-album {
-    opacity: 0.2;
-  }
-
-  #cover-link {
-    width: 100%;
-    height: 100%;
-    display: -webkit-inline-flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #artist-image-album {
-    position: relative;
-    width: auto;
-    height: auto;
-  }
-
-  #play-logo-container {
-    height: 100%;
-    position: absolute;
-    display: -webkit-inline-flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-
-  #play-link {
-    width: 100%;
-    height: 100%;
-    display: -webkit-inline-flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-
-  #play-icon {
-    position: absolute;
-    opacity: 1;
-    z-index: 1;
-  }
-
-  .separator {
-    width: 10%;
-  }
-
-  .album-timeLine {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
-  }
 </style>
 
 <script>
+  import AlbumCover from '@/components/AlbumCover';
   import AlbumInformation from '@/components/AlbumInformation';
 
   export default {
-    components: { 'album-information': AlbumInformation }
+    components: {
+      'album-cover': AlbumCover,
+      'album-information': AlbumInformation }
   };
 </script>
