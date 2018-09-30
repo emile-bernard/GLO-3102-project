@@ -26,7 +26,7 @@
     color: $grey-lighter;
   }
 
-  #album-song-link:hover {
+  #album-song-link:hover{
     cursor: pointer;
     color: #94CFC9;
     background-color: rgba(0, 0, 0, 0.8);
@@ -34,6 +34,7 @@
 
   #album-song-link:hover > #album-song-play-icon {
     cursor: pointer;
+    color: #94CFC9;
     background-color: rgba(0, 0, 0, 0.8);
   }
 

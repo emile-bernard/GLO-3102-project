@@ -15,7 +15,10 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
+  @import "~bulma/bulma.sass";
+  @import "~bulmaswatch/superhero/bulmaswatch.scss";
+
   #album-list {
     background-color: rgba(0, 0, 0, 0.1);
     width: 100%;
