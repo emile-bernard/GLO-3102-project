@@ -8,6 +8,7 @@
       <router-link to="/album"><span>Die Antword</span></router-link>
     </p>
     <br/>
+    <hi class="title">Die Antword</hi>
     <!--comment exemple!!!-->
     <section class="hero">
       <div class="hero-body">

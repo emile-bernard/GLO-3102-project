@@ -1,6 +1,5 @@
 <template>
   <div id="albumInfo">
-    <div id="album-artist"><b>Die Antword</b></div>
     <div id="album-title"><b>{{albumTitle}}</b></div>
     <div id="album-genre"><b>Genre:</b> {{albumGenre}}</div>
     <div id="album-release-date"><b>Release:</b> {{releaseDate}}</div>

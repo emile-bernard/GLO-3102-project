@@ -2,10 +2,10 @@
   <li class="album-song">
       <a id="song-link" v-bind:href="FindLink(title)" rel="nofollow">
         <i id="second-play-icon" class="far fa-play-circle fa-1x"></i>
+         {{id+1}}.
+        {{title}}
+        ({{time}})
       </a>
-    {{id+1}}.
-    {{title}}
-    ({{time}})
   </li>
 </template>
 
@@ -21,15 +21,21 @@
      color: $turquoise;
    }
 
-   #song-link ~ #second-play-icon {
-       color:$white;
+   #song-link  {
+       color: $turquoise;
    }
 
-   #second-play-icon:hover{
+    #album-song:hover~#song-link{
     cursor: pointer;
      color:$white;
      background-color: rgba(0,0,0,0.8);
-  }
+   }
+    
+   #album-song:hover~#second-play-icon{
+    cursor: pointer;
+     color:$white;
+     background-color: rgba(0,0,0,0.8);
+   }
 </style>
 
 <script>
