@@ -29,8 +29,6 @@
 </template>
 
 <style>
-
-
   .background {
     animation: slide 6s infinite alternate;
     background-image: linear-gradient(-40deg, #22556E 50%, #4799B7 50%);
@@ -140,7 +138,6 @@
     #flip-container-text {
       font-size: 40px;
     }
-
   }
 </style>
 

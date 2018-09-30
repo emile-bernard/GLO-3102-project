@@ -8,20 +8,20 @@
       <router-link to="/album"><span>Die Antword</span></router-link>
     </p>
     <br/>
-    <h1 class="title">Die Antword</h1>
-    <section class="hero hero-parralax-bg">
-      <div class="hero-body">
-        <div id="album-container">
-          <album-cover
-            v-bind:refLink="'https://itunes.apple.com/gb/album/ten%24ion/732912112'"
-            v-bind:imgSrc="'https://bit.ly/2P2Lo1n'"
-            v-bind:playRef="'https://www.youtube.com/watch?v=GmwhBSh2rOs'"
-          ></album-cover>
-          <album-information></album-information>
-        </div>
-      </div>
-    </section>
-    <!--Todo: timeline into another component-->
+    <div class="container">
+      <h1 class="title">Die Antword</h1>
+      <section class="hero hero-parralax-bg">
+        <div class="hero-body">
+            <album-cover
+              v-bind:refLink="'https://itunes.apple.com/gb/album/ten%24ion/732912112'"
+              v-bind:imgSrc="'https://bit.ly/2P2Lo1n'"
+              v-bind:playRef="'https://www.youtube.com/watch?v=GmwhBSh2rOs'"
+            ></album-cover>
+            <album-information></album-information>
+          </div>
+      </section>
+      <!--Todo: timeline into another component-->
+    </div>
   </section>
 </template>
 
@@ -55,14 +55,14 @@
 
   .hero-body {
     background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  #album-container {
+    text-align: center;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
     flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    column-gap: 0;
   }
 </style>
 
@@ -73,6 +73,7 @@
   export default {
     components: {
       'album-cover': AlbumCover,
-      'album-information': AlbumInformation }
+      'album-information': AlbumInformation
+    }
   };
 </script>
