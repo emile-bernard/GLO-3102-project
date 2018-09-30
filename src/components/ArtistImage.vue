@@ -14,7 +14,7 @@
 </style>
 
 <script>
-export default {
-  props: ['refLink', 'imgSrc'],
-};
+  export default {
+    props: ['refLink', 'imgSrc'],
+  };
 </script>

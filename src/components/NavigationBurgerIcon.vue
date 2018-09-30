@@ -1,9 +1,9 @@
 <template>
-    <div id="navigation-burger-icon" @click="toggleBurgerMenu" class="navigation-burger-icon close">
-      <span class="bar top"></span>
-      <span class="bar middle"></span>
-      <span class="bar bottom"></span>
-    </div>
+  <div id="navigation-burger-icon" @click="toggleBurgerMenu" class="navigation-burger-icon close">
+    <span class="bar top"></span>
+    <span class="bar middle"></span>
+    <span class="bar bottom"></span>
+  </div>
 </template>
 
 <style>
@@ -11,7 +11,7 @@
     width: 60px;
     height: 45px;
     position: absolute;
-    float:left;
+    float: left;
     margin: 20px;
     padding: 10px;
     -webkit-transform: rotate(0deg);

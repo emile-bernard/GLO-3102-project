@@ -62,7 +62,7 @@
     height: 10%;
     color: #94CFC9;
     text-transform: uppercase;
-    font-size: 5vw;
+    font-size: 60px;
     font-weight: bold;
     position: fixed;
     width: 100%;
@@ -76,7 +76,7 @@
     overflow: hidden;
     color: #93eeff;
     height: 100%;
-    display: inline-block;
+    display: block;
   }
 
   #flip-container-text {
@@ -120,7 +120,7 @@
     display: inline-list-item;
   }
 
-  @media only screen and (max-device-width: 750px) {
+  @media only screen and (max-device-width: 750px), (max-width: 750px) {
     #container {
       height: 10%;
       color: #94CFC9;
@@ -131,6 +131,17 @@
       width: 100%;
       display: block;
       margin: 0em;
+    }
+
+    #flip-container {
+      overflow: hidden;
+      color: #93eeff;
+      height: 130%;
+      display: block;
+    }
+
+    #flip-container-text {
+      font-size: 40px;
     }
   }
 </style>

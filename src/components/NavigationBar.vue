@@ -102,7 +102,7 @@
     color: rgba(148, 207, 201, 1);
   }
 
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (max-width: 1200px), (max-device-width: 1200px) {
     .navbar-item {
       padding-left: 1em;
       padding-right: 1em;
@@ -113,7 +113,7 @@
     }
   }
 
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (max-width: 1200px), (max-device-width: 1200px) {
     .navbar-item {
       padding-left: 1em;
       padding-right: 1em;
@@ -124,7 +124,7 @@
     }
   }
 
-  @media only screen and (max-width: 1087px) {
+  @media only screen and (max-width: 1087px), (max-device-width: 1087px) {
     #navigation-bar {
       display: none;
     }

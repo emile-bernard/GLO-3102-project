@@ -15,7 +15,7 @@
     color: $grey-lighter;
   }
 
-  p{
+  p {
     font-size: 20px;
   }
 </style>

@@ -32,16 +32,17 @@
     display: none;
   }
 
-  @media only screen and (max-width: 1087px) {
+  @media only screen and (max-width: 1087px), (max-device-width: 1087px) {
     .tabs {
       display: block;
     }
   }
 
-  @media only screen and (max-device-width: 750px) {
+  @media only screen and (max-width: 750px), (max-device-width: 750px) {
     .tabs {
       display: none;
     }
+
   }
 </style>
 

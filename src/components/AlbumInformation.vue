@@ -31,7 +31,7 @@
     justify-content: flex-start;
     align-items: center;
     margin: 20px;
-    color:$grey-lighter;
+    color: $grey-lighter;
     padding: 40px;
   }
 

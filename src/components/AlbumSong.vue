@@ -19,14 +19,14 @@
   @import "~bulmaswatch/superhero/bulmaswatch.scss";
 
   .album-song {
-    color:$grey-lighter;
+    color: $grey-lighter;
   }
 
   #album-song-link {
     color: $grey-lighter;
   }
 
-  #album-song-link:hover{
+  #album-song-link:hover {
     cursor: pointer;
     color: #94CFC9;
     background-color: rgba(0, 0, 0, 0.8);
