@@ -4,8 +4,9 @@
 
 - Bernard, Émile (EMBER89 - 111 128 181)
 - Cabral Cruz, Samuel (SACAC1 - 111 006 369)
+- Cadotte Lawless, Pamella (PACAL7 - 111 047 949)
 - Chevalier, Guillaume (GUCHE29 - 111 131 607)
-- Lawless, Pamela (IDUL - XXX XXX XXX)
+
 
 # Get Started
 
@@ -46,8 +47,7 @@ npm -v
 npm install
 ```
 
-## Développement
-```bash
+## Développement ```bash
 # serve with hot reload at localhost:8080
 npm start
 ```
