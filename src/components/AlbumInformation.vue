@@ -1,9 +1,9 @@
 <template>
   <div id="album-info">
-    <div id="album-info-title"><b>{{albumTitle}}</b></div>
-    <div id="album-info-genre"><b>Genre:</b> {{albumGenre}}</div>
-    <div id="album-info-release-date"><b>Release:</b> {{releaseDate}}</div>
-    <div id="album-info-track-count"><b>Track count:</b> {{trackCount}}</div>
+    <h2 class="subtitle is-size-3">{{albumTitle}}</h2>
+    <p>Genre: {{albumGenre}}</p>
+    <p>Release: {{releaseDate}}</p>
+    <p>Track count: {{trackCount}}</p>
     <br>
     <ul id="album-info-songs">
       <album-song
@@ -31,25 +31,8 @@
     justify-content: flex-start;
     align-items: center;
     margin: 20px;
-    color: $turquoise;
-    font-size: 24px;
+    color:$grey-lighter;
     padding: 40px;
-  }
-
-  #album-info-title {
-    font-size: 30px;
-  }
-
-  #album-info-genre {
-    font-size: 20px;
-  }
-
-  #album-info-release-date {
-    font-size: 20px;
-  }
-
-  #album-info-track-count {
-    font-size: 20px;
   }
 
   #album-info-songs {

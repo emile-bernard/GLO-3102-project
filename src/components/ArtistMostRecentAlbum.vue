@@ -1,16 +1,21 @@
 <template>
   <div class="artist-most-recent-album">
     <div>
-      <h2>
-        <b>Most Recent Album</b><br>{{title}}
-      </h2>
-      <p>{{genre}}</p>
+         <h2 class="subtitle is-size-3">Most Recent Album</h2>
+     <p id="">{{genre}}</p>
+       <br/>
       <a :href=refLink>
         <img :src=imgSrc></a>
+       <br/>
       <p>{{copyright}}</p>
     </div>
   </div>
 </template>
+
+
+
+
+
 
 <style lang="scss">
   @import "~bulma/bulma.sass";

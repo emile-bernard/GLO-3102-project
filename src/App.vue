@@ -25,4 +25,8 @@
     padding: 0;
     color: $grey-lighter;
   }
+
+  p{
+    font-size: 20px;
+  }
 </style>

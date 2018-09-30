@@ -10,8 +10,8 @@
     </p>
     <br/>
     <div class="container">
-      <h1 class="title">Savant</h1>
-      <h2 class="subtitle"><b>Genres:</b> Dance, Electronica, House, Pop, House, Electronic, Hardcore</h2>
+      <h1 class="title is-size-2">Savant</h1>
+      <h2 class="subtitle is-size-3"><b>Genres:</b> Dance, Electronica, House, Pop, House, Electronic, Hardcore</h2>
       <section class="hero hero-parralax-bg">
         <div class="hero-body">
           <artist-image

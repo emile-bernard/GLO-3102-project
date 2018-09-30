@@ -9,7 +9,7 @@
     </p>
     <br/>
     <div class="container">
-      <h1 class="title">Die Antword</h1>
+      <h1 class="title is-size-2">Die Antword</h1>
       <section class="hero hero-parralax-bg">
         <div class="hero-body">
             <album-cover
