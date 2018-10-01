@@ -9,6 +9,7 @@
   #navigation-burger {
     display: none;
     overflow: auto;
+    height: auto;
   }
 
   @media only screen and (max-width: 750px), (max-device-width: 750px) {

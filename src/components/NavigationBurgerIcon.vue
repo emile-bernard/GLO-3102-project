@@ -96,10 +96,10 @@
           menuIcon.className = 'navigation-burger-icon close';
         }
         const menuItems = document.getElementById('navigation-burger-menu-items');
-        if (menuItems.className === 'navigation-burger-menu-items-close') {
-          menuItems.className = 'navigation-burger-menu-items-open';
+        if (menuItems.className === 'navigation-burger-menu-items close') {
+          menuItems.className = 'navigation-burger-menu-items open';
         } else {
-          menuItems.className = 'navigation-burger-menu-items-close';
+          menuItems.className = 'navigation-burger-menu-items close';
         }
       }
     },
