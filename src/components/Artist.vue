@@ -55,9 +55,6 @@
     height: 100%;
   }
 
-  .hero-parralax-bg:before {
-  }
-
   .hero-parralax-bg * {
     z-index: 10;
   }
