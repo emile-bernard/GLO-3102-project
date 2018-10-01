@@ -1,11 +1,24 @@
 <template>
   <div id="navigation-burger-menu">
     <div id="navigation-burger-menu-items" class="navigation-burger-menu-items close">
-      <div @click="closeBurger"><router-link to="/">Home</router-link></div>
-      <div @click="closeBurger"><router-link to="/artist">Artist</router-link></div>
-      <div @click="closeBurger"><router-link to="/album">Album</router-link></div>
-      <div @click="closeBurger"><router-link to="/playlist">Playlist</router-link></div>
-      <div @click="closeBurger"><router-link to="/account">Account</router-link></div>
+      <div @click="closeBurger">
+        <router-link to="/">Home</router-link>
+      </div>
+      <div @click="closeBurger">
+        <router-link to="/artist">Artist</router-link>
+      </div>
+      <div @click="closeBurger">
+        <router-link to="/album">Album</router-link>
+      </div>
+      <div @click="closeBurger">
+        <router-link to="/playlist">Playlist</router-link>
+      </div>
+      <div @click="closeBurger">
+        <router-link to="/account">Account</router-link>
+      </div>
+      <div @click="closeBurger">
+        <router-link to="/search">Search</router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -50,14 +63,14 @@
 </style>
 
 <script>
-export default {
-  methods: {
-    closeBurger() {
-      const navigationBurgerMenu = document.getElementById('navigation-burger-menu-items');
-      navigationBurgerMenu.className = 'navigation-burger-menu-items close';
-      const navigationBurgerIcon = document.getElementById('navigation-burger-icon');
-      navigationBurgerIcon.className = 'navigation-burger-icon close';
-    }
-  },
-};
+  export default {
+    methods: {
+      closeBurger() {
+        const navigationBurgerMenu = document.getElementById('navigation-burger-menu-items');
+        navigationBurgerMenu.className = 'navigation-burger-menu-items close';
+        const navigationBurgerIcon = document.getElementById('navigation-burger-icon');
+        navigationBurgerIcon.className = 'navigation-burger-icon close';
+      }
+    },
+  };
 </script>
