@@ -10,7 +10,7 @@
     <br/>
     <div class="container">
       <h1 class="title is-size-2">Die Antword</h1>
-      <section class="hero hero-parralax-bg">
+      <section id="album-hero-parralax-bg" class="hero hero-parralax-bg">
         <div class="hero-body">
           <album-cover
             v-bind:refLink="'https://itunes.apple.com/gb/album/ten%24ion/732912112'"
@@ -25,16 +25,13 @@
   </section>
 </template>
 
-<style lang="scss">
-  @import "~bulma/bulma.sass";
-  @import "~bulmaswatch/superhero/bulmaswatch.scss";
-
+<style>
   .hero-parralax-bg {
     overflow: auto;
     position: relative;
   }
 
-  .hero-parralax-bg:before {
+  #album-hero-parralax-bg:before {
     content: '';
     position: absolute;
     display: block;

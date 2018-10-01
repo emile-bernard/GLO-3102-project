@@ -1,8 +1,6 @@
 <template>
   <a :href=refLink>
-    <img id="artist-image"
-         :src=imgSrc
-    />
+    <img id="artist-image" :src=imgSrc />
   </a>
 </template>
 

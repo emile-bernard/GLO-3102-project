@@ -15,17 +15,14 @@
 </template>
 
 
-<style lang="scss">
-  @import "~bulma/bulma.sass";
-  @import "~bulmaswatch/superhero/bulmaswatch.scss";
-
+<style>
   .artist-most-recent-album {
     background-color: rgba(0, 0, 0, 0.65);
     min-width: 180px;
     width: 400px;
     margin: 10px;
     padding: 10px;
-    color: $grey-lighter;
+    color: #dee5ed;
   }
 
   .artist-most-recent-album div img {

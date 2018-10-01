@@ -2,9 +2,7 @@
   <nav id="navigation-bar" class="navbar" role="navigation">
     <div class="navbar-menu">
       <div class="navbar-start">
-        <div id="navigation-bar-search" class="navbar-item">
-          <navigation-bar-search></navigation-bar-search>
-        </div>
+        <navigation-bar-search></navigation-bar-search>
       </div>
       <div class="navbar-end">
         <router-link to="/">
@@ -72,7 +70,6 @@
     width: 140px;
     margin-left: auto;
     margin-right: auto;
-    font-family: monospace;
     color: darkgray;
     padding: 1.1em;
     flex-grow: 1;
@@ -86,16 +83,6 @@
     background: rgba(34, 85, 110, 1);
     font-weight: bold;
     color: white;
-  }
-
-  #navigation-bar-search {
-    width: 100%;
-    flex-grow: 2;
-  }
-
-  #navigation-bar-search:hover {
-    background: none;
-    font-weight: bold;
   }
 
   .fas {

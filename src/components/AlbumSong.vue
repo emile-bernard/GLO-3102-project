@@ -14,16 +14,13 @@
   </li>
 </template>
 
-<style lang="scss">
-  @import "~bulma/bulma.sass";
-  @import "~bulmaswatch/superhero/bulmaswatch.scss";
-
+<style>
   .album-song {
-    color: $grey-lighter;
+    color: #dee5ed;
   }
 
   #album-song-link {
-    color: $grey-lighter;
+    color: #dee5ed;
   }
 
   #album-song-link:hover {
@@ -39,7 +36,7 @@
   }
 
   #album-song-play-icon {
-    color: $grey-lighter;
+    color: #dee5ed;
   }
 </style>
 

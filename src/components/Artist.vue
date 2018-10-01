@@ -12,7 +12,7 @@
     <div class="container">
       <h1 class="title is-size-2">Savant</h1>
       <h2 class="subtitle is-size-3"><b>Genres:</b> Dance, Electronica, House, Pop, House, Electronic, Hardcore</h2>
-      <section class="hero hero-parralax-bg">
+      <section id="artist-hero-parralax-bg" class="hero hero-parralax-bg">
         <div class="hero-body">
           <artist-image
             v-bind:refLink="'https://www.apple.com/ca/itunes/link/'"
@@ -34,17 +34,13 @@
   </section>
 </template>
 
-<style lang="scss">
-  // TODO: clean imports?
-  @import "~bulma/bulma.sass";
-  @import "~bulmaswatch/superhero/bulmaswatch.scss";
-
+<style>
   .hero-parralax-bg {
     overflow: auto;
     position: relative;
   }
 
-  .hero-parralax-bg:before {
+  #artist-hero-parralax-bg:before {
     content: "";
     position: absolute;
     display: block;
@@ -57,6 +53,9 @@
     filter: blur(50px);
     width: 100%;
     height: 100%;
+  }
+
+  .hero-parralax-bg:before {
   }
 
   .hero-parralax-bg * {

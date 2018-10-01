@@ -1,5 +1,5 @@
 <template>
-  <div id="navigation-tabs-container" class="tabs is-centered is-large">
+  <div id="navigation-tabs-container" class="tabs is-centered is-medium">
     <ul id="navigation-tabs">
       <li id="navigation-tab-home" class="is-active">
         <router-link to="/">Home</router-link>
@@ -24,39 +24,23 @@
   </div>
 </template>
 
-<style lang="scss">
-  @import "~bulma/bulma.sass";
-  @import "~bulmaswatch/superhero/bulmaswatch.scss";
-
-  .tabs ul {
-    background: none;
-  }
-
-  .tabs li {
-    background: none;
-  }
-
+<style>
   .tabs li a {
-    color: $white;
-    text-decoration-color: none;
-  }
-
-  .tabs li.is-active {
-    background: rgba(34, 85, 110, 1);
-  }
-
-  .tabs li:hover {
-    background: rgba(34, 85, 110, 1);
+    color: darkgray;
   }
 
   .tabs li:hover a {
-    color: $white;
-    border-bottom-color: $white;
+    background: rgba(34, 85, 110, 1);
+    color: white;
+    font-weight: bold;
+    border-bottom-color: white;
   }
 
   .tabs li.is-active a {
-    color: $white;
-    border-bottom-color: $white;
+    background: rgba(34, 85, 110, 1);
+    color: white;
+    font-weight: bold;
+    border-bottom-color: white;
   }
 
   #navigation-tabs {

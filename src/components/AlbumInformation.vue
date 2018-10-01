@@ -18,10 +18,7 @@
   </div>
 </template>
 
-<style lang="scss">
-  @import "~bulma/bulma.sass";
-  @import "~bulmaswatch/superhero/bulmaswatch.scss";
-
+<style>
   #album-info {
     background-color: rgba(0, 0, 0, 0.65);
     max-width: 100vw;
@@ -31,7 +28,7 @@
     justify-content: flex-start;
     align-items: center;
     margin: 20px;
-    color: $grey-lighter;
+    color: #dee5ed;
     padding: 40px;
   }
 
