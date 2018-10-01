@@ -2,22 +2,20 @@
   <div class="artist-album">
     <div>
       <h3 class="subtitle is-size-4">{{title}}</h3>
-      <p>{{genre}}</p><a :href=refLink><img
-        :src=imgSrc></a>
-      <p>{{copyright}}</p></div>
+      <p>{{genre}}</p>
+      <a :href=refLink><img :src=imgSrc></a>
+      <p>{{copyright}}</p>
+    </div>
   </div>
 </template>
 
-<style lang="scss">
-  @import "~bulma/bulma.sass";
-  @import "~bulmaswatch/superhero/bulmaswatch.scss";
-
+<style>
   .artist-album {
     background-color: rgba(0, 0, 0, 0.1);
     width: 200px;
     margin: 10px;
     padding: 10px;
-    color: $grey-lighter;
+    color: #dee5ed;
   }
 
   .artist-album div img {

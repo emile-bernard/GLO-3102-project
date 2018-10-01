@@ -2,37 +2,33 @@
   <nav id="navigation-bar" class="navbar" role="navigation">
     <div class="navbar-menu">
       <div class="navbar-start">
-        <div id="navigation-bar-search" class="navbar-item">
-          <navigation-bar-search></navigation-bar-search>
-        </div>
+        <navigation-bar-search></navigation-bar-search>
       </div>
-      <div class="navbar-menu">
-        <div class="navbar-item">
-          <router-link to="/">
+      <div class="navbar-end">
+        <router-link to="/">
+          <div class="navbar-item">
             <i class="fas fa-home fa-2x"></i>
             <p>Home</p>
-          </router-link>
-        </div>
-        <div class="navbar-item">
-          <router-link to="/album">
-            <i class="fas fa-compact-disc fa-2x"></i>
-            <p>Album</p>
-          </router-link>
-        </div>
-        <div class="navbar-item">
-          <router-link to="/artist">
+          </div>
+        </router-link>
+        <router-link to="/artist">
+          <div class="navbar-item">
             <i class="fas fa-user-astronaut fa-2x"></i>
             <p>Artist</p>
-          </router-link>
-        </div>
-        <div class="navbar-item">
-          <router-link to="/playlist">
+          </div>
+        </router-link>
+        <router-link to="/album">
+          <div class="navbar-item">
+            <i class="fas fa-compact-disc fa-2x"></i>
+            <p>Album</p>
+          </div>
+        </router-link>
+        <router-link to="/playlist">
+          <div class="navbar-item">
             <i class="fas fa-headphones fa-2x"></i>
             <p>Playlist</p>
-          </router-link>
-        </div>
-      </div>
-      <div class="navbar-item">
+          </div>
+        </router-link>
         <navigation-bar-account-menu></navigation-bar-account-menu>
       </div>
     </div>
@@ -41,22 +37,29 @@
 
 <style>
   .navbar-menu {
-    /*align-items: stretch;*/
-    /*display: flex;*/
-    /*padding: 0;*/
-    /*flex-grow: 1;*/
-    /*flex-shrink: 0;*/
+    display: flex;
   }
+
   .navbar-start {
     justify-content: flex-start;
+    margin-left: 20px;
     margin-right: auto;
+    flex-grow: 1;
   }
+
+  .navbar-end {
+    justify-content: flex-end;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
   #navigation-bar {
     height: 100%;
     width: 100%;
     font-size: 1.1em;
     overflow: visible;
   }
+
   .navbar-item {
     display: flex;
     flex-direction: column;
@@ -64,41 +67,51 @@
     justify-content: center;
     text-align: center;
     height: 100%;
+    width: 140px;
     margin-left: auto;
     margin-right: auto;
-    font-family: monospace;
+    color: darkgray;
     padding: 1.1em;
+    flex-grow: 1;
   }
+
+  .navbar-item i {
+    margin-bottom: 4px;
+  }
+
   .navbar-item:hover {
     background: rgba(34, 85, 110, 1);
     font-weight: bold;
+    color: white;
   }
-  #navigation-bar-search:hover {
-    background: none;
-    font-weight: bold;
-  }
+
   .fas {
     color: rgba(148, 207, 201, 1);
   }
-  @media only screen and (max-width: 1200px) {
+
+  @media only screen and (max-width: 1200px), (max-device-width: 1200px) {
     .navbar-item {
       padding-left: 1em;
       padding-right: 1em;
     }
+
     .fas {
       display: none;
     }
   }
-  @media only screen and (max-width: 1200px) {
+
+  @media only screen and (max-width: 1200px), (max-device-width: 1200px) {
     .navbar-item {
       padding-left: 1em;
       padding-right: 1em;
     }
+
     .fas {
       display: none;
     }
   }
-  @media only screen and (max-device-width: 750px) {
+
+  @media only screen and (max-width: 1087px), (max-device-width: 1087px) {
     #navigation-bar {
       display: none;
     }
@@ -113,6 +126,6 @@
     components: {
       'navigation-bar-search': NavigationBarSearch,
       'navigation-bar-account-menu': NavigationBarAccountMenu
-    }
+    },
   };
 </script>

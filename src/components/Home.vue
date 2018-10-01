@@ -1,22 +1,19 @@
 <template>
-  <div>
-    <div class="background"></div>
-    <div class="background second-background"></div>
-
-
-    <div id="container">
-      <div id="brand-name">Ubeat <i class="fas fa-music fa-2x"></i></div>
-      <div id="flip-container-text">Listen to</div>
-      <div id="flip-container">
-        <div class="flip-element">Rock</div>
-        <div class="flip-element">Rap</div>
-        <div class="flip-element">Blues</div>
-        <div class="flip-element">Jazz</div>
-        <div class="flip-element">Dance</div>
-        <div class="flip-element">Grunge</div>
+  <div id="home-page-wrapper">
+    <div class="home-page-background"></div>
+    <div class="home-page-background second-background"></div>
+    <div id="home-page-container">
+      <div id="home-page-brand-name">Ubeat <i class="fas fa-music fa-2x"></i></div>
+      <div id="home-page-flip-container-text">Listen to</div>
+      <div id="home-page-flip-container">
+        <div class="home-page-flip-element">Rock</div>
+        <div class="home-page-flip-element">Rap</div>
+        <div class="home-page-flip-element">Blues</div>
+        <div class="home-page-flip-element">Jazz</div>
+        <div class="home-page-flip-element">Dance</div>
+        <div class="home-page-flip-element">Grunge</div>
       </div>
-
-      <div id="button-container">
+      <div id="home-page-button-container">
         <router-link class="button is-primary is-large" to="/artist">
           <p>Artist</p>
         </router-link>
@@ -29,7 +26,16 @@
 </template>
 
 <style>
-  .background {
+  #home-page-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .home-page-background {
     animation: slide 6s infinite alternate;
     background-image: linear-gradient(-40deg, #22556E 50%, #4799B7 50%);
     top: 0;
@@ -58,32 +64,30 @@
     }
   }
 
-  #container {
+  #home-page-container {
     height: 10%;
     color: #94CFC9;
-    text-transform: uppercase;
-    font-size: 5vw;
-    font-weight: bold;
+    font-size: 60px;
     position: fixed;
     width: 100%;
     display: block;
-    margin: 1em;
+    margin-top: 2em;
     border-radius: .25em;
     text-align: center;
   }
 
-  #flip-container {
+  #home-page-flip-container {
     overflow: hidden;
     color: #93eeff;
     height: 100%;
-    display: inline-block;
+    display: block;
   }
 
-    #flip-container-text {
-      font-size: 3vw;
-    }
+  #home-page-flip-container-text {
+    font-size: 3vw;
+  }
 
-  #flip-container div:first-child {
+  #home-page-flip-container div:first-child {
     animation: show 8s linear infinite;
   }
 
@@ -114,27 +118,39 @@
     }
   }
 
-  #button-container {
+  #home-page-button-container {
     padding: auto;
     margin-top: 1em;
     display: inline-list-item;
   }
 
-  @media only screen and (max-device-width: 750px) {
-    #container {
+  #home-page-button-container {
+    padding: auto;
+    margin-top: 1em;
+    display: inline-list-item;
+  }
+
+  @media only screen and (max-device-width: 750px), (max-width: 750px) {
+    #home-page-container {
       height: 10%;
       color: #94CFC9;
-      text-transform: uppercase;
       font-size: 60px;
       font-weight: bold;
       position: fixed;
       width: 100%;
       display: block;
-      margin: 0em;
+      margin-top: 2em;
+    }
+
+    #home-page-flip-container {
+      overflow: hidden;
+      color: #93eeff;
+      height: 130%;
+      display: block;
+    }
+
+    #home-page-flip-container-text {
+      font-size: 40px;
     }
   }
 </style>
-
-<script>
-
-</script>

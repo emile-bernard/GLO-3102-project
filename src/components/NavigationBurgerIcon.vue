@@ -1,9 +1,9 @@
 <template>
-    <div id="navigation-burger-icon" @click="toggleBurgerMenu" class="navigation-burger-icon close">
-      <span class="bar top"></span>
-      <span class="bar middle"></span>
-      <span class="bar bottom"></span>
-    </div>
+  <div id="navigation-burger-icon" @click="toggleBurgerMenu" class="navigation-burger-icon close">
+    <span class="bar top"></span>
+    <span class="bar middle"></span>
+    <span class="bar bottom"></span>
+  </div>
 </template>
 
 <style>
@@ -11,7 +11,7 @@
     width: 60px;
     height: 45px;
     position: absolute;
-    float:left;
+    float: left;
     margin: 20px;
     padding: 10px;
     -webkit-transform: rotate(0deg);
@@ -31,7 +31,7 @@
 
   #navigation-burger-icon span {
     position: absolute;
-    height: 15px;
+    height: 10px;
     width: 100%;
     background: rgba(148, 207, 201, 1);
     border-radius: 9px;
@@ -52,11 +52,11 @@
   }
 
   #navigation-burger-icon .middle {
-    top: 25px;
+    top: 15px;
   }
 
   #navigation-burger-icon .bottom {
-    top: 50px;
+    top: 30px;
   }
 
   #navigation-burger-icon.open .top {
@@ -96,10 +96,10 @@
           menuIcon.className = 'navigation-burger-icon close';
         }
         const menuItems = document.getElementById('navigation-burger-menu-items');
-        if (menuItems.className === 'navigation-burger-menu-items-close') {
-          menuItems.className = 'navigation-burger-menu-items-open';
+        if (menuItems.className === 'navigation-burger-menu-items close') {
+          menuItems.className = 'navigation-burger-menu-items open';
         } else {
-          menuItems.className = 'navigation-burger-menu-items-close';
+          menuItems.className = 'navigation-burger-menu-items close';
         }
       }
     },
