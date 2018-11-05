@@ -1,5 +1,37 @@
 <template>
   <div>
+    <div id='editModal' class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Modal title</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <!-- Content ... -->
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success">Save changes</button>
+          <button class="button">Cancel</button>
+        </footer>
+      </div>
+    </div>
+    <div id='deleteModal' class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Modal title</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <!-- Content ... -->
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success">Save changes</button>
+          <button class="button">Cancel</button>
+        </footer>
+      </div>
+    </div>
     <h1>Playlist</h1>
     <div>GLO-3102 Playlist page</div>
     <br>
@@ -23,11 +55,11 @@
       <div class="panel-block">
         <p class="control has-icons-left">
           Uncle Bob's playlist
-          <button class="button is-info">
+          <button class="button is-info" v-on:click="showEditModal">
             Edit&nbsp;
             <i class="fas fa-pencil-alt action"></i>
           </button>
-          <button class="button is-danger">
+          <button class="button is-danger" v-on:click="showDeleteModal">
             Delete&nbsp;
             <i class="fas fa-trash-alt action"></i>
           </button>
@@ -43,6 +75,7 @@
       ></playlist-song>
     </nav>
   </div>
+
 </template>
 
 <style>
@@ -87,6 +120,12 @@
     methods: {
       createNewPlaylist() {
         this.displayNewPlaylistBlock = 'block';
+      },
+      showEditModal() {
+        document.getElementById('editModal').classList.add('is-active');
+      },
+      showDeleteModal() {
+        document.getElementById('deleteModal').classList.add('is-active');
       },
     },
   };
