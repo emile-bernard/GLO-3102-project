@@ -10,7 +10,7 @@
 </style>
 
 <script>
-  import NavigationBarSearch from '@/components/NavigationBarSearch';
+  import NavigationBarSearch from './NavigationBarSearch';
 
   export default {
     components: {

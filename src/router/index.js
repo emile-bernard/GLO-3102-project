@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/Home';
-import Album from '@/components/Album';
-import Artist from '@/components/Artist';
-import Playlist from '@/components/Playlist';
-import Account from '@/components/Account';
-import Settings from '@/components/Settings';
-import Logout from '@/components/Logout';
-import Search from '@/components/Search';
+import Album from '@/components/Album/Album';
+import Artist from '@/components/Artist/Artist';
+import PlaylistList from '@/components/Playlist/PlaylistList';
+import Account from '@/components/User/Account';
+import Settings from '@/components/User/Settings';
+import Logout from '@/components/User/Logout';
+import Search from '@/components/Search/Search';
 
 Vue.use(Router);
 
@@ -32,7 +32,7 @@ const router = new Router({
     }, {
       path: '/playlist',
       name: 'Playlist',
-      component: Playlist,
+      component: PlaylistList,
       meta: { tab: 'playlist' }
     }, {
       path: '/account',

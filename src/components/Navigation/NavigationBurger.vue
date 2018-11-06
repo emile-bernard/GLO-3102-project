@@ -20,8 +20,8 @@
 </style>
 
 <script>
-  import NavigationBurgerIcon from '@/components/NavigationBurgerIcon';
-  import NavigationBurgerMenu from '@/components/NavigationBurgerMenu';
+  import NavigationBurgerIcon from '@/components/Navigation/NavigationBurgerIcon';
+  import NavigationBurgerMenu from '@/components/Navigation/NavigationBurgerMenu';
 
   export default {
     components: {

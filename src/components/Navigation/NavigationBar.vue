@@ -119,8 +119,8 @@
 </style>
 
 <script>
-  import NavigationBarSearch from '@/components/NavigationBarSearch';
-  import NavigationBarAccountMenu from '@/components/NavigationBarAccountMenu';
+  import NavigationBarSearch from '@/components/Search/NavigationBarSearch';
+  import NavigationBarAccountMenu from '@/components/Navigation/NavigationBarAccountMenu';
 
   export default {
     components: {

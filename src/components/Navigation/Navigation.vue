@@ -15,9 +15,9 @@
 </style>
 
 <script>
-  import NavigationBar from '@/components/NavigationBar';
-  import NavigationTabs from '@/components/NavigationTabs';
-  import NavigationBurger from '@/components/NavigationBurger';
+  import NavigationBar from '@/components/Navigation/NavigationBar';
+  import NavigationTabs from '@/components/Navigation/NavigationTabs';
+  import NavigationBurger from '@/components/Navigation/NavigationBurger';
 
   export default {
     components: {

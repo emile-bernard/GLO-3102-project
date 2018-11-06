@@ -64,8 +64,8 @@
 </style>
 
 <script>
-  import AlbumCover from '@/components/AlbumCover';
-  import AlbumInformation from '@/components/AlbumInformation';
+  import AlbumCover from '@/components/Album/AlbumCover';
+  import AlbumInformation from '@/components/Album/AlbumInformation';
 
   export default {
     components: {
