@@ -1,9 +1,10 @@
 <template>
   <section class="section">
-    <playlist-overview v-for="(playlist, index) in playlists"
-                       v-bind:key=index
+    <playlist-overview v-for="playlist in playlists"
+                       v-bind:key=playlist.id
                        v-bind:id="playlist.id"
-                       v-bind:name="playlist.name">
+                       v-bind:name="playlist.name"
+                       v-on:playlist-deleted="playlists.splice(index,1)">
     </playlist-overview>
   </section>
 </template>

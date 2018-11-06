@@ -3,12 +3,17 @@
     <article class="tile is-child notification is-primary">
       <div id="playlistInput" class="field has-addons">
         <div class="control">
-          <input id="name-input" class="input" type="text" v-bind:value="name" @focus="toggleSaveButton"
+          <input id="name-input" class="input" type="text" v-model="nameData" @focus="toggleSaveButton"
                  @blur="toggleSaveButton">
         </div>
         <div class="control">
           <a class="button is-info" @click="saveName" v-bind:style="{ display: displaySaveButton}">
             Save
+          </a>
+        </div>
+        <div class="control">
+          <a class="button is-delete" @click="deletePlaylist" v-bind:style="{ display: displayDeleteButton}">
+            Delete
           </a>
         </div>
       </div>
@@ -26,21 +31,26 @@
   export default {
     props: {
       id: undefined,
-      name: undefined,
+      name: {
+        type: String
+      },
       tracks: [],
     },
     data() {
       return {
+        nameData: this.name,
         displaySaveButton: 'none',
+        displayDeleteButton: 'block'
       };
     },
     methods: {
       toggleSaveButton() {
         this.displaySaveButton = this.displaySaveButton === 'block' ? 'none' : 'block';
+        this.displayDeleteButton = this.displayDeleteButton === 'block' ? 'none' : 'block';
       },
       saveName() {
         const nameInput = document.getElementById('name-input');
-        this.name = nameInput.value;
+        this.nameData = nameInput.value;
         fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,
           {
             method: 'put',
@@ -49,10 +59,18 @@
             },
             body: JSON.stringify(
               {
-                name: this.name,
+                name: this.nameData
               })
           })
           .then(response => response.json());
+      },
+      deletePlaylist() {
+        fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,
+          {
+            method: 'delete',
+          })
+          .then(response => response.json());
+        this.$emit('playlist-deleted');
       }
     }
   };
