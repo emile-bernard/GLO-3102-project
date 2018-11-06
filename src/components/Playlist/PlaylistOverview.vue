@@ -1,24 +1,15 @@
 <template>
-  <div class="tile is-ancestor">
-    <div class="tile is-parent is-vertical is-4">
-      <div class="tile is-horizontal">
-        <div class="tile">
-          <div class="tile is-parent is-vertical">
-            <article class="tile is-child notification is-primary">
-              <p class="title" contenteditable="true">{{name}}</p>
-              <figure class="image is-4by3">
-                <img src="https://bulma.io/images/placeholders/640x480.png">
-              </figure>
-            </article>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="tile is-inline-block is-parent is-4">
+    <article class="tile is-child notification is-primary">
+      <p class="title" contenteditable="true">{{name}}</p>
+      <figure class="image is-4by3">
+        <img src="https://bulma.io/images/placeholders/640x480.png">
+      </figure>
+    </article>
   </div>
 </template>
 
 <style>
-
 </style>
 
 <script>
