@@ -1,55 +1,41 @@
 <template>
-  <!--<li class="playlist-song">-->
-    <!--<a id="playlist-song-link" :href=playRef rel="nofollow">-->
-      <!--<i id="playlist-song-play-icon" class="far fa-play-circle fa-1x"></i>-->
-      <!--&nbsp;-->
-      <!--{{id+1}}.-->
-      <!--&nbsp;-->
-      <!--{{title}}-->
-      <!--&nbsp;-->
-      <!-- - -->
-      <!--&nbsp;-->
-      <!--{{time}}-->
-    <!--</a>-->
-  <!--</li>-->
-
-  <a class="panel-block">
+  <a id="playlist-song-link" class="panel-block">
     <span class="panel-icon">
-      <i class="fas fa-book" aria-hidden="true"></i>
+      <i class="fas fa-music" aria-hidden="true"></i>
     </span>
-    {{id+1}}. {{title}} {{time}}
+    {{id+1}}. {{title}} {{time}} &nbsp;
+    <a class="button is-rounded is-primary" :href=playRef rel="nofollow" v-on:click="playSong">
+      <i class="fas fa-play-circle action" aria-hidden="true"></i>
+    </a>
+    <a class="button is-rounded is-danger" v-on:click="removeSong">
+      <i class="fas fa-trash action" aria-hidden="true" ></i>
+    </a>
   </a>
-
 </template>
 
 <style>
-  .playlist-song {
-    color: #dee5ed;
-  }
-
-  #playlist-song-link {
-    color: #dee5ed;
+  .panel-icon{
+    color: white;
   }
 
   #playlist-song-link:hover {
     cursor: pointer;
-    color: #94CFC9;
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-
-  #playlist-song-link:hover > #playlist-song-play-icon {
-    cursor: pointer;
-    color: #94CFC9;
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-
-  #playlist-song-play-icon {
-    color: #dee5ed;
+    color: white;
+    background-color: rgba(160, 160, 160, 0.8);
   }
 </style>
 
 <script>
   export default {
     props: ['id', 'title', 'time', 'playRef'],
+    methods: {
+      playSong() {
+        console.log('play');
+      },
+      removeSong() {
+        console.log('remove');
+      },
+    }
   };
+
 </script>

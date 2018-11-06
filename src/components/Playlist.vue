@@ -5,14 +5,14 @@
       <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Modal title</p>
-          <button class="delete" aria-label="close"></button>
+          <button class="delete" aria-label="close" v-on:click="closeModal('editModal')"></button>
         </header>
         <section class="modal-card-body">
-          <!-- Content ... -->
+          Are you sure?
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success">Save changes</button>
-          <button class="button">Cancel</button>
+          <button class="button is-success" v-on:click="editPlaylist">Save changes</button>
+          <button class="button" v-on:click="closeModal('editModal')">Cancel</button>
         </footer>
       </div>
     </div>
@@ -21,14 +21,14 @@
       <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Modal title</p>
-          <button class="delete" aria-label="close"></button>
+          <button class="delete" aria-label="close" v-on:click="closeModal('deleteModal')"></button>
         </header>
         <section class="modal-card-body">
-          <!-- Content ... -->
+          Are you sure?
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success">Save changes</button>
-          <button class="button">Cancel</button>
+          <button class="button is-danger" v-on:click="deletePlaylist">Delete</button>
+          <button class="button" v-on:click="closeModal('deleteModal')">Cancel</button>
         </footer>
       </div>
     </div>
@@ -37,53 +37,90 @@
     <br>
     <nav class="panel">
       <p class="panel-heading">
-        <button class="button is-success is-fullwidth" v-on:click="createNewPlaylist">
+      <p class="panel-tabs">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+          <ul>
+            <li>
+              <a href="#">
+                <span class="icon is-small">
+                  <i class="fas fa-user-astronaut" aria-hidden="true"></i>
+                </span>
+                <span>Uncle Bob</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+              <span class="icon is-small">
+                  <i class="fas fa-headphones" aria-hidden="true"></i>
+                </span>
+                <span>Playlist</span>
+              </a>
+            </li>
+            <li class="is-active">
+              <a href="#">
+                <span>Uncle Bob's Playlist</span>
+              </a>
+      <p class="control has-icons-left">
+        <button class="button is-info" v-on:click="showModal('editModal')">
+          Edit&nbsp;
+          <i class="fas fa-pencil-alt action"></i>
+        </button>
+        <button class="button is-danger" v-on:click="showModal('deleteModal')">
+          Delete&nbsp;
+          <i class="fas fa-trash-alt action"></i>
+        </button>
+        <button class="button is-success" v-on:click="toggleCreateNewPlaylist">
           Create new playlist&nbsp;
           <i class="fas fa-plus action"></i>
         </button>
-        <div id="new-playlist-block" class="panel-block" v-bind:style="{ display: displayNewPlaylistBlock}">
-          <p class="control has-icons-left">
-            <input class="input" type="text" placeholder="Playlist name..."/>
-            <button class="button is-link">Create</button>
-          </p>
-        </div>
       </p>
-      <p class="panel-tabs">
-        <a class="is-active">All</a>
-        <a>Recent</a>
-      </p>
-      <div class="panel-block">
-        <p class="control has-icons-left">
-          Uncle Bob's playlist
-          <button class="button is-info" v-on:click="showEditModal">
-            Edit&nbsp;
-            <i class="fas fa-pencil-alt action"></i>
-          </button>
-          <button class="button is-danger" v-on:click="showDeleteModal">
-            Delete&nbsp;
-            <i class="fas fa-trash-alt action"></i>
-          </button>
-        </p>
-      </div>
-      <playlist-song
-        v-for="(song, index) in Tension"
-        v-bind:key="index"
-        v-bind:id="index"
-        v-bind:title="song[0].title"
-        v-bind:time="song[1].time"
-        v-bind:playRef="song[2].playRef"
-      ></playlist-song>
+      </li>
+      </ul>
     </nav>
+    </p>
+        <div id="new-playlist-block" class="panel-block" v-bind:style="{ display: displayNewPlaylistBlock}">
+        <p class="control has-icons-left">
+          <div class="field">
+            <div class="control">
+              <input class="input is-primary" type="text" placeholder="Playlist name..." value="Uncle Bob's Playlist"/>
+            </div>
+          </div>
+      <button class="button is-primary" v-on:click="createNewPlaylist">Create</button>
+    </p>
+        </div>
+        </p>
+  <playlist-song
+    v-for="(song, index) in Tension"
+    v-bind:key="index"
+    v-bind:id="index"
+    v-bind:title="song[0].title"
+    v-bind:time="song[1].time"
+    v-bind:playRef="song[2].playRef"
+  ></playlist-song>
+  </nav>
   </div>
-
 </template>
 
 <style>
-  .panel{
-    background: white;
+  .panel {
+   background: white;
+   line-height: 3.5;
+   font-size: 1.1em;
   }
-  .fas.action{
+
+  .panel {
+    background: white;
+    line-height: 3.5;
+    font-size: 1.1em;
+  }
+
+  .fas.action {
     color: white;
+  }
+
+  .modal-card-body {
+    color: black;
+    background: white;
   }
 </style>
 
@@ -99,16 +136,6 @@
         Tension: [[{ title: 'Never Le Nkemise' }, { time: '2:52' }, { playRef: 'https://www.youtube.com/watch?v=GmwhBSh2rOs' }],
           [{ title: 'I Fink U Freeky' }, { time: '4:40' }, { playRef: 'https://www.youtube.com/watch?v=o8S2BrpUkRE' }],
           [{ title: 'Pielie (Skit)' }, { time: '0:09' }, { playRef: 'https://www.youtube.com/watch?v=GmwhBSh2rOs' }],
-          [{ title: 'Hey Sexy' }, { time: '5:08' }, { playRef: 'https://www.youtube.com/watch?v=Q1OzUTbtTWw' }],
-          [{ title: 'Fatty Boom Boom' }, { time: '3:45' }, { playRef: 'https://www.youtube.com/watch?v=M0e_0P9OZuM' }],
-          [{ title: 'Zefside Zol (Interlude)' }, { time: '0:56' }, { playRef: 'https://www.youtube.com/watch?v=pXPcY8oR74E' }],
-          [{ title: 'So What? (Interlude)' }, { time: '3:51' }, { playRef: 'https://www.youtube.com/watch?v=O8Nfv9VSlIc' }],
-          [{ title: 'Uncle Jimmy (Skit)' }, { time: '1:21' }, { playRef: 'https://www.youtube.com/watch?v=aBJTZuOLta4' }],
-          [{ title: 'Baby\'s On Fire' }, { time: '3:56' }, { playRef: 'https://www.youtube.com/watch?v=zJquKj2Hiws' }],
-          [{ title: 'U Make A Ninja Wanna Fuck' }, { time: '3:16' }, { playRef: 'https://www.youtube.com/watch?v=xFJ8VoaQkXc' }],
-          [{ title: 'Fok Julie Naaiers' }, { time: '3:54' }, { playRef: 'https://www.youtube.com/watch?v=w2uNNphEYis' }],
-          [{ title: 'DJ Hi-Tek Rulez' }, { time: '1:37' }, { playRef: 'https://www.youtube.com/watch?v=Mez_XxpX9MU' }],
-          [{ title: 'Never Le Nkemise' }, { time: '3:21' }, { playRef: 'https://www.youtube.com/watch?v=GmwhBSh2rOs' }],
         ],
         albumTitle: 'Tension',
         albumGenre: 'Hip-Hop/Rap',
@@ -118,14 +145,26 @@
       };
     },
     methods: {
+      toggleCreateNewPlaylist() {
+        this.displayNewPlaylistBlock = this.displayNewPlaylistBlock === 'block' ? 'none' : 'block';
+      },
       createNewPlaylist() {
-        this.displayNewPlaylistBlock = 'block';
+        // Call api
+        this.toggleCreateNewPlaylist();
       },
-      showEditModal() {
-        document.getElementById('editModal').classList.add('is-active');
+      showModal(modalName) {
+        document.getElementById(modalName).classList.add('is-active');
       },
-      showDeleteModal() {
-        document.getElementById('deleteModal').classList.add('is-active');
+      closeModal(modalName) {
+        document.getElementById(modalName).classList.remove('is-active');
+      },
+      editPlaylist() {
+        // Call api
+        this.closeModal('editModal');
+      },
+      deletePlaylist() {
+        // Call api
+        this.closeModal('deleteModal');
       },
     },
   };
