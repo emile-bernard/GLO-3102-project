@@ -3,7 +3,7 @@
     <article class="tile is-child notification is-primary">
       <div id="playlistInput" class="field has-addons">
         <div class="control">
-          <input id="name-input" class="input" type="text" v-model="nameData" @focus="toggleSaveButton"
+          <input id="name-input" class="input is-fullwidth" type="text" v-model="nameData" @focus="toggleSaveButton"
                  @blur="toggleSaveButton">
         </div>
         <div class="control">
@@ -16,15 +16,22 @@
             Delete
           </a>
         </div>
+        <div class="control goToPlaylistControl">
+          <router-link id="go-to-playlist-button" class="button is-warning is-rounded is-outlined" @click="goToPlaylist" to='/playlist/'>
+          <span class="icon is-small">
+            <i class="fa fa-4x fa-play-circle"></i>
+          </span>
+          </router-link>
+        </div>
       </div>
-      <figure class="image is-4by3">
-        <img src="https://bulma.io/images/placeholders/640x480.png">
-      </figure>
     </article>
   </div>
 </template>
 
 <style>
+  .goToPlaylistControl {
+    margin-left: 2rem;
+  }
 </style>
 
 <script>
@@ -71,7 +78,10 @@
           })
           .then(response => response.json());
         this.$emit('playlist-deleted');
-      }
+      },
+      goToPlaylist() {
+        // Todo
+      },
     }
   };
 </script>

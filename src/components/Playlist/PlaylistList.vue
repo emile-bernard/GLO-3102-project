@@ -1,5 +1,26 @@
 <template>
   <section class="section">
+    <p>
+      <router-link to="/"><span>UBeat</span></router-link>
+      <span> > </span>
+      <router-link to="/album"><span>Uncle Bob</span></router-link>
+      <span> > </span>
+      <router-link to="/album"><span>Playlists</span></router-link>
+    </p>
+    <button class="button is-success" v-on:click="toggleCreateNewPlaylist">
+      Create new playlist&nbsp;
+      <i class="fas fa-plus action"></i>
+    </button>
+    <div id="new-playlist-block" class="panel-block" v-bind:style="{ display: displayNewPlaylistBlock}">
+        <div class="field has-addons">
+          <div class="control">
+            <input class="input is-primary" type="text" placeholder="Playlist name..." value="Uncle Bob's Playlist"/>
+          </div>
+          <div class="control">
+            <button class="button is-primary" v-on:click="createNewPlaylist">Create</button>
+          </div>
+        </div>
+    </div>
     <playlist-overview v-for="playlist in playlists"
                        v-bind:key=playlist.id
                        v-bind:id="playlist.id"
@@ -10,7 +31,9 @@
 </template>
 
 <style>
-
+  #new-playlist-block{
+    background-color: white;
+  }
 </style>
 
 <script>
@@ -20,12 +43,20 @@
     data() {
       return {
         playlists: [],
+        displayNewPlaylistBlock: 'none',
       };
     },
     components: {
       'playlist-overview': PlaylistOverview,
     },
     methods: {
+      toggleCreateNewPlaylist() {
+        this.displayNewPlaylistBlock = this.displayNewPlaylistBlock === 'block' ? 'none' : 'block';
+      },
+      createNewPlaylist() {
+        // Call api
+        this.toggleCreateNewPlaylist();
+      },
       filterPlaylists(allPlaylists) {
         for (let i = 0; i < 10; i += 1) {
           this.populatePlaylists(allPlaylists[i]);

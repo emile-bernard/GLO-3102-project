@@ -23,7 +23,7 @@
             <p>Album</p>
           </div>
         </router-link>
-        <router-link to="/playlist">
+        <router-link to="/playlists">
           <div class="navbar-item">
             <i class="fas fa-headphones fa-2x"></i>
             <p>Playlist</p>

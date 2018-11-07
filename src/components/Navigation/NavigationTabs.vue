@@ -11,7 +11,7 @@
         <router-link to="/album">Album</router-link>
       </li>
       <li id="navigation-tab-playlist">
-        <router-link to="/playlist">Playlist</router-link>
+        <router-link to="/playlists">Playlists</router-link>
       </li>
       <li id="navigation-tab-account">
         <router-link to="/account">Account</router-link>

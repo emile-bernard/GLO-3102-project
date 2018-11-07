@@ -30,10 +30,10 @@ const router = new Router({
       component: Album,
       meta: { tab: 'album' }
     }, {
-      path: '/playlist',
-      name: 'Playlist',
+      path: '/playlists',
+      name: 'Playlists',
       component: PlaylistList,
-      meta: { tab: 'playlist' }
+      meta: { tab: 'playlists' }
     }, {
       path: '/account',
       name: 'Account',
