@@ -34,7 +34,6 @@
     props: ['songId', 'playlistId', 'title', 'time', 'playRef'],
     methods: {
       playSong() {
-        console.log('play');
         // Todo
       },
       removeSong() {
