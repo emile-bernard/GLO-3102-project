@@ -23,17 +23,27 @@
     color: white;
     background-color: rgba(160, 160, 160, 0.8);
   }
+
+  .fas.action {
+    color: white;
+  }
 </style>
 
 <script>
   export default {
-    props: ['id', 'title', 'time', 'playRef'],
+    props: ['songId', 'playlistId', 'title', 'time', 'playRef'],
     methods: {
       playSong() {
         console.log('play');
+        // Todo
       },
       removeSong() {
-        console.log('remove');
+        fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.playlistId}/tracks/${this.songId}`,
+          {
+            method: 'delete',
+          })
+          .then(response => response.json());
+        this.$emit('song-deleted');
       },
     }
   };
