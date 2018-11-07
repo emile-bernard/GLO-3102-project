@@ -3,10 +3,11 @@
     <p>
       <router-link to="/"><span>UBeat</span></router-link>
       <span> > </span>
-      <router-link to="/album"><span>Uncle Bob</span></router-link>
+      <router-link to="/settings"><span>Uncle Bob</span></router-link>
       <span> > </span>
-      <router-link to="/album"><span>Playlists</span></router-link>
+      <router-link to="/playlists"><span>Playlists</span></router-link>
     </p>
+    <br/>
     <button class="button is-success" v-on:click="toggleCreateNewPlaylist">
       Create new playlist&nbsp;
       <i class="fas fa-plus action"></i>
