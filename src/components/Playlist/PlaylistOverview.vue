@@ -17,7 +17,7 @@
           </a>
         </div>
         <div class="control goToPlaylistControl">
-          <router-link id="go-to-playlist-button" class="button is-warning is-rounded is-outlined" @click="goToPlaylist" to='/playlist'>
+          <router-link id="go-to-playlist-button" class="button is-warning is-rounded is-outlined" @click="goToPlaylist" :to="{ name: 'Playlist', params: { id } }">
           <span class="icon is-small">
             <i class="fa fa-4x fa-play-circle"></i>
           </span>

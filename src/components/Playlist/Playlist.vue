@@ -50,6 +50,13 @@
     components: {
       'playlist-song': PlaylistSong,
     },
+    props: {
+      id: undefined,
+      name: {
+        type: String
+      },
+      tracks: [],
+    },
     data() {
       return {
         testTracks: [[{ title: 'Never Le Nkemise' }, { time: '2:52' }, { playRef: 'https://www.youtube.com/watch?v=GmwhBSh2rOs' }],
