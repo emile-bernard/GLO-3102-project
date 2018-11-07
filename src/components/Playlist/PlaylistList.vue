@@ -12,15 +12,16 @@
       <i class="fas fa-plus action"></i>
     </button>
     <div id="new-playlist-block" class="panel-block" v-bind:style="{ display: displayNewPlaylistBlock}">
-        <div class="field has-addons">
-          <div class="control">
-            <input class="input is-primary" type="text" placeholder="Playlist name..." value="Uncle Bob's Playlist"/>
-          </div>
-          <div class="control">
-            <button class="button is-primary" v-on:click="createNewPlaylist">Create</button>
-          </div>
+      <div class="field has-addons">
+        <div class="control">
+          <input id="new-playlist-input" class="input is-primary" type="text" placeholder="Playlist name..." value="Uncle Bob's Playlist"/>
         </div>
+        <div class="control">
+          <button class="button is-primary" v-on:click="createNewPlaylist">Create</button>
+        </div>
+      </div>
     </div>
+    <br/>
     <playlist-overview v-for="playlist in playlists"
                        v-bind:key=playlist.id
                        v-bind:id="playlist.id"
@@ -31,7 +32,7 @@
 </template>
 
 <style>
-  #new-playlist-block{
+  #new-playlist-block {
     background-color: white;
   }
 </style>
@@ -54,7 +55,18 @@
         this.displayNewPlaylistBlock = this.displayNewPlaylistBlock === 'block' ? 'none' : 'block';
       },
       createNewPlaylist() {
-        // Call api
+        fetch('https://ubeat.herokuapp.com/unsecure/playlists',
+          {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(
+              {
+                name: document.getElementById('new-playlist-input').value
+              })
+          })
+          .then(response => response.json());
         this.toggleCreateNewPlaylist();
       },
       filterPlaylists(allPlaylists) {
