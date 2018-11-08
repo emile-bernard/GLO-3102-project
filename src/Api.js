@@ -2,6 +2,22 @@
 const baseURL = 'http://ubeat.herokuapp.com';
 const unsecureBaseURL = 'http://ubeat.herokuapp.com/unsecure';
 
+function FormatStringForSearch(stringToFormat) {
+  const string = String(stringToFormat);
+  const array = string.split(' ');
+  const arraySize = array.length;
+  let wordProcessed = 0;
+  let finalSring = '';
+  array.forEach((word) => {
+    wordProcessed += 1;
+    if (wordProcessed !== arraySize) {
+      finalSring = `${finalSring + word}%20`;
+    }
+  });
+  return finalSring;
+}
+
+
 //-------------------------------------------------------------
 // Se connecter/déconnecter
 //-------------------------------------------------------------
@@ -23,11 +39,71 @@ const unsecureBaseURL = 'http://ubeat.herokuapp.com/unsecure';
 
 //-------------------------------------------------------------
 // Recherche
+//-------------------------------------------------------------
 // GET /search
+export const generalSearch = (q, unsecured, limit = 20) => {
+  let URL = baseURL;
+  if (unsecured) URL = unsecureBaseURL;
+  return fetch(`${URL}/search?q=/${q}&limit=${limit}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credential': 'true'
+    } })
+    .then(response => response.json())
+    .catch(() => {
+      window.console.error('Unable to fetch general search.');
+    });
+};
 // GET /search/albums
+export const albumSearch = (q, unsecured, limit = 20) => {
+  let URL = baseURL;
+  if (unsecured) URL = unsecureBaseURL;
+  const searchStringFormated = FormatStringForSearch(q);
+  return fetch(`${URL}/search/album?q=/${searchStringFormated}&limit=${limit}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credential': 'true'
+    } })
+    .then(response => response.json())
+    .catch(() => {
+      window.console.error('Unable to fetch album general search.');
+    });
+};
 // GET /search/artists
+export const artistSearch = (q, unsecured, limit = 20) => {
+  let URL = baseURL;
+  if (unsecured) URL = unsecureBaseURL;
+// eslint-disable-next-line max-len
+  const searchStringFormated = FormatStringForSearch(q); // ici je me suis dis que le formatage est probablement pareil mais à essayer  comme le serveur semble down en ce moment
+  return fetch(`${URL}/search/artists?q=/${searchStringFormated}&limit=${limit}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credential': 'true'
+    } })
+    .then(response => response.json())
+    .catch(() => {
+      window.console.error('Unable to fetch artist general search.');
+    });
+};
 // GET /search/tracks
-
+export const trackSearch = (q, unsecured, limit = 20) => {
+  let URL = baseURL;
+  if (unsecured) URL = unsecureBaseURL;
+  const searchStringFormated = FormatStringForSearch(q);
+  return fetch(`${URL}/search/tracks?q=/${searchStringFormated}&limit=${limit}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credential': 'true'
+    } })
+    .then(response => response.json())
+    .catch(() => {
+      window.console.error('Unable to fetch track general search.');
+    });
+};
 
 //-------------------------------------------------------------
 // Utilisateurs
@@ -53,9 +129,8 @@ export const getAlbum = (albumId, unsecured) => {
       'Access-Control-Allow-Credential': 'true'
     } })
     .then(response => response.json())
-    .then(json => json.tasks)
     .catch(() => {
-      window.console.error('unable to fetch tasks');
+      window.console.error('Unable to fetch an album.');
     });
 };
 
@@ -70,9 +145,8 @@ export const getAlbumTracks = (albumId, unsecured) => {
       'Access-Control-Allow-Credential': 'true'
     } })
     .then(response => response.json())
-    .then(json => json.tasks)
     .catch(() => {
-      window.console.error('unable to fetch tasks');
+      window.console.error('Unable to fetch album tracks list.');
     });
 };
 //-------------------------------------------------------------
