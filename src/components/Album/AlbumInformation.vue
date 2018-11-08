@@ -1,20 +1,35 @@
 <template>
-  <div id="album-info">
-    <h2 class="subtitle is-size-3">{{albumTitle}}</h2>
-    <p>Genre: {{albumGenre}}</p>
-    <p>Release: {{releaseDate}}</p>
-    <p>Track count: {{trackCount}}</p>
-    <br>
-    <ul id="album-info-songs">
-      <album-song
-        v-for="(song, index) in Tension"
-        v-bind:key="index"
-        v-bind:id="index"
-        v-bind:title="song[0].title"
-        v-bind:time="song[1].time"
-        v-bind:playRef="song[2].playRef"
-      ></album-song>
-    </ul>
+  <div id="album-page-hero-body-layout">
+    <album-cover
+      v-bind:refLink="'https://itunes.apple.com/gb/album/ten%24ion/732912112'"
+      v-bind:imgSrc="'https://bit.ly/2P2Lo1n'"
+      v-bind:playRef="'https://www.youtube.com/watch?v=GmwhBSh2rOs'"
+    ></album-cover>
+    <div id="album-info">
+      <h2 class="subtitle is-size-3">{{albumTitle}}</h2>
+      <p>Genre: {{primaryGenreName}}</p>
+      <p>Release: {{releaseDate}}</p>
+      <p>Track count: {{trackCount}}</p>
+      <br>
+      <ul id="album-info-songs">
+        <Track
+          v-for="(song, index) in albumTracks"
+          v-bind:key="index"
+          v-bind:wrapperType="song.wrapperType"
+          v-bind:kind="song.kind"
+          v-bind:trackId="song.trackId"
+          v-bind:trackName="song.trackName"
+          v-bind:previewUrl="song.previewUrl"
+          v-bind:trackPrice="song.trackPrice"
+          v-bind:trackExplicitness="song.trackExplicitness"
+          v-bind:diskCount="song.diskCount"
+          v-bind:diskNumber="song.diskNumber"
+          v-bind:trackNumber="song.trackNumber"
+          v-bind:trackTimeMillis="song.trackTimeMillis"
+          v-bind:isStreamable="song.isStreamable"
+        ></Track>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -23,7 +38,8 @@
     background-color: rgba(0, 0, 0, 0.65);
     max-width: 100vw;
     max-height: 100vh;
-    display: inline-flex;
+    display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -42,33 +58,49 @@
 </style>
 
 <script>
-  import AlbumSong from './AlbumSong';
+  /* eslint-disable quote-props */
+  import * as api from '@/Api';
+  import AlbumCover from '@/components/Album/AlbumCover';
+  import track from './Track';
 
   export default {
-    components: {
-      'album-song': AlbumSong,
+    props: {
+      wrapperType: String,
+      collectionType: String,
+      artistId: Number,
+      collectionId: Number,
+      artistName: String,
+      collectionName: String,
+      artistViewUrl: String,
+      collectionViewUrl: String,
+      artWorkUrl100: String,
+      collectionPrice: Number,
+      collectionExplicitness: String,
+      trackCount: Number,
+      copyright: String,
+      country: String,
+      currency: String,
+      releaseDate: Date,
+      primaryGenreName: String
     },
-    data() {
-      return {
-        Tension: [[{ title: 'Never Le Nkemise' }, { time: '2:52' }, { playRef: 'https://www.youtube.com/watch?v=GmwhBSh2rOs' }],
-          [{ title: 'I Fink U Freeky' }, { time: '4:40' }, { playRef: 'https://www.youtube.com/watch?v=o8S2BrpUkRE' }],
-          [{ title: 'Pielie (Skit)' }, { time: '0:09' }, { playRef: 'https://www.youtube.com/watch?v=GmwhBSh2rOs' }],
-          [{ title: 'Hey Sexy' }, { time: '5:08' }, { playRef: 'https://www.youtube.com/watch?v=Q1OzUTbtTWw' }],
-          [{ title: 'Fatty Boom Boom' }, { time: '3:45' }, { playRef: 'https://www.youtube.com/watch?v=M0e_0P9OZuM' }],
-          [{ title: 'Zefside Zol (Interlude)' }, { time: '0:56' }, { playRef: 'https://www.youtube.com/watch?v=pXPcY8oR74E' }],
-          [{ title: 'So What? (Interlude)' }, { time: '3:51' }, { playRef: 'https://www.youtube.com/watch?v=O8Nfv9VSlIc' }],
-          [{ title: 'Uncle Jimmy (Skit)' }, { time: '1:21' }, { playRef: 'https://www.youtube.com/watch?v=aBJTZuOLta4' }],
-          [{ title: 'Baby\'s On Fire' }, { time: '3:56' }, { playRef: 'https://www.youtube.com/watch?v=zJquKj2Hiws' }],
-          [{ title: 'U Make A Ninja Wanna Fuck' }, { time: '3:16' }, { playRef: 'https://www.youtube.com/watch?v=xFJ8VoaQkXc' }],
-          [{ title: 'Fok Julie Naaiers' }, { time: '3:54' }, { playRef: 'https://www.youtube.com/watch?v=w2uNNphEYis' }],
-          [{ title: 'DJ Hi-Tek Rulez' }, { time: '1:37' }, { playRef: 'https://www.youtube.com/watch?v=Mez_XxpX9MU' }],
-          [{ title: 'Never Le Nkemise' }, { time: '3:21' }, { playRef: 'https://www.youtube.com/watch?v=GmwhBSh2rOs' }],
-        ],
-        albumTitle: 'Tension',
-        albumGenre: 'Hip-Hop/Rap',
-        trackCount: '13',
-        releaseDate: '2012/01/29',
-      };
-    }
+    components: {
+      'Track': track,
+      'album-cover': AlbumCover,
+    },
+    data: () => ({
+      resultsCount: 0,
+      albumTracks: []
+    }),
+    methods: {
+      async getAlbum(albumId) {
+        // const {resultCount, results} = this.album;
+        this.albumTracks = await api.getAlbumTracks(albumId, true);
+      },
+      async created() {
+        const albumInfo = await api.getAlbumTracks(1125488753, true);
+        this.albumTracks = albumInfo.results;
+        this.resultsCount = albumInfo.resultCount;
+      }
+    },
   };
 </script>
