@@ -3,7 +3,7 @@
     <span class="panel-icon">
       <i class="fas fa-music" aria-hidden="true"></i>
     </span>
-    {{id+1}}. {{title}} {{time}} &nbsp;
+    {{trackIndex+1}}. {{trackId}} &nbsp;
     <a class="button is-rounded is-primary" :href=playRef rel="nofollow" v-on:click="playSong">
       <i class="fas fa-play-circle action" aria-hidden="true"></i>
     </a>
@@ -31,7 +31,8 @@
 
 <script>
   export default {
-    props: ['songId', 'playlistId', 'title', 'time', 'playRef'],
+    props: ['trackIndex', 'trackId', 'trackName', 'artistName', 'trackTimeMillis'],
+
     methods: {
       playSong() {
         // Todo
@@ -42,7 +43,7 @@
             method: 'delete',
           })
           .then(response => response.json());
-        this.$emit('song-deleted');
+        this.$emit('track-deleted');
       },
     }
   };

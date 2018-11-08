@@ -8,25 +8,34 @@
       <router-link to="/playlists"><span>Playlists</span></router-link>
     </p>
     <br/>
-    <button class="button is-success" v-on:click="toggleCreateNewPlaylist">
+
+    <button class="button is-success" @click="toggleCreateNewPlaylist">
       Create new playlist&nbsp;
       <i class="fas fa-plus action"></i>
     </button>
+
+    <button class="button is-danger" @click="togglePlaylistSelection">
+      Delete selected playlist(s)&nbsp;
+      <i class="fas fa-trash action"></i>
+    </button>
+
     <div id="new-playlist-block" class="panel-block" v-bind:style="{ display: displayNewPlaylistBlock}">
       <div class="field has-addons">
         <div class="control">
           <input id="new-playlist-input" class="input is-primary" type="text" placeholder="Playlist name..." value="Uncle Bob's Playlist"/>
         </div>
         <div class="control">
-          <button class="button is-primary" v-on:click="createNewPlaylist">Create</button>
+          <button class="button is-primary" @click="createNewPlaylist">Create</button>
         </div>
       </div>
     </div>
+
     <br/>
     <playlist-overview v-for="playlist in playlists"
                        v-bind:key=playlist.id
                        v-bind:id="playlist.id"
                        v-bind:name="playlist.name"
+                       v-bind:displayDeleteCheckbox="displayPlaylistSelection"
                        v-on:playlist-deleted="playlists.splice(index,1)">
     </playlist-overview>
   </section>
@@ -35,6 +44,9 @@
 <style>
   #new-playlist-block {
     background-color: white;
+  }
+  .fas.action {
+    color: white;
   }
 </style>
 
@@ -46,6 +58,7 @@
       return {
         playlists: [],
         displayNewPlaylistBlock: 'none',
+        displayPlaylistSelection: 'none',
       };
     },
     components: {
@@ -84,6 +97,17 @@
             tracks: playlist.tracks
           }));
       },
+      togglePlaylistSelection() {
+        this.displayPlaylistSelection = this.displayPlaylistSelection === 'block' ? 'none' : 'block';
+      },
+      deleteAllSelectedPlaylist() {
+        // fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,
+        //   {
+        //     method: 'delete',
+        //   })
+        //   .then(response => response.json());
+        // this.$emit('playlist-deleted');
+      }
     },
     created() {
       fetch('https://ubeat.herokuapp.com/unsecure/playlists', { method: 'get' })

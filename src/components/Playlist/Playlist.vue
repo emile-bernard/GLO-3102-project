@@ -14,16 +14,17 @@
       <br>
       <nav class="panel">
         <p class="panel-heading">
-          <span>Playlist Name</span>
+          <span>{{ name }}</span>
         </p>
       <playlist-song
-        v-for="(song, index) in testTracks"
+        v-for="(track, index) in tracks"
         v-bind:key="index"
-        v-bind:id="index"
-        v-bind:title="song[0].title"
-        v-bind:time="song[1].time"
-        v-bind:playRef="song[2].playRef"
-        v-on:song-deleted="testTracks.splice(index,1)"
+        v-bind:trackIndex="index"
+        v-bind:playlist-id="id"
+        v-bind:trackId="track._id"
+        v-bind:artistName="track.artistName"
+        v-bind:trackTimeMillis="track.trackTimeMillis"
+        v-on:track-deleted="tracks.splice(index,1)"
       ></playlist-song>
       </nav>
     </div>
@@ -55,7 +56,6 @@
       name: {
         type: String
       },
-      tracks: [],
     },
     data() {
       return {
@@ -67,9 +67,8 @@
         albumGenre: 'Hip-Hop/Rap',
         trackCount: '13',
         releaseDate: '2012/01/29',
-        id: undefined,
-        tracks: [],
         displayNewPlaylistBlock: 'none',
+        tracks: [],
       };
     },
     methods: {
