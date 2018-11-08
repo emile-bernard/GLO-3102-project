@@ -1,12 +1,12 @@
 <template>
   <div id="album-page-hero-body-layout">
     <album-cover
-      v-bind:refLink="'https://itunes.apple.com/gb/album/ten%24ion/732912112'"
-      v-bind:imgSrc="'https://bit.ly/2P2Lo1n'"
-      v-bind:playRef="'https://www.youtube.com/watch?v=GmwhBSh2rOs'"
-    ></album-cover>
+      v-bind:refLink= artistViewUrl
+      v-bind:imgSrc= artWorkUrl100 >
+      <!--v-bind:playRef="'https://www.youtube.com/watch?v=GmwhBSh2rOs'"   ceci faisait jouer l'album au complet, est-ce que l'on conserve cela??-->
+    </album-cover>
     <div id="album-info">
-      <h2 class="subtitle is-size-3">{{albumTitle}}</h2>
+      <h2 class="subtitle is-size-3">{{collectionName}}</h2>
       <p>Genre: {{primaryGenreName}}</p>
       <p>Release: {{releaseDate}}</p>
       <p>Track count: {{trackCount}}</p>
@@ -68,9 +68,9 @@
       wrapperType: String,
       collectionType: String,
       artistId: Number,
-      collectionId: Number,
+      collectionId: Number, // ceci est l'id de l'album
       artistName: String,
-      collectionName: String,
+      collectionName: String, // ceci est le nom de l'Album
       artistViewUrl: String,
       collectionViewUrl: String,
       artWorkUrl100: String,
@@ -97,7 +97,7 @@
         this.albumTracks = await api.getAlbumTracks(albumId, true);
       },
       async created() {
-        const albumInfo = await api.getAlbumTracks(1125488753, true);
+        const albumInfo = await api.getAlbumTracks(this.collectionId, true); // 1125488753
         this.albumTracks = albumInfo.results;
         this.resultsCount = albumInfo.resultCount;
       }

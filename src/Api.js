@@ -46,7 +46,12 @@ const unsecureBaseURL = 'http://ubeat.herokuapp.com/unsecure';
 export const getAlbum = (albumId, unsecured) => {
   let URL = baseURL;
   if (unsecured) URL = unsecureBaseURL;
-  return fetch(`${URL}/albums/${albumId}`)
+  return fetch(`${URL}/albums/${albumId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credential': 'true'
+    } })
     .then(response => response.json())
     .then(json => json.tasks)
     .catch(() => {
@@ -58,7 +63,12 @@ export const getAlbum = (albumId, unsecured) => {
 export const getAlbumTracks = (albumId, unsecured) => {
   let URL = baseURL;
   if (unsecured) URL = unsecureBaseURL;
-  return fetch(`${URL}/albums/${albumId}/tracks`)
+  return fetch(`${URL}/albums/${albumId}/tracks`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credential': 'true'
+    } })
     .then(response => response.json())
     .then(json => json.tasks)
     .catch(() => {

@@ -5,11 +5,11 @@
       <span> > </span>
       <router-link to="/album"><span>Album</span></router-link>
       <span> > </span>
-      <router-link to="/album"><span v-on:click="getAlbum">Die Antword</span></router-link>
+      <router-link to="/album"><span>Blink 182</span></router-link>
     </p>
     <br/>
     <div class="container">
-      <h1 class="title is-size-2">Die Antword</h1>
+      <h1 class="title is-size-2" v-on:click="getAlbum">Blink 182</h1>
       <section id="album-hero-parralax-bg" class="hero hero-parralax-bg">
         <div class="hero-body">
           <album-information
