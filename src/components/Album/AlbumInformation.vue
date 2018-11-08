@@ -10,6 +10,7 @@
       <p>Genre: {{primaryGenreName}}</p>
       <p>Release: {{releaseDate}}</p>
       <p>Track count: {{trackCount}}</p>
+      <i id="add-album-to-playlist-icon" v-on:click="addAlbumToPlayList" class="far fa-plus-circle fa-1x"></i>
       <br>
       <ul id="album-info-songs">
         <Track
@@ -27,6 +28,7 @@
           v-bind:trackNumber="song.trackNumber"
           v-bind:trackTimeMillis="song.trackTimeMillis"
           v-bind:isStreamable="song.isStreamable"
+          v-bind:addSongToPlaylist="addSongToPlayList"
         ></Track>
       </ul>
     </div>
@@ -80,7 +82,7 @@
       copyright: String,
       country: String,
       currency: String,
-      releaseDate: Date,
+      releaseDate: String,
       primaryGenreName: String
     },
     components: {
@@ -100,6 +102,15 @@
         const albumInfo = await api.getAlbumTracks(this.collectionId, true); // 1125488753
         this.albumTracks = albumInfo.results;
         this.resultsCount = albumInfo.resultCount;
+      },
+      addSongToPlayList() {
+        throw new Error('NotImplementedException');
+        // TODO: add song to playlist here
+      },
+      async addAlbumToPlayList() {
+        const albumInfo = await api.getAlbumTracks(this.collectionId, true); // 1125488753
+        this.albumTracks = albumInfo.results;
+        // TODO : ajouter toutes les chanson à la playlist ici
       }
     },
   };

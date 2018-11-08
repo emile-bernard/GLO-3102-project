@@ -10,6 +10,7 @@
       -
       &nbsp;
       {{TrackTimeInMinutes}}
+      <i id="add-song-to-playlist-icon" v-on:click="addSongToPlaylist" class="far fa-plus-circle fa-1x"></i>
     </a>
   </li>
 </template>
@@ -38,6 +39,10 @@
   #album-song-play-icon {
     color: #dee5ed;
   }
+
+  #add-song-to-playlist-icon {
+    color: #dee5ed;
+  }
 </style>
 
 <script>
@@ -57,7 +62,8 @@
       diskNumber: Number,
       trackNumber: Number,
       trackTimeMillis: Number,
-      isStreamable: Boolean
+      isStreamable: Boolean,
+      addSongToPlaylist: Function
     },
     methods: {
       round(value, decimals) {

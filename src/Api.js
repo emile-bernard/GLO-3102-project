@@ -123,6 +123,7 @@ export const getAlbum = (albumId, unsecured) => {
   let URL = baseURL;
   if (unsecured) URL = unsecureBaseURL;
   return fetch(`${URL}/albums/${albumId}`, {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
@@ -139,6 +140,7 @@ export const getAlbumTracks = (albumId, unsecured) => {
   let URL = baseURL;
   if (unsecured) URL = unsecureBaseURL;
   return fetch(`${URL}/albums/${albumId}/tracks`, {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
