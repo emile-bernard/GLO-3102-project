@@ -62,8 +62,8 @@
     },
     data() {
       return {
-        tracks: [],
         displayNewPlaylistBlock: 'none',
+        tracks: [],
       };
     },
     methods: {

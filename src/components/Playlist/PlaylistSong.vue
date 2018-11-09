@@ -4,7 +4,7 @@
       <i class="fas fa-music" aria-hidden="true"></i>
     </span>
     {{trackNumber}}. {{trackName}} ( {{trackTimeMillis}} ms) &nbsp;
-    <a class="button is-rounded is-primary" v-on:click="playSong">
+    <a class="button is-rounded is-primary" :href=playRef rel="nofollow" v-on:click="playSong">
       <i class="fas fa-play-circle action" aria-hidden="true"></i>
     </a>
     <a class="button is-rounded is-danger" v-on:click="removeSong">
@@ -31,8 +31,6 @@
 
 <script>
   export default {
-    // props: ['songId', 'playlistId', 'title', 'time', 'playRef'],
-    // props: ['trackIndex', 'trackId', 'trackName', 'artistName', 'trackTimeMillis'],
     props: {
       trackIndex: undefined,
       trackId: undefined,

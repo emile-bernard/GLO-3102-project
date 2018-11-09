@@ -1,4 +1,4 @@
-<template xmlns:vbind="http://www.w3.org/1999/xhtml">
+<template>
   <div class="tile is-inline-block is-parent is-4">
     <article class="tile is-child notification is-primary">
       <div id="playlistInput" class="field has-addons">
@@ -87,16 +87,16 @@
           .then(response => response.json());
       },
       deletePlaylist() {
-        fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,
-          {
-            method: 'delete',
-          })
-          .then(response => response.json());
-        this.$emit('playlist-deleted');
+        // fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,
+        //   {
+        //     method: 'delete',
+        //   })
+        //   .then(response => response.json());
+        // this.$emit('playlist-deleted');
       },
       goToPlaylist() {
         // Todo
       },
-    }
+    },
   };
 </script>

@@ -35,8 +35,7 @@ const router = new Router({
       name: 'Playlists',
       component: PlaylistList,
       meta: { tab: 'playlists' }
-    },
-    {
+    }, {
       path: '/playlist/:id',
       props: true,
       name: 'Playlist',
