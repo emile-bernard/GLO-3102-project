@@ -3,8 +3,9 @@
     <article class="tile is-child notification is-primary">
       <div id="playlistInput" class="field has-addons">
         <div class="control">
-          <input id="name-input" class="input is-fullwidth" type="text" v-model="nameData" @focus="toggleSaveButton"
-                 @blur="toggleSaveButton">
+          <!--<input id="name-input" class="input is-fullwidth" type="text" v-model="nameData" @focus="toggleSaveButton"-->
+                 <!--@blur="toggleSaveButton">-->
+          <input id="name-input" class="input is-fullwidth" type="text" v-model="nameData" @focus="toggleSaveButton">
         </div>
         <div class="control">
           <a class="button is-info" @click="saveName" v-bind:style="{ display: displaySaveButton}">
@@ -71,8 +72,8 @@
         this.displayDeleteButton = this.displayDeleteButton === 'block' ? 'none' : 'block';
       },
       saveName() {
-        const nameInput = document.getElementById('name-input');
-        this.nameData = nameInput.value;
+        // this.nameData = document.getElementById('name-input').value;
+
         fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,
           {
             method: 'put',
@@ -81,10 +82,15 @@
             },
             body: JSON.stringify(
               {
-                name: this.nameData
+                name: this.nameData,
+                owner: 'test@test.com'
               })
           })
-          .then(response => response.json());
+          .then(response => response.json())
+          .then(() => {
+            this.name = this.nameData;
+            this.toggleSaveButton();
+          });
       },
       deletePlaylist() {
         // fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,

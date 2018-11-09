@@ -100,8 +100,8 @@
                 owner: 'test@test.com'
               })
           })
-          .then(response => response.json());
-        this.toggleCreateNewPlaylist();
+          .then(response => response.json())
+          .then(this.toggleCreateNewPlaylist());
       },
       deleteAllSelectedPlaylist() {
         // fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,
