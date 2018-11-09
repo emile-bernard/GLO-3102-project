@@ -66,18 +66,20 @@
     },
     methods: {
       filterPlaylists(allPlaylists) {
-        for (let i = 0; i < 10; i += 1) {
+        for (let i = 0; i < allPlaylists.length; i += 1) {
           this.populatePlaylists(allPlaylists[i]);
         }
       },
       populatePlaylists(playlist) {
-        fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlist.id}`, { method: 'get' })
-          .then(response => response.json())
-          .then(response => this.playlists.push({
-            id: response.id,
-            name: response.id,
-            tracks: playlist.tracks
-          }));
+        if (playlist.owner.email === 'test@test.com') {
+          fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlist.id}`, { method: 'get' })
+            .then(response => response.json())
+            .then(response => this.playlists.push({
+              id: response.id,
+              name: response.name,
+              tracks: playlist.tracks
+            }));
+        }
       },
       toggleCreateNewPlaylist() {
         this.displayNewPlaylistBlock = this.displayNewPlaylistBlock === 'block' ? 'none' : 'block';
@@ -95,7 +97,7 @@
             body: JSON.stringify(
               {
                 name: document.getElementById('new-playlist-input').value.toString(),
-                owner: 'unclebob@ubeat.com'
+                owner: 'test@test.com'
               })
           })
           .then(response => response.json());
@@ -111,7 +113,7 @@
       }
     },
     created() {
-      fetch('https://ubeat.herokuapp.com/unsecure/playlists', { method: 'get' })
+      fetch('https://ubeat.herokuapp.com/unsecure/playlists/', { method: 'get' })
         .then(response => response.json())
         .then((response) => {
           this.filterPlaylists(response);
