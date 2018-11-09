@@ -62,17 +62,10 @@
     },
     data() {
       return {
-        displayNewPlaylistBlock: 'none',
         tracks: [],
       };
     },
     methods: {
-      toggleCreateNewPlaylist() {
-        this.displayNewPlaylistBlock = this.displayNewPlaylistBlock === 'block' ? 'none' : 'block';
-      },
-      createNewPlaylist() {
-        this.toggleCreateNewPlaylist();
-      },
     },
     created() {
       fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`, { method: 'get' })

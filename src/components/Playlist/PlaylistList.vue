@@ -35,7 +35,7 @@
                        v-bind:key=playlist.id
                        v-bind:id="playlist.id"
                        v-bind:name="playlist.name"
-                       v-bind:displayDeleteCheckbox="displayPlaylistSelection"
+                       v-on:playlist-selection="togglePlaylistSelection"
                        v-on:playlist-deleted="playlists.splice(index,1)">
     </playlist-overview>
   </section>
@@ -58,7 +58,6 @@
       return {
         playlists: [],
         displayNewPlaylistBlock: 'none',
-        displayPlaylistSelection: 'none',
       };
     },
     components: {
@@ -89,7 +88,7 @@
         this.displayNewPlaylistBlock = this.displayNewPlaylistBlock === 'block' ? 'none' : 'block';
       },
       togglePlaylistSelection() {
-        this.displayPlaylistSelection = this.displayPlaylistSelection === 'block' ? 'none' : 'block';
+        this.$emit('playlist-selection');
       },
       createNewPlaylist() {
         fetch('https://ubeat.herokuapp.com/unsecure/playlists',
