@@ -1,20 +1,37 @@
 <template>
-  <div id="album-info">
-    <h2 class="subtitle is-size-3">{{albumTitle}}</h2>
-    <p>Genre: {{albumGenre}}</p>
-    <p>Release: {{releaseDate}}</p>
-    <p>Track count: {{trackCount}}</p>
-    <br>
-    <ul id="album-info-songs">
-      <album-song
-        v-for="(song, index) in Tension"
-        v-bind:key="index"
-        v-bind:id="index"
-        v-bind:title="song[0].title"
-        v-bind:time="song[1].time"
-        v-bind:playRef="song[2].playRef"
-      ></album-song>
-    </ul>
+  <div id="album-page-hero-body-layout">
+    <album-cover
+      v-bind:refLink= artistViewUrl
+      v-bind:imgSrc= artWorkUrl100 >
+      <!--v-bind:playRef="'https://www.youtube.com/watch?v=GmwhBSh2rOs'"   ceci faisait jouer l'album au complet, est-ce que l'on conserve cela??-->
+    </album-cover>
+    <div id="album-info">
+      <h2 class="subtitle is-size-3">{{collectionName}}</h2>
+      <p>Genre: {{primaryGenreName}}</p>
+      <p>Release: {{releaseDate}}</p>
+      <p>Track count: {{trackCount}}</p>
+      <p id="add-album-to-playlist-icon" v-on:click="addAlbumToPlayList" class="far fa-plus fa-1x"></p>
+      <br>
+      <ul id="album-info-songs">
+        <Track
+          v-for="song in albumTracks"
+          v-bind:key="song.trackId"
+          v-bind:wrapperType.sync="song.wrapperType"
+          v-bind:kind.sync="song.kind"
+          v-bind:trackId.sync="song.trackId"
+          v-bind:trackName.sync="song.trackName"
+          v-bind:previewUrl.sync="song.previewUrl"
+          v-bind:trackPrice.sync="song.trackPrice"
+          v-bind:trackExplicitness.sync="song.trackExplicitness"
+          v-bind:diskCount.sync="song.discCount"
+          v-bind:diskNumber.sync="song.discNumber"
+          v-bind:trackNumber.sync="song.trackNumber"
+          v-bind:trackTimeMillis.sync="song.trackTimeMillis"
+          v-bind:isStreamable.sync="song.isStreamable"
+          v-bind:addSongToPlaylist.sync="addSongToPlayList"
+        ></Track>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -23,7 +40,8 @@
     background-color: rgba(0, 0, 0, 0.65);
     max-width: 100vw;
     max-height: 100vh;
-    display: inline-flex;
+    display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -42,33 +60,61 @@
 </style>
 
 <script>
-  import AlbumSong from './AlbumSong';
+  /* eslint-disable quote-props */
+  import * as api from '@/Api';
+  import AlbumCover from '@/components/Album/AlbumCover';
+  import track from './Track';
 
   export default {
-    components: {
-      'album-song': AlbumSong,
+    props: {
+      wrapperType: String,
+      collectionType: String,
+      artistId: Number,
+      collectionId: Number, // ceci est l'id de l'album
+      artistName: String,
+      collectionName: String, // ceci est le nom de l'Album
+      artistViewUrl: String,
+      collectionViewUrl: String,
+      artWorkUrl100: String,
+      collectionPrice: Number,
+      collectionExplicitness: String,
+      trackCount: Number,
+      copyright: String,
+      country: String,
+      currency: String,
+      releaseDate: String,
+      primaryGenreName: String
     },
-    data() {
-      return {
-        Tension: [[{ title: 'Never Le Nkemise' }, { time: '2:52' }, { playRef: 'https://www.youtube.com/watch?v=GmwhBSh2rOs' }],
-          [{ title: 'I Fink U Freeky' }, { time: '4:40' }, { playRef: 'https://www.youtube.com/watch?v=o8S2BrpUkRE' }],
-          [{ title: 'Pielie (Skit)' }, { time: '0:09' }, { playRef: 'https://www.youtube.com/watch?v=GmwhBSh2rOs' }],
-          [{ title: 'Hey Sexy' }, { time: '5:08' }, { playRef: 'https://www.youtube.com/watch?v=Q1OzUTbtTWw' }],
-          [{ title: 'Fatty Boom Boom' }, { time: '3:45' }, { playRef: 'https://www.youtube.com/watch?v=M0e_0P9OZuM' }],
-          [{ title: 'Zefside Zol (Interlude)' }, { time: '0:56' }, { playRef: 'https://www.youtube.com/watch?v=pXPcY8oR74E' }],
-          [{ title: 'So What? (Interlude)' }, { time: '3:51' }, { playRef: 'https://www.youtube.com/watch?v=O8Nfv9VSlIc' }],
-          [{ title: 'Uncle Jimmy (Skit)' }, { time: '1:21' }, { playRef: 'https://www.youtube.com/watch?v=aBJTZuOLta4' }],
-          [{ title: 'Baby\'s On Fire' }, { time: '3:56' }, { playRef: 'https://www.youtube.com/watch?v=zJquKj2Hiws' }],
-          [{ title: 'U Make A Ninja Wanna Fuck' }, { time: '3:16' }, { playRef: 'https://www.youtube.com/watch?v=xFJ8VoaQkXc' }],
-          [{ title: 'Fok Julie Naaiers' }, { time: '3:54' }, { playRef: 'https://www.youtube.com/watch?v=w2uNNphEYis' }],
-          [{ title: 'DJ Hi-Tek Rulez' }, { time: '1:37' }, { playRef: 'https://www.youtube.com/watch?v=Mez_XxpX9MU' }],
-          [{ title: 'Never Le Nkemise' }, { time: '3:21' }, { playRef: 'https://www.youtube.com/watch?v=GmwhBSh2rOs' }],
-        ],
-        albumTitle: 'Tension',
-        albumGenre: 'Hip-Hop/Rap',
-        trackCount: '13',
-        releaseDate: '2012/01/29',
-      };
-    }
+    components: {
+      'Track': track,
+      'album-cover': AlbumCover,
+    },
+    data: () => ({
+      resultsCount: 0,
+      albumTracks: []
+    }),
+    created() {
+      this.create();
+    },
+    methods: {
+      async getAlbum(albumId) {
+        // const {resultCount, results} = this.album;
+        this.albumTracks = await api.getAlbumTracks(albumId, true);
+      },
+      async create() {
+        const albumInfo = await api.getAlbumTracks(this.collectionId, true); // 1125488753
+        this.albumTracks = albumInfo.results;
+        this.resultsCount = albumInfo.resultCount;
+      },
+      addSongToPlayList() {
+        throw new Error('NotImplementedException');
+        // TODO: add song to playlist here
+      },
+      async addAlbumToPlayList() {
+        const albumInfo = await api.getAlbumTracks(this.collectionId, true); // 1125488753
+        this.albumTracks = albumInfo.results;
+        // TODO : ajouter toutes les chanson à la playlist ici
+      }
+    },
   };
 </script>
