@@ -71,14 +71,18 @@
         }
       },
       populatePlaylists(playlist) {
-        if (playlist.owner.email === 'test@test.com') {
-          fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlist.id}`, { method: 'get' })
-            .then(response => response.json())
-            .then(response => this.playlists.push({
-              id: response.id,
-              name: response.name,
-              tracks: playlist.tracks
-            }));
+        try {
+          if (playlist.owner.name === 'unclebob') {
+            fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlist.id}`, { method: 'get' })
+              .then(response => response.json())
+              .then(response => this.playlists.push({
+                id: response.id,
+                name: response.name,
+                tracks: playlist.tracks
+              }));
+          }
+        } catch (error) {
+          console.error(error);
         }
       },
       toggleCreateNewPlaylist() {
@@ -97,7 +101,7 @@
             body: JSON.stringify(
               {
                 name: document.getElementById('new-playlist-input').value.toString(),
-                owner: 'test@test.com'
+                owner: 'unclebob@ubeat.com'
               })
           })
           .then(response => response.json())

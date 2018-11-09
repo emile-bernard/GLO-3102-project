@@ -83,7 +83,7 @@
             body: JSON.stringify(
               {
                 name: this.nameData,
-                owner: 'test@test.com'
+                owner: 'unclebob@ubeat.com'
               })
           })
           .then(response => response.json())
