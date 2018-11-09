@@ -4,7 +4,7 @@
       <img id="album-cover-image" :src=imgSrc alt="artist-img"/>
       <div id="album-cover-play-logo-container">
         <a id="album-cover-play-link" :href=playRef rel="nofollow">
-          <i id="album-cover-play-icon" class="far fa-play-circle fa-6x"></i>
+          <!--<i id="album-cover-play-icon" class="far fa-play-circle fa-6x"></i>-->
         </a>
       </div>
     </a>
