@@ -35,7 +35,6 @@
                        v-bind:key=playlist.id
                        v-bind:id="playlist.id"
                        v-bind:name="playlist.name"
-                       v-bind:displayDeleteCheckbox="displayPlaylistSelection"
                        v-on:playlist-deleted="playlists.splice(index,1)">
     </playlist-overview>
   </section>
@@ -54,6 +53,9 @@
   import PlaylistOverview from './PlaylistOverview';
 
   export default {
+    // props: {
+    //   displayPlaylistSelection: 'none',
+    // },
     data() {
       return {
         playlists: [],
@@ -82,7 +84,7 @@
               }));
           }
         } catch (error) {
-          console.error(error);
+          // Todo
         }
       },
       toggleCreateNewPlaylist() {

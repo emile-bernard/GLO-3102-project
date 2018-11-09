@@ -10,20 +10,16 @@
             Save
           </a>
         </div>
-        <!--<div class="control">-->
-          <!--<a class="button is-delete" @click="deletePlaylist" v-bind:style="{ display: displayDeleteButton}">-->
-            <!--Delete-->
-          <!--</a>-->
-        <!--</div>-->
         <div class="control goToPlaylistControl">
-          <router-link id="go-to-playlist-button" class="button is-warning is-rounded is-outlined" :to="{ name: 'Playlist', params: { id } }">
+          <router-link id="go-to-playlist-button" class="button is-warning is-rounded is-outlined"
+                       :to="{ name: 'Playlist', params: { id } }">
           <span class="icon is-small">
             <i class="fa fa-4x fa-play-circle"></i>
           </span>
           </router-link>
         </div>
         <div class="control">
-          <div class="field" v-bind:style="{ display: displayDeleteCheckbox}">
+          <div class="field" v-bind:style="{ display: displayPlaylistSelectionData }">
             <input class="is-checkradio is-large" type="checkbox">
           </div>
         </div>
@@ -36,7 +32,8 @@
   .goToPlaylistControl {
     margin-left: 2rem;
   }
-  .is-checkradio{
+
+  .is-checkradio {
     margin-left: 2rem;
     min-width: 30px;
     min-height: 30px;
@@ -51,13 +48,13 @@
         type: String
       },
       tracks: [],
-      // displayDeleteCheckbox: 'none',
+      displayPlaylistSelection: 'none',
     },
     data() {
       return {
         nameData: this.name,
+        displayPlaylistSelectionData: this.displayPlaylistSelection,
         displaySaveButton: 'none',
-        displayDeleteCheckbox: 'none',
       };
     },
     methods: {
@@ -84,5 +81,6 @@
           });
       },
     },
-  };
+  }
+  ;
 </script>
