@@ -3,8 +3,6 @@
     <article class="tile is-child notification is-primary">
       <div id="playlistInput" class="field has-addons">
         <div class="control">
-          <!--<input id="name-input" class="input is-fullwidth" type="text" v-model="nameData" @focus="toggleSaveButton"-->
-                 <!--@blur="toggleSaveButton">-->
           <input id="name-input" class="input is-fullwidth" type="text" v-model="nameData" @focus="toggleSaveButton">
         </div>
         <div class="control">
@@ -18,7 +16,7 @@
           <!--</a>-->
         <!--</div>-->
         <div class="control goToPlaylistControl">
-          <router-link id="go-to-playlist-button" class="button is-warning is-rounded is-outlined" @click="goToPlaylist" :to="{ name: 'Playlist', params: { id } }">
+          <router-link id="go-to-playlist-button" class="button is-warning is-rounded is-outlined" :to="{ name: 'Playlist', params: { id } }">
           <span class="icon is-small">
             <i class="fa fa-4x fa-play-circle"></i>
           </span>
@@ -28,9 +26,6 @@
           <div class="field" v-bind:style="{ display: displayDeleteCheckbox}">
             <input class="is-checkradio is-large" type="checkbox">
           </div>
-          <!--<a class="button is-delete" @click="deletePlaylist" v-bind:style="{ display: displayDeleteButton}">-->
-          <!--Delete-->
-          <!--</a>-->
         </div>
       </div>
     </article>
@@ -62,18 +57,14 @@
       return {
         nameData: this.name,
         displaySaveButton: 'none',
-        displayDeleteButton: 'block',
         displayDeleteCheckbox: 'none',
       };
     },
     methods: {
       toggleSaveButton() {
         this.displaySaveButton = this.displaySaveButton === 'block' ? 'none' : 'block';
-        this.displayDeleteButton = this.displayDeleteButton === 'block' ? 'none' : 'block';
       },
       saveName() {
-        // this.nameData = document.getElementById('name-input').value;
-
         fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,
           {
             method: 'put',
@@ -91,17 +82,6 @@
             this.name = this.nameData;
             this.toggleSaveButton();
           });
-      },
-      deletePlaylist() {
-        // fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,
-        //   {
-        //     method: 'delete',
-        //   })
-        //   .then(response => response.json());
-        // this.$emit('playlist-deleted');
-      },
-      goToPlaylist() {
-        // Todo
       },
     },
   };
