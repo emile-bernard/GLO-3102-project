@@ -10,25 +10,25 @@
       <p>Genre: {{primaryGenreName}}</p>
       <p>Release: {{releaseDate}}</p>
       <p>Track count: {{trackCount}}</p>
-      <i id="add-album-to-playlist-icon" v-on:click="addAlbumToPlayList" class="far fa-plus-circle fa-1x"></i>
+      <p id="add-album-to-playlist-icon" v-on:click="addAlbumToPlayList" class="far fa-plus fa-1x"></p>
       <br>
       <ul id="album-info-songs">
         <Track
-          v-for="(song, index) in albumTracks"
-          v-bind:key="index"
-          v-bind:wrapperType="song.wrapperType"
-          v-bind:kind="song.kind"
-          v-bind:trackId="song.trackId"
-          v-bind:trackName="song.trackName"
-          v-bind:previewUrl="song.previewUrl"
-          v-bind:trackPrice="song.trackPrice"
-          v-bind:trackExplicitness="song.trackExplicitness"
-          v-bind:diskCount="song.diskCount"
-          v-bind:diskNumber="song.diskNumber"
-          v-bind:trackNumber="song.trackNumber"
-          v-bind:trackTimeMillis="song.trackTimeMillis"
-          v-bind:isStreamable="song.isStreamable"
-          v-bind:addSongToPlaylist="addSongToPlayList"
+          v-for="song in albumTracks"
+          v-bind:key="song.trackId"
+          v-bind:wrapperType.sync="song.wrapperType"
+          v-bind:kind.sync="song.kind"
+          v-bind:trackId.sync="song.trackId"
+          v-bind:trackName.sync="song.trackName"
+          v-bind:previewUrl.sync="song.previewUrl"
+          v-bind:trackPrice.sync="song.trackPrice"
+          v-bind:trackExplicitness.sync="song.trackExplicitness"
+          v-bind:diskCount.sync="song.discCount"
+          v-bind:diskNumber.sync="song.discNumber"
+          v-bind:trackNumber.sync="song.trackNumber"
+          v-bind:trackTimeMillis.sync="song.trackTimeMillis"
+          v-bind:isStreamable.sync="song.isStreamable"
+          v-bind:addSongToPlaylist.sync="addSongToPlayList"
         ></Track>
       </ul>
     </div>
@@ -93,12 +93,15 @@
       resultsCount: 0,
       albumTracks: []
     }),
+    created() {
+      this.create();
+    },
     methods: {
       async getAlbum(albumId) {
         // const {resultCount, results} = this.album;
         this.albumTracks = await api.getAlbumTracks(albumId, true);
       },
-      async created() {
+      async create() {
         const albumInfo = await api.getAlbumTracks(this.collectionId, true); // 1125488753
         this.albumTracks = albumInfo.results;
         this.resultsCount = albumInfo.resultCount;

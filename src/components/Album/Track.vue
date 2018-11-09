@@ -1,7 +1,10 @@
+<head>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
 <template>
   <li class="track">
     <a id="album-song-link" :href=previewUrl rel="nofollow">
-      <i id="album-song-play-icon" class="far fa-play-circle fa-1x"></i>
+      <p id="album-song-play-icon" class="far fa-play-circle fa-1x"></p>
       &nbsp;
       {{trackNumber}}.
       &nbsp;
@@ -10,7 +13,7 @@
       -
       &nbsp;
       {{TrackTimeInMinutes}}
-      <i id="add-song-to-playlist-icon" v-on:click="addSongToPlaylist" class="far fa-plus-circle fa-1x"></i>
+      <p id="add-song-to-playlist-icon"  onclick="addSongToPlaylist()" class="far f055 fa-plus fa-1x"></p>
     </a>
   </li>
 </template>
@@ -67,18 +70,26 @@
     },
     methods: {
       round(value, decimals) {
-        const numberRoundedToTwoDecimal = Number(`${Math.round(`${value}e${decimals}`)}e-${decimals}`);
-        return numberRoundedToTwoDecimal;
-      }
+        return Number(`${Math.round(`${value}e${decimals}`)}e-${decimals}`);
+      },
     },
     computed: {
+      /**
+       * @return {string}
+       */
       TrackTimeInMinutes() {
         let trackTime = this.trackTimeMillis;
-        trackTime = Math.round(trackTime / 1000 / 60);
-        return this.round(trackTime, 2);
+        trackTime = this.round(((trackTime / 1000) / 60), 2);
+        const trackTimeString = trackTime.toString();
+        let decPart = (`${trackTimeString}`).split('.')[1];
+        const minutes = (`${trackTimeString}`).split('.')[0];
+        decPart = `0.${decPart}`;
+        const decPartNumber = Number(decPart);
+        let decimalFinal = (decPartNumber * 60) / 100;
+        decimalFinal = this.round(decimalFinal, 2);
+        decimalFinal = (`${decimalFinal}`).split('.')[1];
+        return `${minutes.toString()}:${decimalFinal.toString()}`;
       }
     }
-
-
   };
 </script>

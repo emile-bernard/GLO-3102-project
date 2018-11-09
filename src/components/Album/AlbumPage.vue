@@ -9,29 +9,29 @@
     </p>
     <br/>
     <div class="container">
-      <h1 class="title is-size-2" v-on:click="getAlbum">Blink 182</h1>
+      <h1 class="title is-size-2">Blink 182</h1>
       <section id="album-hero-parralax-bg" class="hero hero-parralax-bg">
         <div class="hero-body">
           <album-information
-            v-for="(album, index) in albums"
-            v-bind:key="index"
-            v-bind:wrapperType="album.wrapperType"
-            v-bind:collectionType="album.collectionType"
-            v-bind:artistId="album.artistId"
-            v-bind:collectionId="album.collectionId"
-            v-bind:artistName="album.artistName"
-            v-bind:collectionName="album.collectionName"
-            v-bind:artistViewUrl="album.artistViewUrl"
-            v-bind:collectionViewUrl="album.collectionViewUrl"
-            v-bind:artWorkUrl100="album.artWorkUrl100"
-            v-bind:collectionPrice="album.collectionPrice"
-            v-bind:collectionExplicitness="album.collectionExplicitness"
-            v-bind:trackCount="album.trackCount"
-            v-bind:copyright="album.copyright"
-            v-bind:country="album.country"
-            v-bind:currency="album.currency"
-            v-bind:releaseDate="album.releaseDate"
-            v-bind:primaryGenreName="album.primaryGenreName"
+            v-for="album in albums"
+            v-bind:key="album.collectionId"
+            v-bind:wrapperType.sync="album.wrapperType"
+            v-bind:collectionType.sync="album.collectionType"
+            v-bind:artistId.sync="album.artistId"
+            v-bind:collectionId.sync="album.collectionId"
+            v-bind:artistName.sync="album.artistName"
+            v-bind:collectionName.sync="album.collectionName"
+            v-bind:artistViewUrl.sync="album.artistViewUrl"
+            v-bind:collectionViewUrl.sync="album.collectionViewUrl"
+            v-bind:artWorkUrl100.sync="album.artworkUrl100"
+            v-bind:collectionPrice.sync="album.collectionPrice"
+            v-bind:collectionExplicitness.sync="album.collectionExplicitness"
+            v-bind:trackCount.sync="album.trackCount"
+            v-bind:copyright.sync="album.copyright"
+            v-bind:country.sync="album.country"
+            v-bind:currency.sync="album.currency"
+            v-bind:releaseDate.sync="album.releaseDate"
+            v-bind:primaryGenreName.sync="album.primaryGenreName"
           ></album-information>
         </div>
       </section>
@@ -90,14 +90,11 @@
       albumCount: 0,
       albums: []
     }),
+    created() {
+      this.create();
+    },
     methods: {
-      async getAlbum() {
-        // const {resultCount, results} = this.album;
-        const album = await api.getAlbum(1125488753, true);
-        this.albums = album.results;
-        this.albumCount = album.resultCount;
-      },
-      async created() {
+      async create() {
         const albumInfo = await api.getAlbum(1125488753, true);
         this.albums = albumInfo.results;
         this.albumCount = albumInfo.resultCount;
