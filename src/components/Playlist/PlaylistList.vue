@@ -35,7 +35,6 @@
                        v-bind:key=playlist.id
                        v-bind:id="playlist.id"
                        v-bind:name="playlist.name"
-                       v-on:playlist-selection="togglePlaylistSelection"
                        v-on:playlist-deleted="playlists.splice(index,1)">
     </playlist-overview>
   </section>
@@ -54,10 +53,14 @@
   import PlaylistOverview from './PlaylistOverview';
 
   export default {
+    // props: {
+    //   displayPlaylistSelection: 'none',
+    // },
     data() {
       return {
         playlists: [],
         displayNewPlaylistBlock: 'none',
+        displayPlaylistSelection: 'none',
       };
     },
     components: {
@@ -81,14 +84,14 @@
               }));
           }
         } catch (error) {
-          console.error(error);
+          // Todo
         }
       },
       toggleCreateNewPlaylist() {
         this.displayNewPlaylistBlock = this.displayNewPlaylistBlock === 'block' ? 'none' : 'block';
       },
       togglePlaylistSelection() {
-        this.$emit('playlist-selection');
+        this.displayPlaylistSelection = this.displayPlaylistSelection === 'block' ? 'none' : 'block';
       },
       createNewPlaylist() {
         fetch('https://ubeat.herokuapp.com/unsecure/playlists',

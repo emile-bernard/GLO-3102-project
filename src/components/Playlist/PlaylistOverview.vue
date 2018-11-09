@@ -10,11 +10,6 @@
             Save
           </a>
         </div>
-        <!--<div class="control">-->
-        <!--<a class="button is-delete" @click="deletePlaylist" v-bind:style="{ display: displayDeleteButton}">-->
-        <!--Delete-->
-        <!--</a>-->
-        <!--</div>-->
         <div class="control goToPlaylistControl">
           <router-link id="go-to-playlist-button" class="button is-warning is-rounded is-outlined"
                        :to="{ name: 'Playlist', params: { id } }">
@@ -24,7 +19,7 @@
           </router-link>
         </div>
         <div class="control">
-          <div class="field" v-bind:style="{ display: displayPlaylistSelection}">
+          <div class="field" v-bind:style="{ display: displayPlaylistSelectionData }">
             <input class="is-checkradio is-large" type="checkbox">
           </div>
         </div>
@@ -53,20 +48,18 @@
         type: String
       },
       tracks: [],
+      displayPlaylistSelection: 'none',
     },
     data() {
       return {
         nameData: this.name,
+        displayPlaylistSelectionData: this.displayPlaylistSelection,
         displaySaveButton: 'none',
-        displayPlaylistSelection: 'none',
       };
     },
     methods: {
       toggleSaveButton() {
         this.displaySaveButton = this.displaySaveButton === 'block' ? 'none' : 'block';
-      },
-      togglePlaylistSelection() {
-        this.displayPlaylistSelection = this.displayPlaylistSelection === 'block' ? 'none' : 'block';
       },
       saveName() {
         fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,

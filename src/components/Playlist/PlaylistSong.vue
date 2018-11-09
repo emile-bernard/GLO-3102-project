@@ -4,10 +4,10 @@
       <i class="fas fa-music" aria-hidden="true"></i>
     </span>
     {{trackNumber}}. {{trackName}} ({{Math.floor(trackTimeMillis/60000)}}:{{((trackTimeMillis%60000)/1000).toFixed(0)}}) &nbsp;
-    <a class="button is-rounded is-primary" :href=playRef rel="nofollow" v-on:click="playSong">
+    <a class="button is-rounded is-primary" @click="playSong">
       <i class="fas fa-play-circle action" aria-hidden="true"></i>
     </a>
-    <a class="button is-rounded is-danger" v-on:click="removeSong">
+    <a class="button is-rounded is-danger" @click="removeSong">
       <i class="fas fa-trash action" aria-hidden="true" ></i>
     </a>
   </a>
