@@ -14,16 +14,20 @@
       <br>
       <nav class="panel">
         <p class="panel-heading">
-          <span>Playlist Name</span>
+          <i class="fas fa-headphones fa-2x"></i>
+          <span>{{ name }}</span>
         </p>
       <playlist-song
-        v-for="(song, index) in testTracks"
+        v-for="(track, index) in tracks"
         v-bind:key="index"
-        v-bind:id="index"
-        v-bind:title="song[0].title"
-        v-bind:time="song[1].time"
-        v-bind:playRef="song[2].playRef"
-        v-on:song-deleted="testTracks.splice(index,1)"
+        v-bind:trackIndex="index"
+        v-bind:playlist-id="id"
+        v-bind:trackId="track._id"
+        v-bind:trackNumber="track.trackNumber"
+        v-bind:trackName="track.trackName"
+        v-bind:artistName="track.artistName"
+        v-bind:trackTimeMillis="track.trackTimeMillis"
+        v-on:track-deleted="tracks.splice(index,1)"
       ></playlist-song>
       </nav>
     </div>
@@ -55,19 +59,9 @@
       name: {
         type: String
       },
-      tracks: [],
     },
     data() {
       return {
-        testTracks: [[{ title: 'Never Le Nkemise' }, { time: '2:52' }, { playRef: 'https://www.youtube.com/watch?v=GmwhBSh2rOs' }],
-          [{ title: 'I Fink U Freeky' }, { time: '4:40' }, { playRef: 'https://www.youtube.com/watch?v=o8S2BrpUkRE' }],
-          [{ title: 'Pielie (Skit)' }, { time: '0:09' }, { playRef: 'https://www.youtube.com/watch?v=GmwhBSh2rOs' }],
-        ],
-        albumTitle: 'Tension',
-        albumGenre: 'Hip-Hop/Rap',
-        trackCount: '13',
-        releaseDate: '2012/01/29',
-        id: undefined,
         tracks: [],
         displayNewPlaylistBlock: 'none',
       };
@@ -77,7 +71,6 @@
         this.displayNewPlaylistBlock = this.displayNewPlaylistBlock === 'block' ? 'none' : 'block';
       },
       createNewPlaylist() {
-        // Call api
         this.toggleCreateNewPlaylist();
       },
     },
