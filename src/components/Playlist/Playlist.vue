@@ -26,6 +26,7 @@
           v-bind:trackId="track.trackId"
           v-bind:trackNumber="track.trackNumber"
           v-bind:trackName="track.trackName"
+          v-bind:previewUrl="track.previewUrl"
           v-bind:artistName="track.artistName"
           v-bind:trackTimeMillis="track.trackTimeMillis"
           v-on:track-deleted="tracks.splice(index,1)"

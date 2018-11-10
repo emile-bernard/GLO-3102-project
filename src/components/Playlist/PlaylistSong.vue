@@ -5,7 +5,7 @@
     </span>
     {{trackNumber}}. {{trackName}} ({{Math.floor(trackTimeMillis/60000)}}:{{((trackTimeMillis%60000)/1000).toFixed(0)}})
     &nbsp;
-    <a class="button is-rounded is-primary" @click="playSong">
+    <a class="button is-rounded is-primary" @click="playSong" :href=previewUrl rel="nofollow">
       <i class="fas fa-play-circle action" aria-hidden="true"></i>
     </a>
     <a class="button is-rounded is-danger" @click="removeSong">
@@ -44,6 +44,9 @@
       trackId: undefined,
       trackNumber: undefined,
       trackName: {
+        type: String
+      },
+      previewUrl: {
         type: String
       },
       playlistId: {
