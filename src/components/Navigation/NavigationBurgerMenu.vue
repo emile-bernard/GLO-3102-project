@@ -5,10 +5,10 @@
         <router-link to="/">Home</router-link>
       </div>
       <div @click="closeBurger">
-        <router-link to="/artist">Artist</router-link>
+        <router-link to="/artists">Artists</router-link>
       </div>
       <div @click="closeBurger">
-        <router-link to="/album">Album</router-link>
+        <router-link to="/albums">Albums</router-link>
       </div>
       <div @click="closeBurger">
         <router-link to="/playlists">Playlists</router-link>

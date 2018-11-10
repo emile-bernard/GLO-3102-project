@@ -4,13 +4,13 @@
       <li id="navigation-tab-home" class="is-active">
         <router-link to="/">Home</router-link>
       </li>
-      <li id="navigation-tab-artist">
-        <router-link to="/artist">Artist</router-link>
+      <li id="navigation-tab-artists">
+        <router-link to="/artists">Artists</router-link>
       </li>
-      <li id="navigation-tab-album">
-        <router-link to="/album">Album</router-link>
+      <li id="navigation-tab-albums">
+        <router-link to="/album">Albums</router-link>
       </li>
-      <li id="navigation-tab-playlist">
+      <li id="navigation-tab-playlists">
         <router-link to="/playlists">Playlists</router-link>
       </li>
       <li id="navigation-tab-account">

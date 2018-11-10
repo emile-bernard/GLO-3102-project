@@ -21,12 +21,12 @@ const router = new Router({
       component: Home,
       meta: { tab: 'home' }
     }, {
-      path: '/artist',
+      path: '/artists',
       name: 'Artist',
       component: Artist,
       meta: { tab: 'artist' }
     }, {
-      path: '/album',
+      path: '/albums',
       name: 'Album',
       component: Album,
       meta: { tab: 'album' }

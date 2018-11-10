@@ -11,22 +11,22 @@
             <p>Home</p>
           </div>
         </router-link>
-        <router-link to="/artist">
+        <router-link to="/artists">
           <div class="navbar-item">
             <i class="fas fa-user-astronaut fa-2x"></i>
-            <p>Artist</p>
+            <p>Artists</p>
           </div>
         </router-link>
-        <router-link to="/album">
+        <router-link to="/albums">
           <div class="navbar-item">
             <i class="fas fa-compact-disc fa-2x"></i>
-            <p>Album</p>
+            <p>Albums</p>
           </div>
         </router-link>
         <router-link to="/playlists">
           <div class="navbar-item">
             <i class="fas fa-headphones fa-2x"></i>
-            <p>Playlist</p>
+            <p>Playlists</p>
           </div>
         </router-link>
         <navigation-bar-account-menu></navigation-bar-account-menu>

@@ -84,6 +84,6 @@
           this.tracks = response.tracks;
           this.name = response.name;
         });
-    }
+    },
   };
 </script>

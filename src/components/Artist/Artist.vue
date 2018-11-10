@@ -112,9 +112,6 @@
       'artist-most-recent-album': ArtistMostRecentAlbum,
       'artist-album': ArtistAlbum
     },
-    // props: {
-    //   id: undefined
-    // },
     data() {
       return {
         id: 301490824,
@@ -156,13 +153,16 @@
       };
     },
     created() {
-      if (typeof (this.$route.query.id) !== 'undefined') {
-        this.id = this.$route.query.id;
-      }
-      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.id}`, { method: 'get' })
+      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}`,
+        {
+          method: 'get'
+        })
         .then(res => res.json())
         .then(res => this.initArtist(res));
-      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.id}/albums`, { method: 'get' })
+      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}/albums`,
+        {
+          method: 'get'
+        })
         .then(res => res.json())
         .then(res => this.initArtistAlbums(res));
     },
