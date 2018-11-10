@@ -17,18 +17,18 @@
           <i class="fas fa-headphones fa-2x"></i>
           <span>{{ name }}</span>
         </p>
-      <playlist-song
-        v-for="(track, index) in tracks"
-        v-bind:key="index"
-        v-bind:trackIndex="index"
-        v-bind:playlist-id="id"
-        v-bind:trackId="track._id"
-        v-bind:trackNumber="track.trackNumber"
-        v-bind:trackName="track.trackName"
-        v-bind:artistName="track.artistName"
-        v-bind:trackTimeMillis="track.trackTimeMillis"
-        v-on:track-deleted="tracks.splice(index,1)"
-      ></playlist-song>
+        <playlist-song
+          v-for="(track, index) in tracks"
+          v-bind:key="index"
+          v-bind:trackIndex="index"
+          v-bind:playlist-id="id"
+          v-bind:trackId="track._id"
+          v-bind:trackNumber="track.trackNumber"
+          v-bind:trackName="track.trackName"
+          v-bind:artistName="track.artistName"
+          v-bind:trackTimeMillis="track.trackTimeMillis"
+          v-on:track-deleted="tracks.splice(index,1)"
+        ></playlist-song>
       </nav>
     </div>
   </section>
@@ -36,10 +36,11 @@
 
 <style>
   .panel {
-   background: white;
-   line-height: 3.5;
-   font-size: 1.1em;
+    background: white;
+    line-height: 3.5;
+    font-size: 1.1em;
   }
+
   .panel {
     background: white;
     line-height: 3.5;
@@ -56,22 +57,22 @@
     },
     props: {
       id: undefined,
-      name: {
-        type: String
-      },
     },
     data() {
       return {
         tracks: [],
+        name: {
+          type: String
+        },
       };
     },
-    methods: {
-    },
+    methods: {},
     created() {
       fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`, { method: 'get' })
         .then(response => response.json())
         .then((response) => {
           this.tracks = response.tracks;
+          this.name = response.name;
         });
     }
   };

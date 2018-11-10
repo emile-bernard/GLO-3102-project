@@ -27,6 +27,12 @@
   .fas.action {
     color: white;
   }
+
+  @media only screen and (max-width: 1200px), (max-device-width: 1200px) {
+    .fas {
+      display: initial;
+    }
+  }
 </style>
 
 <script>
