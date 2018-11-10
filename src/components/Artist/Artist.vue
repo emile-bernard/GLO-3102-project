@@ -3,9 +3,9 @@
     <p>
       <router-link to="/"><span>UBeat</span></router-link>
       <span> > </span>
-      <router-link to="/artist"><span>Artist</span></router-link>
+      <router-link to="/artists"><span>Artists</span></router-link>
       <span> > </span>
-      <router-link :to="`/artist?id=${id}`"><span>{{artist.artistName}}</span></router-link>
+      <router-link to="/artists"><span>{{artist.artistName}}</span></router-link>
     </p>
     <br/>
     <div class="container">

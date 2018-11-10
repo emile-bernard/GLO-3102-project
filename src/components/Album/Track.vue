@@ -1,50 +1,38 @@
-<head>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-</head>
 <template>
-  <li class="track">
-    <a id="album-song-link" :href=previewUrl rel="nofollow">
-      <p id="album-song-play-icon" class="far fa-play-circle fa-1x"></p>
-      &nbsp;
-      {{trackNumber}}.
-      &nbsp;
-      {{trackName}}
-      &nbsp;
-      -
-      &nbsp;
-      {{TrackTimeInMinutes}}
-      <p id="add-song-to-playlist-icon"  onclick="addSongToPlaylist()" class="far f055 fa-plus fa-1x"></p>
-    </a>
-  </li>
+  <div class="track">
+    <span id="track-description">{{trackNumber}}. &nbsp; ({{TrackTimeInMinutes}}) &nbsp;-&nbsp; {{trackName}}</span>
+    <audio controls :src="previewUrl"></audio>
+    <!--<p id="add-song-to-playlist-icon"-->
+    <!--@click="addSongToPlaylist"-->
+    <!--class="far f055 fa-plus fa-1x"></p>-->
+  </div>
 </template>
 
 <style>
+  #track-description {
+    width: 300px;
+    display: inline-flex;
+    align-content: flex-start;
+  }
+
   .track {
-    color: #dee5ed;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: auto;
   }
 
-  #album-song-link {
-    color: #dee5ed;
-  }
-
-  #album-song-link:hover {
-    cursor: pointer;
-    color: #94CFC9;
-    background-color: rgba(0, 0, 0, 0.8);
+  audio {
+    min-height: 60px;
+    display: inline-flex;
+    margin-left: 20px;
   }
 
   #album-song-link:hover > #album-song-play-icon {
     cursor: pointer;
     color: #94CFC9;
     background-color: rgba(0, 0, 0, 0.8);
-  }
-
-  #album-song-play-icon {
-    color: #dee5ed;
-  }
-
-  #add-song-to-playlist-icon {
-    color: #dee5ed;
   }
 </style>
 
@@ -88,7 +76,7 @@
         let decimalFinal = (decPartNumber * 60) / 100;
         decimalFinal = this.round(decimalFinal, 2);
         decimalFinal = (`${decimalFinal}`).split('.')[1];
-        return `${minutes.toString()}:${decimalFinal.toString()}`;
+        return `${minutes.toString()}:${(`00${decimalFinal.toString()}`).substr(-2, 2)}`;
       }
     }
   };
