@@ -9,20 +9,33 @@
     </p>
     <br/>
 
-    <button class="button is-success" @click="toggleCreateNewPlaylist">
+    <button class="button is-success"
+            v-bind:style="{ display: displayCreatePlaylistButton}"
+            @click="toggleCreateNewPlaylist">
       Create new playlist&nbsp;
       <i class="fas fa-plus action"></i>
     </button>
 
-    <button class="button is-danger" @click="togglePlaylistSelection">
-      Delete selected playlist(s)&nbsp;
+    <button class="button is-danger" @click="deleteSelectedPlaylist">
+      Delete{{selected}}playlist(s)&nbsp
       <i class="fas fa-trash action"></i>
+    </button>
+
+    <button class="button is-warning"
+            v-bind:style="{ display: displayCancelSelectionButton}"
+            @click="cancelSelection">
+      Cancel Selection&nbsp;
+      <i class="fas fa-plus action"></i>
     </button>
 
     <div id="new-playlist-block" class="panel-block" v-bind:style="{ display: displayNewPlaylistBlock}">
       <div class="field has-addons">
         <div class="control">
-          <input id="new-playlist-input" class="input is-primary" type="text" placeholder="Playlist name..." value="Uncle Bob Playlist"/>
+          <input id="new-playlist-input"
+                 class="input is-primary"
+                 type="text"
+                 placeholder="Playlist name..."
+                 value="Uncle Bob Playlist"/>
         </div>
         <div class="control">
           <button class="button is-primary" @click="createNewPlaylist">Create</button>
@@ -32,10 +45,14 @@
 
     <br/>
     <playlist-overview v-for="playlist in playlists"
-                       v-bind:key=playlist.id
+                       v-bind:key="playlist.id"
                        v-bind:id="playlist.id"
                        v-bind:name="playlist.name"
-                       v-on:playlist-deleted="playlists.splice(index,1)">
+                       v-on:playlist-deleted="playlists.splice(index, 1)"
+                       v-bind:displayPlaylistSelection="displayPlaylistSelection"
+                       @playlist-selected="selectedPlaylists.push(playlist.id)"
+                       @playlist-unselected="selectedPlaylists.splice(selectedPlaylists.indexOf(playlist.id))"
+                       v-bind:cancelSelection="cancelSelectionData">
     </playlist-overview>
   </section>
 </template>
@@ -44,6 +61,7 @@
   #new-playlist-block {
     background-color: white;
   }
+
   .fas.action {
     color: white;
   }
@@ -53,14 +71,16 @@
   import PlaylistOverview from './PlaylistOverview';
 
   export default {
-    // props: {
-    //   displayPlaylistSelection: 'none',
-    // },
     data() {
       return {
         playlists: [],
+        displayCancelSelectionButton: 'none',
+        displayCreatePlaylistButton: 'inline',
         displayNewPlaylistBlock: 'none',
         displayPlaylistSelection: 'none',
+        selected: ' ',
+        selectedPlaylists: [],
+        cancelSelectionData: false,
       };
     },
     components: {
@@ -91,7 +111,14 @@
         this.displayNewPlaylistBlock = this.displayNewPlaylistBlock === 'block' ? 'none' : 'block';
       },
       togglePlaylistSelection() {
+        this.selected = this.selected === ' selected ' ? ' ' : ' selected ';
         this.displayPlaylistSelection = this.displayPlaylistSelection === 'block' ? 'none' : 'block';
+        this.displayCreatePlaylistButton = this.displayCreatePlaylistButton === 'inline' ? 'none' : 'inline';
+        this.displayCancelSelectionButton = this.displayCancelSelectionButton === 'inline' ? 'none' : 'inline';
+      },
+      cancelSelection() {
+        this.togglePlaylistSelection();
+        this.cancelSelectionData = !this.cancelSelectionData;
       },
       createNewPlaylist() {
         fetch('https://ubeat.herokuapp.com/unsecure/playlists',
@@ -102,20 +129,29 @@
             },
             body: JSON.stringify(
               {
-                name: document.getElementById('new-playlist-input').value.toString(),
+                name: document.getElementById('new-playlist-input')
+                  .value
+                  .toString(),
                 owner: 'unclebob@ubeat.com'
               })
           })
           .then(response => response.json())
-          .then(this.toggleCreateNewPlaylist());
+          .then(this.toggleCreateNewPlaylist())
+          .then(response => this.playlists.push({
+            id: response.id,
+            name: response.name,
+            tracks: []
+          }));
       },
-      deleteAllSelectedPlaylist() {
+      deleteSelectedPlaylist() {
+        this.togglePlaylistSelection();
         // fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,
         //   {
         //     method: 'delete',
         //   })
         //   .then(response => response.json());
         // this.$emit('playlist-deleted');
+        this.selectedPlaylists = [];
       }
     },
     created() {
@@ -124,6 +160,6 @@
         .then((response) => {
           this.filterPlaylists(response);
         });
-    }
+    },
   };
 </script>

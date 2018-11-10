@@ -10,17 +10,17 @@
             Save
           </a>
         </div>
-        <div class="control goToPlaylistControl">
+        <div class="control go-to-playlist-control">
           <router-link id="go-to-playlist-button" class="button is-warning is-rounded is-outlined"
                        :to="{ name: 'Playlist', params: { id } }">
           <span class="icon is-small">
-            <i class="fa fa-4x fa-play-circle"></i>
+            <i class="fa fa-2x fa-play-circle"></i>
           </span>
           </router-link>
         </div>
         <div class="control">
-          <div class="field" v-bind:style="{ display: displayPlaylistSelectionData }">
-            <input class="is-checkradio is-large" type="checkbox">
+          <div class="field" v-bind:style="{ display: displayPlaylistSelection }">
+            <input class="is-checkradio is-medium" type="checkbox" v-model="isSelected">
           </div>
         </div>
       </div>
@@ -29,12 +29,16 @@
 </template>
 
 <style>
-  .goToPlaylistControl {
-    margin-left: 2rem;
+  .go-to-playlist-control {
+    margin-left: 1rem;
+  }
+
+  #go-to-playlist-button {
+    border: none;
   }
 
   .is-checkradio {
-    margin-left: 2rem;
+    margin-left: 1rem;
     min-width: 30px;
     min-height: 30px;
   }
@@ -43,17 +47,26 @@
 <script>
   export default {
     props: {
-      id: undefined,
+      id: {
+        type: String
+      },
       name: {
         type: String
       },
-      tracks: [],
-      displayPlaylistSelection: 'none',
+      tracks: {
+        type: Array
+      },
+      displayPlaylistSelection: {
+        type: String
+      },
+      cancelSelection: {
+        type: Boolean
+      }
     },
     data() {
       return {
         nameData: this.name,
-        displayPlaylistSelectionData: this.displayPlaylistSelection,
+        isSelected: false,
         displaySaveButton: 'none',
       };
     },
@@ -81,6 +94,18 @@
           });
       },
     },
+    watch: {
+      isSelected(newValue) {
+        if (newValue) {
+          this.$emit('playlist-selected', this.id);
+        } else {
+          this.$emit('playlist-unselected', this.id);
+        }
+      },
+      cancelSelection() {
+        this.isSelected = false;
+      }
+    }
   }
   ;
 </script>
