@@ -94,7 +94,10 @@
       populatePlaylists(playlist) {
         try {
           if (playlist.owner.name === 'unclebob') {
-            fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlist.id}`, { method: 'get' })
+            fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlist.id}`,
+              {
+                method: 'get'
+              })
               .then(response => response.json())
               .then(response => this.playlists.push({
                 id: response.id,
@@ -160,14 +163,16 @@
           const playlist = this.playlists[i];
           if (playlist.id === playlistId) {
             this.playlists.splice(i, 1);
-            console.log(`removing ${playlist.id} ${playlistId}`);
             break;
           }
         }
       }
     },
     created() {
-      fetch('https://ubeat.herokuapp.com/unsecure/playlists/', { method: 'get' })
+      fetch('https://ubeat.herokuapp.com/unsecure/playlists/',
+        {
+          method: 'get'
+        })
         .then(response => response.json())
         .then((response) => {
           this.filterPlaylists(response);

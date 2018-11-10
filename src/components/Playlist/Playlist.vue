@@ -24,7 +24,7 @@
           v-for="(track, index) in tracks"
           v-bind:key="index"
           v-bind:trackIndex="index"
-          v-bind:playlistId="id"
+          v-bind:playlistId="$route.params.id"
           v-bind:track_Id="track._id"
           v-bind:trackId="track.trackId"
           v-bind:trackNumber="track.trackNumber"
@@ -52,7 +52,7 @@
     font-size: 1.1em;
   }
 
-  .subtitle{
+  .subtitle {
     color: black;
     margin: 1em;
   }
@@ -65,9 +65,6 @@
     components: {
       'playlist-song': PlaylistSong,
     },
-    props: {
-      id: undefined,
-    },
     data() {
       return {
         tracks: [],
@@ -78,7 +75,10 @@
     },
     methods: {},
     created() {
-      fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`, { method: 'get' })
+      fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.$route.params.id}`,
+        {
+          method: 'get'
+        })
         .then(response => response.json())
         .then((response) => {
           this.tracks = response.tracks;

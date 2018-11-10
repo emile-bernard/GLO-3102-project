@@ -46,148 +46,6 @@
   </section>
 </template>
 
-<script>
-  import ArtistImage from './ArtistImage';
-  import ArtistMostRecentAlbum from './ArtistMostRecentAlbum';
-  import ArtistAlbum from './ArtistAlbum';
-
-  export default {
-    components: {
-      'artist-image': ArtistImage,
-      'artist-most-recent-album': ArtistMostRecentAlbum,
-      'artist-album': ArtistAlbum
-    },
-    // props: {
-    //   id: undefined
-    // },
-    data() {
-      return {
-        id: 301490824,  // TODO: default ID is savant.
-        artist: {
-          // pre-filled example:
-          wrapperType: 'artist',
-          artistType: 'Artist',
-          artistName: 'Savant',
-          artistLinkUrl: 'https://itunes.apple.com/us/artist/savant/301490824?uo=4',
-          artistId: 301490824,
-          amgArtistId: 2900484,
-          primaryGenreName: 'Dance',
-          primaryGenreId: 17
-        },
-        most_recent_album: {},
-        albums: [
-          // /*
-          {
-            wrapperType: 'collection',
-            collectionType: 'Album',
-            artistId: 301490824,
-            collectionId: 578643761,
-            amgArtistId: 2900484,
-            artistName: 'Savant',
-            collectionName: 'Alchemist',
-            collectionCensoredName: 'Alchemist',
-            artistViewUrl: 'https://itunes.apple.com/us/artist/savant/301490824?uo=4',
-            collectionViewUrl: 'https://itunes.apple.com/us/album/alchemist/578643761?uo=4',
-            artworkUrl60: 'https://is2-ssl.mzstatic.com/image/thumb/Music/v4/a2/ed/20/a2ed2016-acf9-1fec-0111-e247248d012b/source/60x60bb.jpg',
-            artworkUrl100: 'https://is2-ssl.mzstatic.com/image/thumb/Music/v4/a2/ed/20/a2ed2016-acf9-1fec-0111-e247248d012b/source/100x100bb.jpg',
-            collectionPrice: 9.99,
-            collectionExplicitness: 'notExplicit',
-            trackCount: 22,
-            copyright: '℗ 2012 SectionZ Records',
-            country: 'USA',
-            currency: 'USD',
-            releaseDate: '2012-12-12T08:00:00Z',
-            primaryGenreName: 'Dance'
-          }
-          //* /
-        ],
-      };
-    },
-
-    created() {  // beforeCreate() {
-      // <span>User {{ $route.params.artistId }}</span>
-      // <span>User: '{{ this.$route.query.id }}'</span>
-
-      // console.log(`ID:${this.$route.query.id}`);
-      // http://ubeat.herokuapp.com/unsecure/artists/301490824
-      // http://ubeat.herokuapp.com/unsecure/artists/301490824/albums
-      if (typeof (this.$route.query.id) !== 'undefined') {
-        this.id = this.$route.query.id;
-      }
-
-      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.id}`, { method: 'get' })
-        .then(res => res.json())
-        .then(res => this.initArtist(res));
-
-      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.id}/albums`, { method: 'get' })
-        .then(res => res.json())
-        .then(res => this.initArtistAlbums(res));
-    },
-    methods: {
-      initArtist(response) {
-        /* Don't delete this comment please.
-        EXAMPLE_RESPONSE = {
-          resultCount: 1,
-          results: [{
-            wrapperType: "artist",
-            artistType: "Artist",
-            artistName: "Savant",
-            artistLinkUrl: "https://itunes.apple.com/us/artist/savant/301490824?uo=4",
-            artistId: 301490824,
-            amgArtistId: 2900484,
-            primaryGenreName: "Dance",
-            primaryGenreId: 17
-          }]
-        }
-        */
-        this.artist = response.results[0];
-      },
-      initArtistAlbums(response) {
-        /* Don't delete this comment please.
-        EXAMPLE_RESPONSE = {
-          resultCount: 35,
-            results: [{
-            wrapperType: "collection",
-            collectionType: "Album",
-            artistId: 301490824,
-            collectionId: 578643761,
-            amgArtistId: 2900484,
-            artistName: "Savant",
-            collectionName: "Alchemist",
-            collectionCensoredName: "Alchemist",
-            artistViewUrl: "https://itunes.apple.com/us/artist/savant/301490824?uo=4",
-            collectionViewUrl: "https://itunes.apple.com/us/album/alchemist/578643761?uo=4",
-            artworkUrl60: "https://is2-ssl.mzstatic.com/image/thumb/Music/v4/a2/ed/20/a2ed2016-acf9-1fec-0111-e247248d012b/source/60x60bb.jpg",
-            artworkUrl100: "https://is2-ssl.mzstatic.com/image/thumb/Music/v4/a2/ed/20/a2ed2016-acf9-1fec-0111-e247248d012b/source/100x100bb.jpg",
-            collectionPrice: 9.99,
-            collectionExplicitness: "notExplicit",
-            trackCount: 22,
-            copyright: "℗ 2012 SectionZ Records",
-            country: "USA",
-            currency: "USD",
-            releaseDate: "2012-12-12T08:00:00Z",
-            primaryGenreName: "Dance"
-          }, {
-            ...
-          }, {
-            ...
-          }]
-        }
-        */
-
-        const filteredAlbums = [];
-        for (let albumKey = 0; albumKey < response.results.length; albumKey += 1) {
-          const album = response.results[albumKey];
-          if (album.collectionExplicitness === 'notExplicit') {
-            filteredAlbums.push(album);
-          }
-        }
-        this.albums = filteredAlbums;
-      }
-    }
-  };
-</script>
-
 <style>
   .hero-parralax-bg {
     overflow: auto;
@@ -242,3 +100,86 @@
     width: 100%;
   }
 </style>
+
+<script>
+  import ArtistImage from './ArtistImage';
+  import ArtistMostRecentAlbum from './ArtistMostRecentAlbum';
+  import ArtistAlbum from './ArtistAlbum';
+
+  export default {
+    components: {
+      'artist-image': ArtistImage,
+      'artist-most-recent-album': ArtistMostRecentAlbum,
+      'artist-album': ArtistAlbum
+    },
+    // props: {
+    //   id: undefined
+    // },
+    data() {
+      return {
+        id: 301490824,
+        artist: {
+          wrapperType: 'artist',
+          artistType: 'Artist',
+          artistName: 'Savant',
+          artistLinkUrl: 'https://itunes.apple.com/us/artist/savant/301490824?uo=4',
+          artistId: 301490824,
+          amgArtistId: 2900484,
+          primaryGenreName: 'Dance',
+          primaryGenreId: 17
+        },
+        most_recent_album: {},
+        albums: [
+          {
+            wrapperType: 'collection',
+            collectionType: 'Album',
+            artistId: 301490824,
+            collectionId: 578643761,
+            amgArtistId: 2900484,
+            artistName: 'Savant',
+            collectionName: 'Alchemist',
+            collectionCensoredName: 'Alchemist',
+            artistViewUrl: 'https://itunes.apple.com/us/artist/savant/301490824?uo=4',
+            collectionViewUrl: 'https://itunes.apple.com/us/album/alchemist/578643761?uo=4',
+            artworkUrl60: 'https://is2-ssl.mzstatic.com/image/thumb/Music/v4/a2/ed/20/a2ed2016-acf9-1fec-0111-e247248d012b/source/60x60bb.jpg',
+            artworkUrl100: 'https://is2-ssl.mzstatic.com/image/thumb/Music/v4/a2/ed/20/a2ed2016-acf9-1fec-0111-e247248d012b/source/100x100bb.jpg',
+            collectionPrice: 9.99,
+            collectionExplicitness: 'notExplicit',
+            trackCount: 22,
+            copyright: '℗ 2012 SectionZ Records',
+            country: 'USA',
+            currency: 'USD',
+            releaseDate: '2012-12-12T08:00:00Z',
+            primaryGenreName: 'Dance'
+          }
+        ],
+      };
+    },
+    created() {
+      if (typeof (this.$route.query.id) !== 'undefined') {
+        this.id = this.$route.query.id;
+      }
+      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.id}`, { method: 'get' })
+        .then(res => res.json())
+        .then(res => this.initArtist(res));
+      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.id}/albums`, { method: 'get' })
+        .then(res => res.json())
+        .then(res => this.initArtistAlbums(res));
+    },
+    methods: {
+      initArtist(response) {
+        this.artist = response.results[0];
+      },
+      initArtistAlbums(response) {
+        const filteredAlbums = [];
+        for (let albumKey = 0; albumKey < response.results.length; albumKey += 1) {
+          const album = response.results[albumKey];
+          if (album.collectionExplicitness === 'notExplicit') {
+            filteredAlbums.push(album);
+          }
+        }
+        this.albums = filteredAlbums;
+      }
+    }
+  };
+</script>
