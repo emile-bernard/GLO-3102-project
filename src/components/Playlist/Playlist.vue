@@ -17,6 +17,9 @@
           <i class="fas fa-headphones fa-2x"></i>
           <span>{{ name }}</span>
         </p>
+        <div v-if="tracks.length===0">
+          <h2 class="subtitle">This playlist is empty</h2>
+        </div>
         <playlist-song
           v-for="(track, index) in tracks"
           v-bind:key="index"
@@ -47,6 +50,11 @@
     background: white;
     line-height: 3.5;
     font-size: 1.1em;
+  }
+
+  .subtitle{
+    color: black;
+    margin: 1em;
   }
 </style>
 
