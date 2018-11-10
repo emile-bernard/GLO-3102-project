@@ -88,10 +88,7 @@
               })
           })
           .then(response => response.json())
-          .then(() => {
-            this.name = this.nameData;
-            this.toggleSaveButton();
-          });
+          .then(this.toggleSaveButton());
       },
     },
     watch: {

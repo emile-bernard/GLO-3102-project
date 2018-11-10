@@ -48,10 +48,9 @@
                        v-bind:key="playlist.id"
                        v-bind:id="playlist.id"
                        v-bind:name="playlist.name"
-                       v-on:playlist-deleted="playlists.splice(index, 1)"
                        v-bind:displayPlaylistSelection="displayPlaylistSelection"
                        @playlist-selected="selectedPlaylists.push(playlist.id)"
-                       @playlist-unselected="selectedPlaylists.splice(selectedPlaylists.indexOf(playlist.id))"
+                       @playlist-unselected="selectedPlaylists.splice(selectedPlaylists.indexOf(playlist.id), 1)"
                        v-bind:cancelSelection="cancelSelectionData">
     </playlist-overview>
   </section>
@@ -144,14 +143,27 @@
           }));
       },
       deleteSelectedPlaylist() {
+        for (let i = 0; i < this.selectedPlaylists.length; i += 1) {
+          const playlistId = this.selectedPlaylists[i];
+          fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlistId}`,
+            {
+              method: 'delete',
+            })
+            .then(response => response.json());
+          this.removePlaylistById(playlistId);
+        }
         this.togglePlaylistSelection();
-        // fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,
-        //   {
-        //     method: 'delete',
-        //   })
-        //   .then(response => response.json());
-        // this.$emit('playlist-deleted');
         this.selectedPlaylists = [];
+      },
+      removePlaylistById(playlistId) {
+        for (let i = 0; i < this.playlists.length; i += 1) {
+          const playlist = this.playlists[i];
+          if (playlist.id === playlistId) {
+            this.playlists.splice(i, 1);
+            console.log(`removing ${playlist.id} ${playlistId}`);
+            break;
+          }
+        }
       }
     },
     created() {
