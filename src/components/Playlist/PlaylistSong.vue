@@ -3,18 +3,19 @@
     <span class="panel-icon">
       <i class="fas fa-music" aria-hidden="true"></i>
     </span>
-    {{trackNumber}}. {{trackName}} ({{Math.floor(trackTimeMillis/60000)}}:{{((trackTimeMillis%60000)/1000).toFixed(0)}}) &nbsp;
+    {{trackNumber}}. {{trackName}} ({{Math.floor(trackTimeMillis/60000)}}:{{((trackTimeMillis%60000)/1000).toFixed(0)}})
+    &nbsp;
     <a class="button is-rounded is-primary" @click="playSong">
       <i class="fas fa-play-circle action" aria-hidden="true"></i>
     </a>
     <a class="button is-rounded is-danger" @click="removeSong">
-      <i class="fas fa-trash action" aria-hidden="true" ></i>
+      <i class="fas fa-trash action" aria-hidden="true"></i>
     </a>
   </a>
 </template>
 
 <style>
-  .panel-icon{
+  .panel-icon {
     color: white;
   }
 
@@ -39,9 +40,13 @@
   export default {
     props: {
       trackIndex: undefined,
+      track_Id: undefined,
       trackId: undefined,
       trackNumber: undefined,
       trackName: {
+        type: String
+      },
+      playlistId: {
         type: String
       },
       artistName: {
@@ -54,12 +59,12 @@
         // Todo
       },
       removeSong() {
-        fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.playlistId}/tracks/${this.songId}`,
+        fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.playlistId}/tracks/${this.trackId}`,
           {
             method: 'delete',
           })
-          .then(response => response.json());
-        this.$emit('track-deleted');
+          .then(response => response.json())
+          .then(this.$emit('track-deleted'));
       },
     }
   };
