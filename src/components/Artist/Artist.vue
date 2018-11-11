@@ -9,8 +9,8 @@
     </p>
     <br/>
     <div class="container">
-      <h1 class="title is-size-2">Savant</h1>
-      <h2 class="subtitle is-size-3"><b>Genres:</b> Dance, Electronica, House, Pop, House, Electronic, Hardcore</h2>
+      <h1 class="title is-size-2">{{artist.artistName}}</h1>
+      <h2 class="subtitle is-size-3"><b>Primary Genre:</b> {{artist.primaryGenreName}}</h2>
       <section id="artist-hero-parralax-bg" class="hero hero-parralax-bg">
         <div class="hero-body">
           <artist-image
@@ -18,6 +18,7 @@
             v-bind:imgSrc="'https://upload.wikimedia.org/wikipedia/commons/d/df/ITunes_logo.svg'"
           ></artist-image>
           <artist-most-recent-album
+            v-if="albums.length !== 0"
             v-bind:title="albums[0].collectionName"
             v-bind:genre="albums[0].primaryGenreName"
             v-bind:refLink="getRefLink(albums[0].collectionId)"

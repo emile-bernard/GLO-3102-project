@@ -9,7 +9,7 @@
     </p>
     <br/>
     <div class="container">
-      <h1 class="title is-size-2">Enema of the State</h1>
+      <h1 class="title is-size-2">{{albums[0].collectionName}}</h1>
       <section id="album-hero-parralax-bg" class="hero hero-parralax-bg">
         <div class="hero-body">
           <album-information
