@@ -26,6 +26,12 @@
             <p>Albums</p>
           </div>
         </router-link>
+        <router-link to="/tracks">
+          <div class="navbar-item">
+            <i class="fas fa-music fa-2x"></i>
+            <p>Tracks</p>
+          </div>
+        </router-link>
         <router-link to="/playlists">
           <div class="navbar-item">
             <i class="fas fa-headphones fa-2x"></i>

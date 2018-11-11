@@ -42,6 +42,11 @@ const router = new Router({
       component: Album,
       meta: { tab: 'album' }
     }, {
+      path: '/tracks',
+      name: 'Tracks',
+      component: Search,
+      meta: { tab: 'tracks' }
+    }, {
       path: '/playlists',
       name: 'Playlists',
       component: PlaylistList,
