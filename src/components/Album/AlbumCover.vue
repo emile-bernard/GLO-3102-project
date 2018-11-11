@@ -56,12 +56,6 @@
     align-items: center;
     text-align: center;
   }
-
-  #album-cover-play-icon {
-    position: absolute;
-    opacity: 1;
-    z-index: 1;
-  }
 </style>
 
 <script>

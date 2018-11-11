@@ -11,7 +11,13 @@
         <router-link to="/albums">Albums</router-link>
       </div>
       <div @click="closeBurger">
+        <router-link to="/tracks">Tracks</router-link>
+      </div>
+      <div @click="closeBurger">
         <router-link to="/playlists">Playlists</router-link>
+      </div>
+      <div @click="closeBurger">
+        <router-link to="/users">Users</router-link>
       </div>
       <div @click="closeBurger">
         <router-link to="/account">Account</router-link>

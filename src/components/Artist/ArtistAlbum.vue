@@ -3,7 +3,7 @@
     <div>
       <h3 class="subtitle is-size-4">{{title}}</h3>
       <p>{{genre}}</p>
-      <a :href=refLink><img :src=imgSrc></a>
+      <router-link :to=refLink><img :src=imgSrc></router-link>
       <p>{{copyright}}</p>
     </div>
   </div>

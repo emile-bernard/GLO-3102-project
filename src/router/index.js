@@ -13,7 +13,6 @@ import Search from '@/components/Search/Search';
 Vue.use(Router);
 
 const router = new Router({
-  mode: 'history',
   routes: [
     {
       path: '/',
@@ -22,14 +21,31 @@ const router = new Router({
       meta: { tab: 'home' }
     }, {
       path: '/artists',
-      name: 'Artist',
-      component: Artist,
-      meta: { tab: 'artist' }
+      name: 'Artists',
+      component: Search,
+      meta: { tab: 'artists' }
     }, {
       path: '/albums',
+      name: 'Albums',
+      component: Search,
+      meta: { tab: 'albums' }
+    }, {
+      path: '/artists/:id',
+      props: true,
+      name: 'Artist',
+      component: Artist,
+      meta: { tab: 'artists' }
+    }, {
+      path: '/albums/:id',
+      props: true,
       name: 'Album',
       component: Album,
-      meta: { tab: 'album' }
+      meta: { tab: 'albums' }
+    }, {
+      path: '/tracks',
+      name: 'Tracks',
+      component: Search,
+      meta: { tab: 'tracks' }
     }, {
       path: '/playlists',
       name: 'Playlists',
@@ -40,6 +56,17 @@ const router = new Router({
       name: 'Playlist',
       component: Playlist,
       meta: { tab: 'playlists' }
+    }, {
+      path: '/users',
+      name: 'Users',
+      component: Search,
+      meta: { tab: 'users' }
+    }, {
+      path: '/users/:id',
+      props: true,
+      name: 'User',
+      component: Account,  // TODO: create a user page. For now, we redirect to Account...
+      meta: { tab: 'users' }
     }, {
       path: '/account',
       name: 'Account',

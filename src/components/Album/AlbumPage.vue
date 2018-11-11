@@ -3,13 +3,13 @@
     <p>
       <router-link to="/"><span>UBeat</span></router-link>
       <span> > </span>
-      <router-link to="/album"><span>Album</span></router-link>
+      <router-link to="/albums"><span>Albums</span></router-link>
       <span> > </span>
-      <router-link to="/album"><span>Blink 182</span></router-link>
+      <router-link :to="'/albums'+albums[0].collectionId"><span>{{albums[0].collectionName}}</span></router-link>
     </p>
     <br/>
     <div class="container">
-      <h1 class="title is-size-2">Blink 182</h1>
+      <h1 class="title is-size-2">{{albums[0].collectionName}}</h1>
       <section id="album-hero-parralax-bg" class="hero hero-parralax-bg">
         <div class="hero-body">
           <album-information
@@ -30,7 +30,7 @@
             v-bind:copyright.sync="album.copyright"
             v-bind:country.sync="album.country"
             v-bind:currency.sync="album.currency"
-            v-bind:releaseDate.sync="album.releaseDate"
+            v-bind:releaseDateString.sync="album.releaseDate"
             v-bind:primaryGenreName.sync="album.primaryGenreName"
           ></album-information>
         </div>
@@ -86,16 +86,22 @@
     components: {
       'album-information': AlbumInformation
     },
-    data: () => ({
-      albumCount: 0,
-      albums: []
-    }),
+    props: ['id'],
+    data() {
+      return {
+        albumCount: 0,
+        albums: [{
+          collectionId: -1,
+          collectionName: ''
+        }]
+      };
+    },
     created() {
       this.create();
     },
     methods: {
       async create() {
-        const albumInfo = await api.getAlbum(1125488753, true);
+        const albumInfo = await api.getAlbum(this.id, true);
         this.albums = albumInfo.results;
         this.albumCount = albumInfo.resultCount;
       }

@@ -14,10 +14,10 @@
         <div class="home-page-flip-element">Grunge</div>
       </div>
       <div id="home-page-button-container">
-        <router-link class="button is-primary is-large" to="/artist">
+        <router-link class="button is-primary is-large" to="/artists">
           <p>Artist</p>
         </router-link>
-        <router-link class="button is-primary is-large" to="/album">
+        <router-link class="button is-primary is-large" to="/albums">
           <p>Album</p>
         </router-link>
       </div>

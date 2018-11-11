@@ -2,7 +2,10 @@
   <nav id="navigation-bar" class="navbar" role="navigation">
     <div class="navbar-menu">
       <div class="navbar-start">
-        <navigation-bar-search></navigation-bar-search>
+        <search-inline-bar
+          v-bind:targetPath="'/search'"
+          v-bind:name="'Search everything...'"
+        ></search-inline-bar>
       </div>
       <div class="navbar-end">
         <router-link to="/">
@@ -23,10 +26,22 @@
             <p>Albums</p>
           </div>
         </router-link>
+        <router-link to="/tracks">
+          <div class="navbar-item">
+            <i class="fas fa-music fa-2x"></i>
+            <p>Tracks</p>
+          </div>
+        </router-link>
         <router-link to="/playlists">
           <div class="navbar-item">
             <i class="fas fa-headphones fa-2x"></i>
             <p>Playlists</p>
+          </div>
+        </router-link>
+        <router-link to="/users">
+          <div class="navbar-item">
+            <i class="fas fa-users fa-2x"></i>
+            <p>Users</p>
           </div>
         </router-link>
         <navigation-bar-account-menu></navigation-bar-account-menu>
@@ -119,12 +134,12 @@
 </style>
 
 <script>
-  import NavigationBarSearch from '@/components/Search/NavigationBarSearch';
+  import SearchInlineBar from '@/components/Search/SearchInlineBar';
   import NavigationBarAccountMenu from '@/components/Navigation/NavigationBarAccountMenu';
 
   export default {
     components: {
-      'navigation-bar-search': NavigationBarSearch,
+      'search-inline-bar': SearchInlineBar,
       'navigation-bar-account-menu': NavigationBarAccountMenu
     },
   };

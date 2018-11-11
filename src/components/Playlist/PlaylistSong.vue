@@ -48,16 +48,16 @@
       trackId: undefined,
       trackNumber: undefined,
       trackName: {
-        type: String
+        typeTitleCase: String
       },
       previewUrl: {
-        type: String
+        typeTitleCase: String
       },
       playlistId: {
-        type: String
+        typeTitleCase: String
       },
       artistName: {
-        type: String
+        typeTitleCase: String
       },
       trackTimeMillis: undefined,
     },

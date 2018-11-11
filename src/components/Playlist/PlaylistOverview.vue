@@ -48,19 +48,19 @@
   export default {
     props: {
       id: {
-        type: String
+        typeTitleCase: String
       },
       name: {
-        type: String
+        typeTitleCase: String
       },
       tracks: {
-        type: Array
+        typeTitleCase: Array
       },
       displayPlaylistSelection: {
-        type: String
+        typeTitleCase: String
       },
       cancelSelection: {
-        type: Boolean
+        typeTitleCase: Boolean
       }
     },
     data() {

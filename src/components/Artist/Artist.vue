@@ -3,39 +3,41 @@
     <p>
       <router-link to="/"><span>UBeat</span></router-link>
       <span> > </span>
-      <router-link to="/artist"><span>Artist</span></router-link>
+      <router-link to="/artists"><span>Artists</span></router-link>
       <span> > </span>
-      <router-link :to="`/artist?id=${id}`"><span>{{artist.artistName}}</span></router-link>
+      <router-link to="/artists"><span>{{artist.artistName}}</span></router-link>
     </p>
     <br/>
     <div class="container">
-      <h1 class="title is-size-2">Savant</h1>
-      <h2 class="subtitle is-size-3"><b>Genres:</b> Dance, Electronica, House, Pop, House, Electronic, Hardcore</h2>
+      <h1 class="title is-size-2">{{artist.artistName}}</h1>
+      <h2 class="subtitle is-size-3"><b>Primary Genre:</b> {{artist.primaryGenreName}}</h2>
       <section id="artist-hero-parralax-bg" class="hero hero-parralax-bg">
         <div class="hero-body">
           <artist-image
             v-bind:refLink="artist.artistLinkUrl"
-            v-bind:imgSrc="'https://is3-ssl.mzstatic.com/image/thumb/Music19/v4/57/fb/61/57fb61dc-a5c9-7211-0a97-0204abaf4da6/source/570x570cc.png'"
+            v-bind:imgSrc="'https://upload.wikimedia.org/wikipedia/commons/d/df/ITunes_logo.svg'"
           ></artist-image>
           <artist-most-recent-album
-            v-bind:title="albums[albums.length - 1].collectionName"
-            v-bind:genre="albums[albums.length - 1].primaryGenreName"
-            v-bind:refLink="albums[albums.length - 1].collectionViewUrl"
-            v-bind:imgSrc="albums[albums.length - 1].artworkUrl100"
-            v-bind:copyright="albums[albums.length - 1].copyright"
+            v-if="albums.length !== 0"
+            v-bind:title="albums[0].collectionName"
+            v-bind:genre="albums[0].primaryGenreName"
+            v-bind:refLink="getRefLink(albums[0].collectionId)"
+            v-bind:imgSrc="albums[0].artworkUrl100"
+            v-bind:copyright="albums[0].copyright"
           ></artist-most-recent-album>
         </div>
       </section>
       <br/>
       <div>
         <h2 class="subtitle is-size-3"><b>Albums</b></h2>
+        <p>Most recent first.</p>
         <div id="album-list">
           <artist-album
             v-for="album in albums"
             v-bind:key="album.collectionId"
             v-bind:title="album.collectionName"
             v-bind:genre="album.primaryGenreName"
-            v-bind:refLink="album.collectionViewUrl"
+            v-bind:refLink="getRefLink(album.collectionId)"
             v-bind:imgSrc="album.artworkUrl100"
             v-bind:copyright="album.copyright"
           ></artist-album>
@@ -56,7 +58,7 @@
     content: "";
     position: absolute;
     display: block;
-    background: url('https://is3-ssl.mzstatic.com/image/thumb/Music19/v4/57/fb/61/57fb61dc-a5c9-7211-0a97-0204abaf4da6/source/570x570cc.png') no-repeat center center fixed;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/d/df/ITunes_logo.svg') no-repeat center center fixed;
     background-size: cover;
     -webkit-filter: blur(50px);
     -moz-filter: blur(50px);
@@ -112,10 +114,17 @@
       'artist-most-recent-album': ArtistMostRecentAlbum,
       'artist-album': ArtistAlbum
     },
+    props: ['id'],
     data() {
       return {
-        id: 301490824,
         artist: {
+          wrapperType: 'artist',
+          artistType: '',
+          artistName: '',
+          artistLinkUrl: '',
+          artistId: -1,
+          primaryGenreName: '',
+          /*
           wrapperType: 'artist',
           artistType: 'Artist',
           artistName: 'Savant',
@@ -124,9 +133,9 @@
           amgArtistId: 2900484,
           primaryGenreName: 'Dance',
           primaryGenreId: 17
+          */
         },
-        most_recent_album: {},
-        albums: [
+        albums: [/*
           {
             wrapperType: 'collection',
             collectionType: 'Album',
@@ -149,20 +158,15 @@
             releaseDate: '2012-12-12T08:00:00Z',
             primaryGenreName: 'Dance'
           }
-        ],
+        */],
       };
     },
     created() {
-      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}`,
-        {
-          method: 'get'
-        })
+      const GET_HEADER = { method: 'get' };
+      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}`, GET_HEADER)
         .then(res => res.json())
         .then(res => this.initArtist(res));
-      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}/albums`,
-        {
-          method: 'get'
-        })
+      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}/albums`, GET_HEADER)
         .then(res => res.json())
         .then(res => this.initArtistAlbums(res));
     },
@@ -171,14 +175,18 @@
         this.artist = response.results[0];
       },
       initArtistAlbums(response) {
-        const filteredAlbums = [];
+        let filteredAlbums = [];
         for (let albumKey = 0; albumKey < response.results.length; albumKey += 1) {
           const album = response.results[albumKey];
           if (album.collectionExplicitness === 'notExplicit') {
             filteredAlbums.push(album);
           }
         }
+        filteredAlbums = filteredAlbums.reverse();
         this.albums = filteredAlbums;
+      },
+      getRefLink(collectionId) {
+        return `/albums/${collectionId}`;
       }
     }
   };

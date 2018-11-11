@@ -8,10 +8,16 @@
         <router-link to="/artists">Artists</router-link>
       </li>
       <li id="navigation-tab-albums">
-        <router-link to="/album">Albums</router-link>
+        <router-link to="/albums">Albums</router-link>
+      </li>
+      <li id="navigation-tab-tracks">
+        <router-link to="/tracks">Tracks</router-link>
       </li>
       <li id="navigation-tab-playlists">
         <router-link to="/playlists">Playlists</router-link>
+      </li>
+      <li id="navigation-tab-users">
+        <router-link to="/users">Users</router-link>
       </li>
       <li id="navigation-tab-account">
         <router-link to="/account">Account</router-link>
