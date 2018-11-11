@@ -31,8 +31,8 @@
     },
     data() {
       return {
-        path: '',  // e.g.: '/albums',
-        typeTitleCase: '',  // e.g.: 'Albums',
+        path: '',
+        typeTitleCase: '',
       };
     },
     watch: {

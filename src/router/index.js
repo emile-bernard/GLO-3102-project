@@ -23,24 +23,24 @@ const router = new Router({
       path: '/artists',
       name: 'Artists',
       component: Search,
-      meta: { tab: 'artist' }
+      meta: { tab: 'artists' }
     }, {
       path: '/albums',
       name: 'Albums',
       component: Search,
-      meta: { tab: 'album' }
+      meta: { tab: 'albums' }
     }, {
       path: '/artists/:id',
       props: true,
       name: 'Artist',
       component: Artist,
-      meta: { tab: 'artist' }
+      meta: { tab: 'artists' }
     }, {
       path: '/albums/:id',
       props: true,
       name: 'Album',
       component: Album,
-      meta: { tab: 'album' }
+      meta: { tab: 'albums' }
     }, {
       path: '/tracks',
       name: 'Tracks',
