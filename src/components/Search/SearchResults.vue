@@ -41,18 +41,27 @@
         return this.searchResultRaw.length === 0;
       }
     },
-    created() {
-      this.path = this.$route.path;
-      this.typeTitleCase = this.$route.name;
-
-      if (typeof (this.$route.query.q) !== 'undefined') {
-        this.query = this.$route.query.q;
-        this.findResults();
-      } else {
-        this.query = null;
+    watch: {
+      $route() {
+        this.init();
       }
     },
+    created() {
+      this.init();
+    },
     methods: {
+      init() {
+        this.searchResultRaw = [];
+        this.path = this.$route.path;
+        this.typeTitleCase = this.$route.name;
+
+        if (typeof (this.$route.query.q) !== 'undefined') {
+          this.query = this.$route.query.q;
+          this.findResults();
+        } else {
+          this.query = null;
+        }
+      },
       findResults() {
         let remoteSearchPath = this.path;
         if (remoteSearchPath === '/search') {

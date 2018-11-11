@@ -2,7 +2,10 @@
   <nav id="navigation-bar" class="navbar" role="navigation">
     <div class="navbar-menu">
       <div class="navbar-start">
-        <navigation-bar-search></navigation-bar-search>
+        <search-inline-bar
+          v-bind:targetPath="'/search'"
+          v-bind:name="'Search everything...'"
+        ></search-inline-bar>
       </div>
       <div class="navbar-end">
         <router-link to="/">
@@ -119,12 +122,12 @@
 </style>
 
 <script>
-  import NavigationBarSearch from '@/components/Search/NavigationBarSearch';
+  import SearchInlineBar from '@/components/Search/SearchInlineBar';
   import NavigationBarAccountMenu from '@/components/Navigation/NavigationBarAccountMenu';
 
   export default {
     components: {
-      'navigation-bar-search': NavigationBarSearch,
+      'search-inline-bar': SearchInlineBar,
       'navigation-bar-account-menu': NavigationBarAccountMenu
     },
   };

@@ -15,27 +15,28 @@
         <div class="hero-body">
           <artist-image
             v-bind:refLink="artist.artistLinkUrl"
-            v-bind:imgSrc="'https://is3-ssl.mzstatic.com/image/thumb/Music19/v4/57/fb/61/57fb61dc-a5c9-7211-0a97-0204abaf4da6/source/570x570cc.png'"
+            v-bind:imgSrc="'https://upload.wikimedia.org/wikipedia/commons/d/df/ITunes_logo.svg'"
           ></artist-image>
           <artist-most-recent-album
-            v-bind:title="albums[albums.length - 1].collectionName"
-            v-bind:genre="albums[albums.length - 1].primaryGenreName"
-            v-bind:refLink="albums[albums.length - 1].collectionViewUrl"
-            v-bind:imgSrc="albums[albums.length - 1].artworkUrl100"
-            v-bind:copyright="albums[albums.length - 1].copyright"
+            v-bind:title="albums[0].collectionName"
+            v-bind:genre="albums[0].primaryGenreName"
+            v-bind:refLink="getRefLink(albums[0].collectionId)"
+            v-bind:imgSrc="albums[0].artworkUrl100"
+            v-bind:copyright="albums[0].copyright"
           ></artist-most-recent-album>
         </div>
       </section>
       <br/>
       <div>
         <h2 class="subtitle is-size-3"><b>Albums</b></h2>
+        <p>Most recent first.</p>
         <div id="album-list">
           <artist-album
             v-for="album in albums"
             v-bind:key="album.collectionId"
             v-bind:title="album.collectionName"
             v-bind:genre="album.primaryGenreName"
-            v-bind:refLink="album.collectionViewUrl"
+            v-bind:refLink="getRefLink(album.collectionId)"
             v-bind:imgSrc="album.artworkUrl100"
             v-bind:copyright="album.copyright"
           ></artist-album>
@@ -56,7 +57,7 @@
     content: "";
     position: absolute;
     display: block;
-    background: url('https://is3-ssl.mzstatic.com/image/thumb/Music19/v4/57/fb/61/57fb61dc-a5c9-7211-0a97-0204abaf4da6/source/570x570cc.png') no-repeat center center fixed;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/d/df/ITunes_logo.svg') no-repeat center center fixed;
     background-size: cover;
     -webkit-filter: blur(50px);
     -moz-filter: blur(50px);
@@ -112,10 +113,17 @@
       'artist-most-recent-album': ArtistMostRecentAlbum,
       'artist-album': ArtistAlbum
     },
+    props: ['id'],
     data() {
       return {
-        id: 301490824,
         artist: {
+          wrapperType: 'artist',
+          artistType: '',
+          artistName: '',
+          artistLinkUrl: '',
+          artistId: -1,
+          primaryGenreName: '',
+          /*
           wrapperType: 'artist',
           artistType: 'Artist',
           artistName: 'Savant',
@@ -124,9 +132,9 @@
           amgArtistId: 2900484,
           primaryGenreName: 'Dance',
           primaryGenreId: 17
+          */
         },
-        most_recent_album: {},
-        albums: [
+        albums: [/*
           {
             wrapperType: 'collection',
             collectionType: 'Album',
@@ -149,7 +157,7 @@
             releaseDate: '2012-12-12T08:00:00Z',
             primaryGenreName: 'Dance'
           }
-        ],
+        */],
       };
     },
     created() {
@@ -166,14 +174,18 @@
         this.artist = response.results[0];
       },
       initArtistAlbums(response) {
-        const filteredAlbums = [];
+        let filteredAlbums = [];
         for (let albumKey = 0; albumKey < response.results.length; albumKey += 1) {
           const album = response.results[albumKey];
           if (album.collectionExplicitness === 'notExplicit') {
             filteredAlbums.push(album);
           }
         }
+        filteredAlbums = filteredAlbums.reverse();
         this.albums = filteredAlbums;
+      },
+      getRefLink(collectionId) {
+        return `/albums/${collectionId}`;
       }
     }
   };

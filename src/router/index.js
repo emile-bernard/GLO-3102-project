@@ -21,11 +21,23 @@ const router = new Router({
       meta: { tab: 'home' }
     }, {
       path: '/artists',  // TODO: change with :id like for playlists/:id
+      name: 'Artists',
+      component: Search,
+      meta: { tab: 'artist' }
+    }, {
+      path: '/albums',  // TODO: change with :id like for playlists/:id
+      name: 'Albums',
+      component: Search,
+      meta: { tab: 'album' }
+    }, {
+      path: '/artists/:id',
+      props: true,
       name: 'Artist',
       component: Artist,
       meta: { tab: 'artist' }
     }, {
-      path: '/albums',  // TODO: change with :id like for playlists/:id
+      path: '/albums/:id',
+      props: true,
       name: 'Album',
       component: Album,
       meta: { tab: 'album' }

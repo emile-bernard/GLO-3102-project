@@ -8,7 +8,10 @@
     </p>
     <br/>
     <div class="container">
-      <navigation-bar-search></navigation-bar-search>
+      <search-inline-bar
+        v-bind:targetPath="path"
+        v-bind:name="'Search in '+typeTitleCase+'...'"
+      ></search-inline-bar>
       <search-results></search-results>
     </div>
   </section>
@@ -18,12 +21,12 @@
 </style>
 
 <script>
-  import NavigationBarSearch from './NavigationBarSearch';
+  import SearchInlineBar from './SearchInlineBar';
   import SearchResults from './SearchResults';
 
   export default {
     components: {
-      'navigation-bar-search': NavigationBarSearch,
+      'search-inline-bar': SearchInlineBar,
       'search-results': SearchResults,
     },
     data() {
@@ -32,12 +35,19 @@
         typeTitleCase: 'Albums', // TODO: set to null
       };
     },
+    watch: {
+      $route() {
+        this.init();
+      }
+    },
     created() {
-      // this.$route.query.q;
-      this.path = this.$route.path;
-      this.typeTitleCase = this.$route.name;
-      // console.log(this.path);
-      // console.log(this.typeTitleCase);
+      this.init();
+    },
+    methods: {
+      init() {
+        this.path = this.$route.path;
+        this.typeTitleCase = this.$route.name;
+      }
     }
   };
 </script>
