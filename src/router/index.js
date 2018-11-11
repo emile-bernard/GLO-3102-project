@@ -20,12 +20,12 @@ const router = new Router({
       component: Home,
       meta: { tab: 'home' }
     }, {
-      path: '/artists',  // TODO: change with :id like for playlists/:id
+      path: '/artists',
       name: 'Artists',
       component: Search,
       meta: { tab: 'artist' }
     }, {
-      path: '/albums',  // TODO: change with :id like for playlists/:id
+      path: '/albums',
       name: 'Albums',
       component: Search,
       meta: { tab: 'album' }

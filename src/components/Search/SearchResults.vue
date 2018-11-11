@@ -22,8 +22,8 @@
     },
     data() {
       return {
-        path: '/albums',
-        typeTitleCase: 'Albums',
+        path: '',  // e.g.: '/albums',
+        typeTitleCase: '',  // e.g.: 'Albums',
         searchResultRaw: []
       };
     },

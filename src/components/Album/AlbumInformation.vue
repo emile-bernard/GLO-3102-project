@@ -99,7 +99,7 @@
         this.albumTracks = await api.getAlbumTracks(albumId, true);
       },
       async create() {
-        const albumInfo = await api.getAlbumTracks(this.collectionId, true); // 1125488753
+        const albumInfo = await api.getAlbumTracks(this.collectionId, true);
         this.albumTracks = albumInfo.results;
         this.resultsCount = albumInfo.resultCount;
       },
@@ -108,7 +108,7 @@
         // TODO: add song to playlist here
       },
       async addAlbumToPlayList() {
-        const albumInfo = await api.getAlbumTracks(this.collectionId, true); // 1125488753
+        const albumInfo = await api.getAlbumTracks(this.collectionId, true);
         this.albumTracks = albumInfo.results;
         // TODO : ajouter toutes les chanson à la playlist ici
       }

@@ -5,7 +5,7 @@
       <span> > </span>
       <router-link to="/albums"><span>Albums</span></router-link>
       <span> > </span>
-      <router-link to="/albums"><span>Enema of the State</span></router-link>
+      <router-link :to="'/albums'+albums[0].collectionId"><span>{{albums[0].collectionName}}</span></router-link>
     </p>
     <br/>
     <div class="container">
@@ -86,10 +86,14 @@
     components: {
       'album-information': AlbumInformation
     },
+    props: ['id'],
     data() {
       return {
         albumCount: 0,
-        albums: []
+        albums: [{
+          collectionId: -1,
+          collectionName: ''
+        }]
       };
     },
     created() {
@@ -97,7 +101,7 @@
     },
     methods: {
       async create() {
-        const albumInfo = await api.getAlbum(1125488753, true);
+        const albumInfo = await api.getAlbum(this.id, true);
         this.albums = albumInfo.results;
         this.albumCount = albumInfo.resultCount;
       }

@@ -31,8 +31,8 @@
     },
     data() {
       return {
-        path: '/albums',
-        typeTitleCase: 'Albums', // TODO: set to null
+        path: '',  // e.g.: '/albums',
+        typeTitleCase: '',  // e.g.: 'Albums',
       };
     },
     watch: {
