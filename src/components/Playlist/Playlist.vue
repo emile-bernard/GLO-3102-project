@@ -69,7 +69,7 @@
       return {
         tracks: [],
         name: {
-          type: String
+          typeTitleCase: String
         },
       };
     },

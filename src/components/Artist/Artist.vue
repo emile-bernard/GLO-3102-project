@@ -153,16 +153,11 @@
       };
     },
     created() {
-      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}`,
-        {
-          method: 'get'
-        })
+      const GET_HEADER = { method: 'get' };
+      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}`, GET_HEADER)
         .then(res => res.json())
         .then(res => this.initArtist(res));
-      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}/albums`,
-        {
-          method: 'get'
-        })
+      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}/albums`, GET_HEADER)
         .then(res => res.json())
         .then(res => this.initArtistAlbums(res));
     },
