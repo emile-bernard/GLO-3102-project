@@ -13,7 +13,7 @@
       <!--<p id="add-album-to-playlist-icon" v-on:click="addAlbumToPlayList" class="far fa-plus fa-1x"></p>-->
       <br>
       <div id="album-info-songs">
-        <Track
+        <album-track
           v-for="song in albumTracks"
           v-bind:key="song.trackId"
           v-bind:wrapperType.sync="song.wrapperType"
@@ -28,10 +28,15 @@
           v-bind:trackNumber.sync="song.trackNumber"
           v-bind:trackTimeMillis.sync="song.trackTimeMillis"
           v-bind:isStreamable.sync="song.isStreamable"
-          v-bind:addSongToPlaylist.sync="addSongToPlayList"
-        ></Track>
+          v-on:add-to-playlist="addSongToPlayList"
+        ></album-track>
       </div>
     </div>
+    <playlist-choice
+      v-if="isPlaylistChoiceActive"
+      v-bind:isActive="isPlaylistChoiceActive"
+      v-on:close-playlist-modal="closePlaylistModal"
+    ></playlist-choice>
   </div>
 </template>
 
@@ -57,7 +62,8 @@
   /* eslint-disable quote-props */
   import * as api from '@/Api';
   import AlbumCover from '@/components/Album/AlbumCover';
-  import track from './Track';
+  import PlaylistChoice from '@/components/Playlist/PlaylistChoice';
+  import AlbumTrack from '@/components/Album/Track';
 
   export default {
     props: {
@@ -83,12 +89,14 @@
       return {
         releaseDate: new Date(this.releaseDateString),
         resultsCount: 0,
-        albumTracks: []
+        albumTracks: [],
+        isPlaylistChoiceActive: false,
       };
     },
     components: {
-      'Track': track,
+      'album-track': AlbumTrack,
       'album-cover': AlbumCover,
+      'playlist-choice': PlaylistChoice,
     },
     created() {
       this.create();
@@ -104,14 +112,16 @@
         this.resultsCount = albumInfo.resultCount;
       },
       addSongToPlayList() {
-        throw new Error('NotImplementedException');
-        // TODO: add song to playlist here
+        this.isPlaylistChoiceActive = true;
       },
       async addAlbumToPlayList() {
         const albumInfo = await api.getAlbumTracks(this.collectionId, true);
         this.albumTracks = albumInfo.results;
         // TODO : ajouter toutes les chanson à la playlist ici
-      }
+      },
+      closePlaylistModal() {
+        this.isPlaylistChoiceActive = false;
+      },
     },
   };
 </script>

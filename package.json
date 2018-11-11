@@ -12,6 +12,7 @@
   "dependencies": {
     "bulma": "^0.7.1",
     "bulmaswatch": "^0.7.1",
+    "js-cookie": "^2.2.0",
     "vue": "^2.4.2",
     "vue-fontawesome": "0.0.2",
     "vue-router": "^2.7.0"
