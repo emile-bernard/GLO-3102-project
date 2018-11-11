@@ -13,6 +13,10 @@
 - Repo source du projet [UBeat](https://github.com/GLO3102/UBeat)
 - [Slack du projet](https://glo3102-a2018.slack.com/)
 
+# Document Design
+
+Voir `./DESIGN.md`
+
 # Dates importantes
 
 | Date | Objet | Pondération |
