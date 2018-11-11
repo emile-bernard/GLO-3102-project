@@ -30,6 +30,11 @@ class ArtistSearchResult extends AbstractSearchResult {
       "radioStationUrl": "https://itunes.apple.com/station/idra.3996865"
   }
   */
+  constructor(result) {
+    const withColorClass = result;
+    withColorClass.colorClass = 'is-primary';
+    super(withColorClass);
+  }
 
   getId() {
     return this.results.artistId;
@@ -43,6 +48,9 @@ class ArtistSearchResult extends AbstractSearchResult {
   getURL() {
     // example, is used for: <router-link to="/artists/artistID"><span>artistID</span></router-link>
     return `/artists/${this.results.artistId}`;
+  }
+  getTypeColorClass() {
+    return this.colorClass;
   }
 }
 
@@ -76,6 +84,11 @@ class AlbumSearchResult extends AbstractSearchResult {
       "primaryGenreName": "Rock"
   }
   */
+  constructor(result) {
+    const withColorClass = result;
+    withColorClass.colorClass = 'is-info';
+    super(withColorClass);
+  }
 
   getId() {
     return this.results.collectionId;
@@ -88,6 +101,9 @@ class AlbumSearchResult extends AbstractSearchResult {
   }
   getURL() {
     return `/albums/${this.results.collectionId}`;
+  }
+  getTypeColorClass() {
+    return this.results.colorClass;
   }
 }
 
@@ -132,6 +148,11 @@ class TrackSearchResult extends AbstractSearchResult {
       "radioStationUrl": "https://itunes.apple.com/station/idra.196480329"
   }
   */
+  constructor(result) {
+    const withColorClass = result;
+    withColorClass.colorClass = 'is-link';
+    super(withColorClass);
+  }
 
   getId() {
     return this.results.collectionId;
@@ -145,6 +166,45 @@ class TrackSearchResult extends AbstractSearchResult {
   getURL() {
     return `/albums/${this.results.collectionId}`;
   }
+  getTypeColorClass() {
+    return this.colorClass;
+  }
+}
+
+class UserSearchResult extends AbstractSearchResult {
+  /*
+  Create a new search result.
+
+  searchResultsRawObjectsFromApiJSON: a result object as in the format below.
+
+  example if called to: /search/users?q=John%20Smith
+  {
+        "email": "john.smith@mail.com",
+        "name": "John Smith",
+        "id": "53ec122d27aafe77d8c37b8"
+  }
+  */
+  constructor(result) {
+    const withColorClass = result;
+    withColorClass.colorClass = 'is-warning';
+    super(withColorClass);
+  }
+
+  getId() {
+    return this.results.id;
+  }
+  getType() {
+    return this.results.wrapperType;
+  }
+  getName() {
+    return `${this.results.name}`;
+  }
+  getURL() {
+    return `/users/${this.results.id}`;
+  }
+  getTypeColorClass() {
+    return this.colorClass;
+  }
 }
 
 class SearchResultFactory {
@@ -156,8 +216,11 @@ class SearchResultFactory {
         return new AlbumSearchResult(searchResultsRawObjectsFromApiJSON);
       case 'track':
         return new TrackSearchResult(searchResultsRawObjectsFromApiJSON);
-      default:
-        return new AbstractSearchResult(searchResultsRawObjectsFromApiJSON);
+      default: {
+        const user = searchResultsRawObjectsFromApiJSON;
+        user.wrapperType = 'user';
+        return new UserSearchResult(user);
+      }
     }
   }
 }

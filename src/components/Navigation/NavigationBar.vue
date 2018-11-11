@@ -32,6 +32,12 @@
             <p>Playlists</p>
           </div>
         </router-link>
+        <router-link to="/users">
+          <div class="navbar-item">
+            <i class="fas fa-users fa-2x"></i>
+            <p>Users</p>
+          </div>
+        </router-link>
         <navigation-bar-account-menu></navigation-bar-account-menu>
       </div>
     </div>

@@ -52,6 +52,17 @@ const router = new Router({
       component: Playlist,
       meta: { tab: 'playlists' }
     }, {
+      path: '/users',
+      name: 'Users',
+      component: Search,
+      meta: { tab: 'users' }
+    }, {
+      path: '/users/:id',
+      props: true,
+      name: 'User',
+      component: Account,  // TODO: create a user page. For now, we redirect to Account...
+      meta: { tab: 'users' }
+    }, {
       path: '/account',
       name: 'Account',
       component: Account,

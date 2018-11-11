@@ -73,7 +73,13 @@
           .then(res => this.initSearchResults(res));
       },
       initSearchResults(response) {
-        this.searchResultRaw = response.results;
+        let results;
+        if (this.path === '/users') {
+          results = response;
+        } else {
+          results = response.results;
+        }
+        this.searchResultRaw = results;
       }
     }
   };
