@@ -7,7 +7,7 @@
       <span> > </span>
       <router-link to="/playlists"><span>Playlists</span></router-link>
       <span> > </span>
-      <router-link to="/playlist"><span>{{ name }}</span></router-link>
+      <router-link :to="'/playlists'+$route.params.id"><span>{{ name }}</span></router-link>
     </p>
     <br/>
     <div>
