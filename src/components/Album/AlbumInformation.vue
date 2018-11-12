@@ -10,7 +10,10 @@
       <p>Genre: {{primaryGenreName}}</p>
       <p>Release: {{releaseDate.toLocaleDateString()}}</p>
       <p>Track count: {{trackCount}}</p>
-      <button  class="button is-rounded is-success" v-on:click="addAlbumToPlayList()">Add album to playlist</button>
+      <button class="button is-rounded is-success"
+              v-on:click="addAlbumToPlayList">
+        Add album to playlist
+      </button>
       <br>
       <div id="album-info-songs">
         <album-track
@@ -35,7 +38,7 @@
     <playlist-choice
       v-if="isPlaylistChoiceActive"
       v-bind:isActive="isPlaylistChoiceActive"
-      v-bind:currentTrackId="currentTrackId"
+      v-bind:trackIds="trackIds"
       v-on:close-playlist-modal="closePlaylistModal"
     ></playlist-choice>
   </div>
@@ -92,7 +95,7 @@
         resultsCount: 0,
         albumTracks: [],
         isPlaylistChoiceActive: false,
-        currentTrackId: undefined,
+        trackIds: [],
       };
     },
     components: {
@@ -114,10 +117,15 @@
         this.resultsCount = albumInfo.resultCount;
       },
       addSongToPlayList(trackId) {
-        this.currentTrackId = trackId;
+        this.trackIds = [trackId];
         this.isPlaylistChoiceActive = true;
       },
-      async addAlbumToPlayList() {
+      addAlbumToPlayList() {
+        this.trackIds = [];
+        for (let i = 0; i < this.albumTracks.length; i += 1) {
+          const track = this.albumTracks[i];
+          this.trackIds.push(track.trackId);
+        }
         this.isPlaylistChoiceActive = true;
       },
       closePlaylistModal() {

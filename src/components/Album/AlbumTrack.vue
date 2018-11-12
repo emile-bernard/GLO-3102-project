@@ -1,6 +1,9 @@
 <template>
   <div class="track">
-    <span id="track-description">{{trackNumber}}. &nbsp; ({{TrackTimeInMinutes}}) &nbsp;-&nbsp; {{trackName}}</span>
+    <span id="track-description">
+      {{trackNumber}}. &nbsp;
+      ({{TrackTimeInMinutes}}) &nbsp;-&nbsp;
+      {{trackName}}</span>
     <audio controls :src="previewUrl"></audio>
     <div class="tooltip">
       <button id="add-to-playlist" class="button is-rounded is-success" @click="addSongToPlaylist">
