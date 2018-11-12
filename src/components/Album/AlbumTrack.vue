@@ -5,7 +5,7 @@
       ({{TrackTimeInMinutes}}) &nbsp;-&nbsp;
       {{trackName}}</span>
     <audio controls :src="previewUrl"></audio>
-    <div class="tooltip">
+    <div id="add-to-playlist-div" class="tooltip is-fullwidth">
       <button id="add-to-playlist" class="button is-rounded is-success" @click="addSongToPlaylist">
         <i class="fas fa-plus action" aria-hidden="true"></i>
       </button>
@@ -36,6 +36,7 @@
 
   #add-to-playlist {
     margin-left: 1em;
+    display: inline-flex;
   }
 
   .fas.action {
@@ -80,11 +81,23 @@
     opacity: 1;
   }
 
+  @media only screen and (max-device-width: 750px), (max-width: 750px) {
+    #add-to-playlist-div {
+      width: 100%;
+    }
+
+    #add-to-playlist {
+      width: 90%;
+    }
+  }
+
   @media only screen and (max-width: 1200px), (max-device-width: 1200px) {
     .fas {
       display: initial;
     }
   }
+
+
 </style>
 
 <script>
