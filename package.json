@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "bulma": "^0.7.1",
+    "bulma-tooltip": "^2.0.2",
     "bulmaswatch": "^0.7.1",
     "js-cookie": "^2.2.0",
     "vue": "^2.4.2",

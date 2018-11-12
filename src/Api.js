@@ -17,7 +17,17 @@ function FormatStringForSearch(stringToFormat) {
   return finalSring;
 }
 
+function GetCORSAllowedHeader() {
+  return {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credential': 'true'
+  };
+}
 
+function FormatAndLogErrorMessage(message, originalError) {
+  window.console.error(message.toString() + originalError.toString());
+}
 //-------------------------------------------------------------
 // Se connecter/déconnecter
 //-------------------------------------------------------------
@@ -45,14 +55,10 @@ export const generalSearch = (q, unsecured, limit = 20) => {
   let URL = baseURL;
   if (unsecured) URL = unsecureBaseURL;
   return fetch(`${URL}/search?q=/${q}&limit=${limit}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credential': 'true'
-    } })
+    headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
-    .catch(() => {
-      window.console.error('Unable to fetch general search.');
+    .catch((error) => {
+      FormatAndLogErrorMessage('Unable to fetch general search.', error);
     });
 };
 // GET /search/albums
@@ -61,14 +67,10 @@ export const albumSearch = (q, unsecured, limit = 20) => {
   if (unsecured) URL = unsecureBaseURL;
   const searchStringFormated = FormatStringForSearch(q);
   return fetch(`${URL}/search/album?q=/${searchStringFormated}&limit=${limit}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credential': 'true'
-    } })
+    headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
-    .catch(() => {
-      window.console.error('Unable to fetch album general search.');
+    .catch((error) => {
+      FormatAndLogErrorMessage('Unable to fetch album general search. Original error: ', error);
     });
 };
 // GET /search/artists
@@ -78,14 +80,10 @@ export const artistSearch = (q, unsecured, limit = 20) => {
 // eslint-disable-next-line max-len
   const searchStringFormated = FormatStringForSearch(q); // ici je me suis dis que le formatage est probablement pareil mais à essayer  comme le serveur semble down en ce moment
   return fetch(`${URL}/search/artists?q=/${searchStringFormated}&limit=${limit}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credential': 'true'
-    } })
+    headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
-    .catch(() => {
-      window.console.error('Unable to fetch artist general search.');
+    .catch((error) => {
+      FormatAndLogErrorMessage('Unable to fetch artist general search.', error);
     });
 };
 // GET /search/tracks
@@ -94,14 +92,10 @@ export const trackSearch = (q, unsecured, limit = 20) => {
   if (unsecured) URL = unsecureBaseURL;
   const searchStringFormated = FormatStringForSearch(q);
   return fetch(`${URL}/search/tracks?q=/${searchStringFormated}&limit=${limit}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credential': 'true'
-    } })
+    headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
-    .catch(() => {
-      window.console.error('Unable to fetch track general search.');
+    .catch((error) => {
+      FormatAndLogErrorMessage('Unable to fetch track general search.', error);
     });
 };
 
@@ -124,14 +118,10 @@ export const getAlbum = (albumId, unsecured) => {
   if (unsecured) URL = unsecureBaseURL;
   return fetch(`${URL}/albums/${albumId}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credential': 'true'
-    } })
+    headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
-    .catch(() => {
-      window.console.error('Unable to fetch an album.');
+    .catch((error) => {
+      FormatAndLogErrorMessage('Unable to fetch an album.', error);
     });
 };
 
@@ -141,14 +131,10 @@ export const getAlbumTracks = (albumId, unsecured) => {
   if (unsecured) URL = unsecureBaseURL;
   return fetch(`${URL}/albums/${albumId}/tracks`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credential': 'true'
-    } })
+    headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
-    .catch(() => {
-      window.console.error('Unable to fetch album tracks list.');
+    .catch((error) => {
+      FormatAndLogErrorMessage('Unable to fetch album tracks list.', error);
     });
 };
 //-------------------------------------------------------------

@@ -2,33 +2,22 @@
   <div id="playlist-modal" v-bind:class="isActiveData">
     <div class="modal-background"></div>
     <div class="modal-content">
-      <div class="dropdown is-active">
+      <div class="dropdown is-hoverable is-active">
         <div class="dropdown-trigger">
-          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-            <span>Dropdown button</span>
+          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" @click="populatePlaylists">
+            <span>Select your playlist</span>
             <span class="icon is-small">
-        <i class="fas fa-angle-down" aria-hidden="true"></i>
-      </span>
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
           </button>
         </div>
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+        <div class="dropdown-menu" id="dropdown-menu" role="menu" >
           <div class="dropdown-content">
-            <a href="#" class="dropdown-item">
-              Dropdown item
-            </a>
-            <a class="dropdown-item">
-              Other dropdown item
-            </a>
-            <a href="#" class="dropdown-item is-active">
-              Active dropdown item
-            </a>
-            <a href="#" class="dropdown-item">
-              Other dropdown item
-            </a>
-            <hr class="dropdown-divider">
-            <a href="#" class="dropdown-item">
-              With a divider
-            </a>
+            <playlistChoiceItem v-for="playlist in playlists"
+                                v-bind:key="playlist.id"
+                                v-bind:playListId.sync="playlist.id"
+                                v-bind:playListName.sync="playlist.name"
+            ></playlistChoiceItem>
           </div>
         </div>
       </div>
@@ -43,16 +32,20 @@
 </template>
 
 <style>
-  .checkbox {
-    margin-left: 1em;
-  }
+
 </style>
 
 <script>
+  /* eslint-disable quote-props */
+  import PlaylistChoiceItem from '@/components/Playlist/PlayListChoiceItem';
+
   export default {
     name: 'PlaylistChoice',
     props: {
       isActive: undefined
+    },
+    components: {
+      'playlistChoiceItem': PlaylistChoiceItem,
     },
     data() {
       return {

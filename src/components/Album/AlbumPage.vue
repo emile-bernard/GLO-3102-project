@@ -5,12 +5,14 @@
       <span> > </span>
       <router-link to="/albums"><span>Albums</span></router-link>
       <span> > </span>
-      <router-link :to="'/albums'+albums[0].collectionId"><span>{{albums[0].collectionName}}</span></router-link>
+      <router-link :to="'/albums'+albums[0].collectionId">
+        <span>{{albums[0].collectionName}}</span>
+      </router-link>
     </p>
     <br/>
     <div class="container">
       <h1 class="title is-size-2">{{albums[0].collectionName}}</h1>
-      <section id="album-hero-parralax-bg" class="hero hero-parralax-bg">
+      <section id="album-hero-parralax-bg" class="hero hero-parralax-bg" >
         <div class="hero-body">
           <album-information
             v-for="album in albums"

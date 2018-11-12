@@ -2,18 +2,16 @@
   <div class="track">
     <span id="track-description">{{trackNumber}}. &nbsp; ({{TrackTimeInMinutes}}) &nbsp;-&nbsp; {{trackName}}</span>
     <audio controls :src="previewUrl"></audio>
-    <!--<p id="add-song-to-playlist-icon"-->
-    <!--@click="addSongToPlaylist"-->
-    <!--class="far f055 fa-plus fa-1x"></p>-->
-
-    <a id="add-to-playlist" class="button is-rounded is-success" @click="addSongToPlaylist">
-      <i class="fas fa-plus action" aria-hidden="true"></i>
-    </a>
-
+    <div class="tooltip">
+      <span class="tooltiptext">Add to playlist</span>
+      <button id="add-to-playlist" class="button is-rounded is-success" @click="addSongToPlaylist">
+        <i class="fas fa-plus action" aria-hidden="true"></i>
+      </button>
+    </div>
   </div>
 </template>
 
-<style>
+<style scoped>
   #track-description {
     width: 300px;
     display: inline-flex;
@@ -34,12 +32,6 @@
     margin-left: 20px;
   }
 
-  #album-song-link:hover > #album-song-play-icon {
-    cursor: pointer;
-    color: #94CFC9;
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-
   #add-to-playlist {
     margin-left: 1em;
   }
@@ -52,13 +44,49 @@
     .fas {
       display: initial;
     }
+
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      padding: 5px 0;
+      border-radius: 6px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
   }
 </style>
 
 <script>
-  // collectionViewUrl == trackViewUrl (la page de l'album)
-  // trackViewUrl == previewUrl (mp4) (extrait de la toun)
-  // artworkUrl130 == artworkUrl160 == artworkUrl1100 (image du cover de l'album)
 
   import PlaylistChoice from '@/components/Playlist/PlaylistChoice';
 
