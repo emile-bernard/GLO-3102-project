@@ -35,6 +35,7 @@
     <playlist-choice
       v-if="isPlaylistChoiceActive"
       v-bind:isActive="isPlaylistChoiceActive"
+      v-bind:currentTrackId="currentTrackId"
       v-on:close-playlist-modal="closePlaylistModal"
     ></playlist-choice>
   </div>
@@ -63,7 +64,7 @@
   import * as api from '@/Api';
   import AlbumCover from '@/components/Album/AlbumCover';
   import PlaylistChoice from '@/components/Playlist/PlaylistChoice';
-  import AlbumTrack from '@/components/Album/Track';
+  import AlbumTrack from '@/components/Album/AlbumTrack';
 
   export default {
     props: {
@@ -91,6 +92,7 @@
         resultsCount: 0,
         albumTracks: [],
         isPlaylistChoiceActive: false,
+        currentTrackId: undefined,
       };
     },
     components: {
@@ -111,7 +113,8 @@
         this.albumTracks = albumInfo.results;
         this.resultsCount = albumInfo.resultCount;
       },
-      addSongToPlayList() {
+      addSongToPlayList(trackId) {
+        this.currentTrackId = trackId;
         this.isPlaylistChoiceActive = true;
       },
       async addAlbumToPlayList() {

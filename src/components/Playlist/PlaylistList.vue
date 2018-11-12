@@ -1,5 +1,6 @@
 <template>
   <section class="section">
+    <h1 class="title">Playlists</h1>
     <p>
       <router-link to="/"><span>UBeat</span></router-link>
       <span> > </span>

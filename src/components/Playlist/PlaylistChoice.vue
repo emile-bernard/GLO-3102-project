@@ -2,55 +2,78 @@
   <div id="playlist-modal" v-bind:class="isActiveData">
     <div class="modal-background"></div>
     <div class="modal-content">
-      <div class="dropdown is-hoverable is-active">
+      <div id="controls">
+        <button class="button is-danger" @click="closeModal">
+          <span>Cancel</span>
+          <span class="icon is-small">
+              <i class="fas fa-times" aria-hidden="false"></i>
+            </span>
+        </button>
+        <button class="button is-success" @click="fetchTrack">
+          <span>Add</span>
+          <span class="icon is-small">
+              <i class="fas fa-plus" aria-hidden="false"></i>
+            </span>
+        </button>
+      </div>
+      <div id="playlistSelectionDropDown" class="dropdown">
         <div class="dropdown-trigger">
-          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" @click="populatePlaylists">
-            <span>Select your playlist</span>
+          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" @click="toggleDropDown">
+            <span>{{dropDownText}}</span>
             <span class="icon is-small">
-              <i class="fas fa-angle-down" aria-hidden="true"></i>
+              <i class="fas fa-angle-down" aria-hidden="false"></i>
             </span>
           </button>
         </div>
-        <div class="dropdown-menu" id="dropdown-menu" role="menu" >
+        <div class="dropdown-menu" id="dropdown-menu" role="menu">
           <div class="dropdown-content">
-            <playlistChoiceItem v-for="playlist in playlists"
-                                v-bind:key="playlist.id"
-                                v-bind:playListId.sync="playlist.id"
-                                v-bind:playListName.sync="playlist.name"
-            ></playlistChoiceItem>
+            <playlist-choice-item v-for="playlist in playlists"
+                                  v-bind:key="playlist.id"
+                                  v-bind:playlistId="playlist.id"
+                                  v-bind:playlistName="playlist.name"
+                                  v-on:playlist-selected="selectPlaylist">
+            </playlist-choice-item>
           </div>
         </div>
       </div>
-
-      <!--<label class="checkbox" v-for="playlist in playlists">-->
-      <!--<input v-bind:value="playlist.id" type="checkbox">-->
-      <!--{{playlist.name}}-->
-      <!--</label>-->
     </div>
-    <button class="modal-close is-large" aria-label="close" @click="closeModal"></button>
   </div>
 </template>
 
 <style>
+  .modal-content {
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .fas {
+    color: white;
+  }
 
 </style>
 
 <script>
-  /* eslint-disable quote-props */
   import PlaylistChoiceItem from '@/components/Playlist/PlayListChoiceItem';
 
   export default {
     name: 'PlaylistChoice',
     props: {
-      isActive: undefined
+      isActive: undefined,
+      currentTrackId: undefined,
     },
     components: {
-      'playlistChoiceItem': PlaylistChoiceItem,
+      'playlist-choice-item': PlaylistChoiceItem,
     },
     data() {
       return {
         playlists: [],
         isActiveData: 'modal',
+        isDropDownOpen: false,
+        dropDownText: 'Select your playlist',
+        currentSelection: undefined,
       };
     },
     methods: {
@@ -73,25 +96,61 @@
               }));
           }
         } catch (error) {
-          // Todo
+          // IGNORED
         }
       },
       closeModal() {
         this.$emit('close-playlist-modal');
       },
+      toggleDropDown() {
+        const dropDown = document.getElementById('playlistSelectionDropDown');
+        if (this.isDropDownOpen) {
+          dropDown.classList.remove('is-active');
+        } else {
+          dropDown.classList.add('is-active');
+        }
+        this.isDropDownOpen = !this.isDropDownOpen;
+      },
+      selectPlaylist(payload) {
+        this.dropDownText = payload[0];
+        this.currentSelection = payload[1];
+        this.toggleDropDown();
+      },
+      fetchTrack() {
+        const baseUri = 'https://ubeat.herokuapp.com/unsecure';
+        const uri = `${baseUri}/tracks/${this.currentTrackId}`;
+        const options = { method: 'get' };
+        fetch(uri, options)
+          .then(response => response.json())
+          .then((response) => {
+            this.addTrackToSelectedPlaylist(response.results[0]);
+          });
+      },
+      addTrackToSelectedPlaylist(track) {
+        console.log(track);
+        const baseUri = 'https://ubeat.herokuapp.com/unsecure';
+        const uri = `${baseUri}/playlists/${this.currentSelection}/tracks`;
+        const headers = { 'Content-Type': 'application/json' };
+        const body = JSON.stringify(track);
+        const options = { method: 'post', headers, body };
+        fetch(uri, options).then();
+        this.closeModal();
+      },
     },
     created() {
-      fetch('https://ubeat.herokuapp.com/unsecure/playlists/',
-        {
-          method: 'get'
-        })
+      const baseUri = 'https://ubeat.herokuapp.com/unsecure';
+      const uri = `${baseUri}/playlists/`;
+      const options = { method: 'get' };
+      fetch(uri, options)
         .then(response => response.json())
         .then((response) => {
           this.filterPlaylists(response);
-        }).then(() => {
-          document.getElementById('playlist-modal').classList.add('is-active');
-        }
-      );
+        })
+        .then(() => {
+          document.getElementById('playlist-modal')
+            .classList
+            .add('is-active');
+        });
     },
     watch: {
       isActive(newValue) {

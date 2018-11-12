@@ -3,7 +3,6 @@
     <span id="track-description">{{trackNumber}}. &nbsp; ({{TrackTimeInMinutes}}) &nbsp;-&nbsp; {{trackName}}</span>
     <audio controls :src="previewUrl"></audio>
     <div class="tooltip">
-      <span class="tooltiptext">Add to playlist</span>
       <button id="add-to-playlist" class="button is-rounded is-success" @click="addSongToPlaylist">
         <i class="fas fa-plus action" aria-hidden="true"></i>
       </button>
