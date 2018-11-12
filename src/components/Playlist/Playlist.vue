@@ -16,8 +16,6 @@
         <div class="hero-body">
           <div id="playlist-page-hero-body-layout">
             <div id="playlist-info">
-              <h2 class="subtitle is-size-3">{{ name }}</h2>
-              <br>
               <div id="playlist-info-songs">
                 <playlist-song
                   v-for="(track, index) in tracks"
@@ -77,25 +75,21 @@
     column-gap: 0;
   }
 
-  .subtitle {
-    color: black;
-    margin: 1em;
-  }
-
   #playlist-info {
-    background-color: white;
+    background-color: transparent;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    margin: 20px;
     color: #dee5ed;
-    padding: 40px;
   }
 
   #playlist-info-songs {
     margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
   }
 
 </style>

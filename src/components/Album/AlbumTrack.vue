@@ -3,16 +3,24 @@
     <span id="track-description">
       {{trackNumber}}. &nbsp;
       ({{TrackTimeInMinutes}}) &nbsp;-&nbsp;
-      {{trackName}}</span>
-    <audio controls :src="previewUrl"></audio>
-    <div id="add-to-playlist-div" class="tooltip is-fullwidth">
-      <div class="tooltip">
-        <span class="tooltiptext">Add to playlist</span>
-        <button id="add-to-playlist" class="button is-rounded is-success" @click="addSongToPlaylist">
+      {{trackName}}
+    </span>
+    <div id="controls">
+      <audio id="player" :src="previewUrl"></audio>
+      <div>
+        <button class="button" @click="playTrack">
+          <i class="fas fa-play action" aria-hidden="true"></i>
+        </button>
+        <button class="button" @click="pauseTrack">
+          <i class="fas fa-pause action" aria-hidden="true"></i>
+        </button>
+        <button class="button" @click="toggleMute">
+          <i id="mute-unmute-btn" class="fas fa-volume-up action" aria-hidden="true"></i>
+        </button>
+        <button id="add-to-playlist" class="button is-success" @click="addSongToPlaylist">
           <i class="fas fa-plus action" aria-hidden="true"></i>
         </button>
       </div>
-
     </div>
   </div>
 </template>
@@ -25,16 +33,20 @@
     text-align: left;
   }
 
+  .button {
+    min-width: 50px;
+  }
+
   .track {
     display: inline-flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     width: auto;
   }
 
   audio {
-    min-height: 60px;
+    /*min-height: 60px;*/
     display: inline-flex;
     margin-left: 20px;
   }
@@ -46,54 +58,6 @@
 
   .fas.action {
     color: white;
-  }
-
-  .tooltip {
-    position: relative;
-    display: inline-flex;
-  }
-
-  .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 100%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-  }
-
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-  }
-
-  @media only screen and (max-device-width: 750px), (max-width: 750px) {
-    #add-to-playlist-div {
-      width: 100%;
-    }
-
-    #add-to-playlist {
-      width: 90%;
-    }
   }
 
   @media only screen and (max-width: 1200px), (max-device-width: 1200px) {
@@ -131,6 +95,26 @@
       },
       addSongToPlaylist() {
         this.$emit('add-to-playlist', this.trackId);
+      },
+      playTrack() {
+        document.getElementById('player')
+          .play();
+      },
+      pauseTrack() {
+        document.getElementById('player')
+          .pause();
+      },
+      toggleMute() {
+        const player = document.getElementById('player');
+        player.muted = !player.muted;
+        const muteBtnIcon = document.getElementById('mute-unmute-btn');
+        if (player.muted) {
+          muteBtnIcon.classList.remove('fa-volume-up');
+          muteBtnIcon.classList.add('fa-volume-off');
+        } else {
+          muteBtnIcon.classList.remove('fa-volume-off');
+          muteBtnIcon.classList.add('fa-volume-up');
+        }
       }
     },
     computed: {
