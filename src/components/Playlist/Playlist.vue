@@ -12,7 +12,6 @@
     <br/>
     <div class="container">
       <h1 class="title is-size-2">{{ name }}</h1>
-
       <section id="playlist-hero-parralax-bg" class="hero hero-parralax-bg">
         <div class="hero-body">
           <div id="playlist-page-hero-body-layout">
@@ -39,22 +38,10 @@
         </div>
       </section>
     </div>
-    s
   </section>
 </template>
 
 <style>
-  /*.panel {*/
-  /*background: white;*/
-  /*line-height: 3.5;*/
-  /*font-size: 1.1em;*/
-  /*}*/
-
-  /*.panel {*/
-  /*background: white;*/
-  /*line-height: 3.5;*/
-  /*font-size: 1.1em;*/
-  /*}*/
   .hero-parralax-bg {
     overflow: auto;
     position: relative;
@@ -64,7 +51,6 @@
     content: '';
     position: absolute;
     display: block;
-    /*background: gray;*/
     background-size: cover;
     -webkit-filter: blur(50px);
     -moz-filter: blur(50px);
