@@ -22,6 +22,7 @@
     width: 300px;
     display: inline-flex;
     align-content: flex-start;
+    text-align: left;
   }
 
   .track {
