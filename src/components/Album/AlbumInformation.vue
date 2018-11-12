@@ -108,7 +108,6 @@
     },
     methods: {
       async getAlbum(albumId) {
-        // const {resultCount, results} = this.album;
         this.albumTracks = await api.getAlbumTracks(albumId, true);
       },
       async create() {
