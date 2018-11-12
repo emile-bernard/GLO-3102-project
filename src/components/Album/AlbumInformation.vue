@@ -1,7 +1,6 @@
 <template>
   <div id="album-page-hero-body-layout">
     <div id="album-info">
-      <h2 class="subtitle is-size-3">{{collectionName}}</h2>
       <div id="top-information">
         <album-cover
           v-bind:refLink=artistViewUrl

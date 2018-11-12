@@ -27,10 +27,12 @@
 
 <style scoped>
   #track-description {
-    width: 300px;
+    min-width: 300px;
     display: inline-flex;
     align-content: flex-start;
     text-align: left;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   .button {
