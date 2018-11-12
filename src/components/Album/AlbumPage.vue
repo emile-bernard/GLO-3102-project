@@ -3,11 +3,13 @@
     <p>
       <router-link to="/"><span>UBeat</span></router-link>
       <span> > </span>
-      <router-link to="/albums"><span>Albums</span></router-link>
+      <router-link to="/artists"><span>Artists</span></router-link>
       <span> > </span>
       <router-link :to="'/artists/'+albums[0].artistId">
         <span>{{albums[0].artistName}}</span>
       </router-link>
+      <span> > </span>
+      <router-link to="/albums"><span>Albums</span></router-link>
       <span> > </span>
       <router-link :to="'/albums'+albums[0].collectionId">
         <span>{{albums[0].collectionName}}</span>
