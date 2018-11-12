@@ -34,6 +34,7 @@
                                   v-on:playlist-selected="selectPlaylist">
             </playlist-choice-item>
           </div>
+        </div>
       </div>
     </div>
   </div>
@@ -132,7 +133,8 @@
         const headers = { 'Content-Type': 'application/json' };
         const body = JSON.stringify(track);
         const options = { method: 'post', headers, body };
-        fetch(uri, options).then();
+        fetch(uri, options)
+          .then();
         this.closeModal();
       },
     },

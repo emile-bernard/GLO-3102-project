@@ -2,7 +2,9 @@
   <div>
     <h2 class="title">Search Results:</h2>
     <hr>
-    <div v-if="isResultsEmpty">No search Results. Try searching something or something else in the search bar right above.</div>
+    <div v-if="isResultsEmpty">No search Results. Try searching something or something else in the search bar right
+      above.
+    </div>
     <search-result-element
       v-for="result in searchResultObjects"
       v-bind:key="result.getId()"
@@ -68,7 +70,7 @@
           remoteSearchPath = '';
         }
         const GET_HEADER = { method: 'get' };
-        fetch(`http://ubeat.herokuapp.com/unsecure/search${remoteSearchPath}?q=${this.query}`, GET_HEADER)
+        fetch(`http://ubeat.herokuapp.com/unsecure/search${remoteSearchPath}?q=${encodeURI(this.query)}`, GET_HEADER)
           .then(res => res.json())
           .then(res => this.initSearchResults(res));
       },

@@ -25,7 +25,6 @@
           v-bind:key="index"
           v-bind:trackIndex="index"
           v-bind:playlistId="$route.params.id"
-          v-bind:track_Id="track._id"
           v-bind:trackId="track.trackId"
           v-bind:trackNumber="track.trackNumber"
           v-bind:trackName="track.trackName"
