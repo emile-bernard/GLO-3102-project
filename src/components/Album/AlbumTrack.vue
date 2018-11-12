@@ -6,9 +6,13 @@
       {{trackName}}</span>
     <audio controls :src="previewUrl"></audio>
     <div id="add-to-playlist-div" class="tooltip is-fullwidth">
-      <button id="add-to-playlist" class="button is-rounded is-success" @click="addSongToPlaylist">
-        <i class="fas fa-plus action" aria-hidden="true"></i>
-      </button>
+      <div class="tooltip">
+        <span class="tooltiptext">Add to playlist</span>
+        <button id="add-to-playlist" class="button is-rounded is-success" @click="addSongToPlaylist">
+          <i class="fas fa-plus action" aria-hidden="true"></i>
+        </button>
+      </div>
+
     </div>
   </div>
 </template>
@@ -45,7 +49,7 @@
 
   .tooltip {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
   }
 
   .tooltip .tooltiptext {
