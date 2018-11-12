@@ -10,7 +10,7 @@
       <p>Genre: {{primaryGenreName}}</p>
       <p>Release: {{releaseDate.toLocaleDateString()}}</p>
       <p>Track count: {{trackCount}}</p>
-      <!--<p id="add-album-to-playlist-icon" v-on:click="addAlbumToPlayList" class="far fa-plus fa-1x"></p>-->
+      <button  class="button is-rounded is-success" v-on:click="addAlbumToPlayList()">Add album to playlist</button>
       <br>
       <div id="album-info-songs">
         <album-track
@@ -118,9 +118,7 @@
         this.isPlaylistChoiceActive = true;
       },
       async addAlbumToPlayList() {
-        const albumInfo = await api.getAlbumTracks(this.collectionId, true);
-        this.albumTracks = albumInfo.results;
-        // TODO : ajouter toutes les chanson à la playlist ici
+        this.isPlaylistChoiceActive = true;
       },
       closePlaylistModal() {
         this.isPlaylistChoiceActive = false;

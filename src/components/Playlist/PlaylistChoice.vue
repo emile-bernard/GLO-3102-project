@@ -34,7 +34,6 @@
                                   v-on:playlist-selected="selectPlaylist">
             </playlist-choice-item>
           </div>
-        </div>
       </div>
     </div>
   </div>
