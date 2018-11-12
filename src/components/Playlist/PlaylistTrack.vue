@@ -1,19 +1,19 @@
 <template>
   <div class="track">
     <span id="track-description">
-      {{trackNumber}}. &nbsp;
+      {{trackNumber + 1}}. &nbsp;
       ({{TrackTimeInMinutes}}) &nbsp;-&nbsp;
       {{trackName}}</span>
     <audio controls :src="previewUrl"></audio>
     <div class="tooltip">
-      <button id="add-to-playlist" class="button is-rounded is-success" @click="addSongToPlaylist">
-        <i class="fas fa-plus action" aria-hidden="true"></i>
-      </button>
+      <a class="button is-rounded is-danger" @click="removeTrack">
+        <i class="fas fa-trash action" aria-hidden="true"></i>
+      </a>
     </div>
   </div>
 </template>
 
-<style scoped>
+<style>
   #track-description {
     width: 300px;
     display: inline-flex;
@@ -113,7 +113,15 @@
       },
       addSongToPlaylist() {
         this.$emit('add-to-playlist', this.trackId);
-      }
+      },
+      removeTrack() {
+        const baseUri = 'https://ubeat.herokuapp.com/unsecure';
+        const uri = `${baseUri}/playlists/${this.playlistId}/tracks/${this.trackId}`;
+        const options = { method: 'delete' };
+        fetch(uri, options)
+          .then(response => response.json());
+        this.$emit('track-deleted');
+      },
     },
     computed: {
       /**

@@ -19,18 +19,11 @@
         <album-track
           v-for="song in albumTracks"
           v-bind:key="song.trackId"
-          v-bind:wrapperType.sync="song.wrapperType"
-          v-bind:kind.sync="song.kind"
           v-bind:trackId.sync="song.trackId"
           v-bind:trackName.sync="song.trackName"
           v-bind:previewUrl.sync="song.previewUrl"
-          v-bind:trackPrice.sync="song.trackPrice"
-          v-bind:trackExplicitness.sync="song.trackExplicitness"
-          v-bind:diskCount.sync="song.discCount"
-          v-bind:diskNumber.sync="song.discNumber"
           v-bind:trackNumber.sync="song.trackNumber"
           v-bind:trackTimeMillis.sync="song.trackTimeMillis"
-          v-bind:isStreamable.sync="song.isStreamable"
           v-on:add-to-playlist="addSongToPlayList"
         ></album-track>
       </div>
@@ -67,7 +60,7 @@
   import * as api from '@/Api';
   import AlbumCover from '@/components/Album/AlbumCover';
   import PlaylistChoice from '@/components/Playlist/PlaylistChoice';
-  import AlbumTrack from '@/components/Album/AlbumTrack';
+  import Track from '@/components/Album/AlbumTrack';
 
   export default {
     props: {
@@ -99,7 +92,7 @@
       };
     },
     components: {
-      'album-track': AlbumTrack,
+      'album-track': Track,
       'album-cover': AlbumCover,
       'playlist-choice': PlaylistChoice,
     },

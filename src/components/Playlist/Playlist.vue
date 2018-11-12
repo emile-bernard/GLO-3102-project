@@ -20,25 +20,37 @@
         <div v-if="tracks.length===0">
           <h2 class="subtitle">This playlist is empty</h2>
         </div>
+      </nav>
+      <div id="playlist-tracks-container">
         <playlist-song
           v-for="(track, index) in tracks"
           v-bind:key="index"
-          v-bind:trackIndex="index"
-          v-bind:playlistId="$route.params.id"
+          v-bind:trackNumber="index"
           v-bind:trackId="track.trackId"
-          v-bind:trackNumber="track.trackNumber"
           v-bind:trackName="track.trackName"
           v-bind:previewUrl="track.previewUrl"
-          v-bind:artistName="track.artistName"
           v-bind:trackTimeMillis="track.trackTimeMillis"
           v-on:track-deleted="tracks.splice(index,1)"
         ></playlist-song>
-      </nav>
+      </div>
     </div>
   </section>
 </template>
 
 <style>
+
+  #playlist-tracks-container {
+    background-color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 20px;
+    color: #dee5ed;
+    padding: 40px;
+  }
+
   .panel {
     background: white;
     line-height: 3.5;
@@ -58,7 +70,7 @@
 </style>
 
 <script>
-  import PlaylistSong from './PlaylistSong';
+  import PlaylistSong from '@/components/Playlist/PlaylistTrack';
 
   export default {
     components: {
