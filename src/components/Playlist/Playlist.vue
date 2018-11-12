@@ -10,51 +10,108 @@
       <router-link :to="'/playlists'+$route.params.id"><span>{{ name }}</span></router-link>
     </p>
     <br/>
-    <div>
-      <br>
-      <nav class="panel">
-        <p class="panel-heading">
-          <i class="fas fa-headphones fa-2x"></i>
-          <span>{{ name }}</span>
-        </p>
-        <div v-if="tracks.length===0">
-          <h2 class="subtitle">This playlist is empty</h2>
+    <div class="container">
+      <h1 class="title is-size-2">{{ name }}</h1>
+
+      <section id="playlist-hero-parralax-bg" class="hero hero-parralax-bg">
+        <div class="hero-body">
+          <div id="playlist-page-hero-body-layout">
+            <div id="playlist-info">
+              <h2 class="subtitle is-size-3">{{ name }}</h2>
+              <br>
+              <div id="playlist-info-songs">
+                <playlist-song
+                  v-for="(track, index) in tracks"
+                  v-bind:key="index"
+                  v-bind:trackIndex="index"
+                  v-bind:playlistId="$route.params.id"
+                  v-bind:trackId="track.trackId"
+                  v-bind:trackNumber="track.trackNumber"
+                  v-bind:trackName="track.trackName"
+                  v-bind:previewUrl="track.previewUrl"
+                  v-bind:artistName="track.artistName"
+                  v-bind:trackTimeMillis="track.trackTimeMillis"
+                  v-on:track-deleted="tracks.splice(index,1)"
+                ></playlist-song>
+              </div>
+            </div>
+          </div>
         </div>
-        <playlist-song
-          v-for="(track, index) in tracks"
-          v-bind:key="index"
-          v-bind:trackIndex="index"
-          v-bind:playlistId="$route.params.id"
-          v-bind:trackId="track.trackId"
-          v-bind:trackNumber="track.trackNumber"
-          v-bind:trackName="track.trackName"
-          v-bind:previewUrl="track.previewUrl"
-          v-bind:artistName="track.artistName"
-          v-bind:trackTimeMillis="track.trackTimeMillis"
-          v-on:track-deleted="tracks.splice(index,1)"
-        ></playlist-song>
-      </nav>
+      </section>
     </div>
+    s
   </section>
 </template>
 
 <style>
-  .panel {
-    background: white;
-    line-height: 3.5;
-    font-size: 1.1em;
+  /*.panel {*/
+  /*background: white;*/
+  /*line-height: 3.5;*/
+  /*font-size: 1.1em;*/
+  /*}*/
+
+  /*.panel {*/
+  /*background: white;*/
+  /*line-height: 3.5;*/
+  /*font-size: 1.1em;*/
+  /*}*/
+  .hero-parralax-bg {
+    overflow: auto;
+    position: relative;
   }
 
-  .panel {
-    background: white;
-    line-height: 3.5;
-    font-size: 1.1em;
+  #playlist-hero-parralax-bg:before {
+    content: '';
+    position: absolute;
+    display: block;
+    /*background: gray;*/
+    background-size: cover;
+    -webkit-filter: blur(50px);
+    -moz-filter: blur(50px);
+    -o-filter: blur(50px);
+    -ms-filter: blur(50px);
+    filter: blur(50px);
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-parralax-bg * {
+    z-index: 10;
+  }
+
+  .hero-body {
+    background-color: rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    column-gap: 0;
   }
 
   .subtitle {
     color: black;
     margin: 1em;
   }
+
+  #playlist-info {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 20px;
+    color: #dee5ed;
+    padding: 40px;
+  }
+
+  #playlist-info-songs {
+    margin: auto;
+  }
+
 </style>
 
 <script>
