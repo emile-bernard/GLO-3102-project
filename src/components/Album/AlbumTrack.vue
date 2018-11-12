@@ -79,6 +79,7 @@
     visibility: visible;
     opacity: 1;
   }
+
   @media only screen and (max-width: 1200px), (max-device-width: 1200px) {
     .fas {
       display: initial;
@@ -136,7 +137,12 @@
         let decimalFinal = (decPartNumber * 60) / 100;
         decimalFinal = this.round(decimalFinal, 2);
         decimalFinal = (`${decimalFinal}`).split('.')[1];
-        return `${minutes.toString()}:${(`00${decimalFinal.toString()}`).substr(-2, 2)}`;
+
+        try {
+          return `${minutes.toString()}:${(`00${decimalFinal.toString()}`).substr(-2, 2)}`;
+        } catch (e) {
+          return `${minutes.toString()}:${(`00${'0'.toString()}`).substr(-2, 2)}`;
+        }
       }
     }
   };
