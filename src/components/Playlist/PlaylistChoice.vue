@@ -2,16 +2,13 @@
   <div id="playlist-modal" v-bind:class="isActiveData">
     <div class="modal-background"></div>
     <div class="modal-content">
-      <div class="dropdown is-hoverable is-active">
-        <div class="dropdown-trigger">
+      <div class="dropdown is-hoverable">
           <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" @click="populatePlaylists">
             <span>Select your playlist</span>
             <span class="icon is-small">
-              <i class="fas fa-angle-down" aria-hidden="true"></i>
+              <i class="fas fa-angle-right" aria-hidden="true"></i>
             </span>
           </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu" role="menu" >
           <div class="dropdown-content">
             <playlistChoiceItem v-for="playlist in playlists"
                                 v-bind:key="playlist.id"
@@ -19,13 +16,7 @@
                                 v-bind:playListName.sync="playlist.name"
             ></playlistChoiceItem>
           </div>
-        </div>
       </div>
-
-      <!--<label class="checkbox" v-for="playlist in playlists">-->
-      <!--<input v-bind:value="playlist.id" type="checkbox">-->
-      <!--{{playlist.name}}-->
-      <!--</label>-->
     </div>
     <button class="modal-close is-large" aria-label="close" @click="closeModal"></button>
   </div>
