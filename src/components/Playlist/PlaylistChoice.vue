@@ -9,7 +9,7 @@
               <i class="fas fa-times" aria-hidden="false"></i>
             </span>
         </button>
-        <button class="button is-success" @click="fetchTrack">
+        <button class="button is-success" @click="fetchTracks">
           <span>Add</span>
           <span class="icon is-small">
               <i class="fas fa-plus" aria-hidden="false"></i>
@@ -62,7 +62,7 @@
     name: 'PlaylistChoice',
     props: {
       isActive: undefined,
-      currentTrackId: undefined,
+      trackIds: undefined,
     },
     components: {
       'playlist-choice-item': PlaylistChoiceItem,
@@ -116,18 +116,24 @@
         this.currentSelection = payload[1];
         this.toggleDropDown();
       },
-      fetchTrack() {
-        const baseUri = 'https://ubeat.herokuapp.com/unsecure';
-        const uri = `${baseUri}/tracks/${this.currentTrackId}`;
-        const options = { method: 'get' };
-        fetch(uri, options)
-          .then(response => response.json())
-          .then((response) => {
-            this.addTrackToSelectedPlaylist(response.results[0]);
-          });
+      fetchTracks() {
+        if (this.currentSelection === undefined) {
+          this.closeModal();
+        } else {
+          for (let i = 0; i < this.trackIds.length; i += 1) {
+            const currentTrackId = this.trackIds[i];
+            const baseUri = 'https://ubeat.herokuapp.com/unsecure';
+            const uri = `${baseUri}/tracks/${currentTrackId}`;
+            const options = { method: 'get' };
+            fetch(uri, options)
+              .then(response => response.json())
+              .then((response) => {
+                this.addTrackToSelectedPlaylist(response.results[0]);
+              });
+          }
+        }
       },
       addTrackToSelectedPlaylist(track) {
-        console.log(track);
         const baseUri = 'https://ubeat.herokuapp.com/unsecure';
         const uri = `${baseUri}/playlists/${this.currentSelection}/tracks`;
         const headers = { 'Content-Type': 'application/json' };
