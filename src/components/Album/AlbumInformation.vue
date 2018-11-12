@@ -1,20 +1,21 @@
 <template>
   <div id="album-page-hero-body-layout">
-    <album-cover
-      v-bind:refLink=artistViewUrl
-      v-bind:imgSrc=artWorkUrl100>
-      <!--v-bind:playRef="'https://www.youtube.com/watch?v=GmwhBSh2rOs'"   ceci faisait jouer l'album au complet, est-ce que l'on conserve cela??-->
-    </album-cover>
     <div id="album-info">
-      <h2 class="subtitle is-size-3">{{collectionName}}</h2>
-      <p>Genre: {{primaryGenreName}}</p>
-      <p>Release: {{releaseDate.toLocaleDateString()}}</p>
-      <p>Track count: {{trackCount}}</p>
-      <button class="button is-rounded is-success"
-              v-on:click="addAlbumToPlayList">
-        Add album to playlist
-      </button>
-      <br>
+      <div id="top-information">
+          <album-cover
+            v-bind:refLink=artistViewUrl
+            v-bind:imgSrc=artWorkUrl100>
+          </album-cover>
+          <div id="album-description">
+            <h2 class="subtitle is-size-3">{{collectionName}}</h2>
+            <p>Genre: {{primaryGenreName}}</p>
+            <p>Release: {{releaseDate.toLocaleDateString()}}</p>
+            <p>Track count: {{trackCount}}</p>
+            <div id="button-add-album">
+              <button class="button is-rounded is-success" v-on:click="addAlbumToPlayList"> Add album to playlist </button>
+            </div>
+          </div>
+        </div>
       <div id="album-info-songs">
         <album-track
           v-for="song in albumTracks"
@@ -34,7 +35,7 @@
           v-on:add-to-playlist="addSongToPlayList"
         ></album-track>
       </div>
-    </div>
+      </div>
     <playlist-choice
       v-if="isPlaylistChoiceActive"
       v-bind:isActive="isPlaylistChoiceActive"
@@ -55,6 +56,38 @@
     margin: 20px;
     color: #dee5ed;
     padding: 40px;
+  }
+
+  #top-information {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px;
+    color: #dee5ed;
+    padding: 10px;
+  }
+
+  #album-description {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px;
+    color: #dee5ed;
+    padding: 10px;
+  }
+
+  #button-add-album {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px;
+    color: #dee5ed;
+    padding: 10px;
   }
 
   #album-info-songs {
