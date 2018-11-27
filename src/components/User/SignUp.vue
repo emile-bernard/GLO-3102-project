@@ -46,6 +46,9 @@
 </style>
 
 <script>
+
+  const Cookies = require('js-cookie');
+
   export default {
     data() {
       return {
@@ -55,22 +58,6 @@
     },
     components: {},
     methods: {
-      setSuccessullyLogedInMessage() {
-        this.displayIsLoginInvalid = false;
-        this.displayIsLoginSuccessfully = true;
-      },
-      setInvalidLogedInMessage() {
-        this.displayIsLoginSuccessfully = false;
-        this.displayIsLoginInvalid = true;
-      },
-      setIsLoginSuccessfully(response) {
-        if ('id' in response) {
-          this.setSuccessullyLogedInMessage();
-        } else {
-          this.setInvalidLogedInMessage();
-        }
-        return response;
-      },
       createNewUser() {
         const data = {
           name: document.getElementById('fullNameInput')
@@ -84,7 +71,7 @@
             .toString(),
         };
         const signUpData = Object.keys(data)
-          .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`);
+          .map(k => this.concatEquals(k, data));
 
         //  TODO Validate fields
         fetch('https://ubeat.herokuapp.com/signup',
@@ -96,14 +83,36 @@
             body: signUpData.join('&')
           })
           .then(response => response.json())
-          .then(response =>
-            this.setIsLoginSuccessfully(response)
-          )
+          .then(this.setIsLogin)
           .catch(this.setInvalidLogedInMessage());
+      },
+      concatEquals(k, data) {
+        return `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`;
+      },
+      setIsLogin(response) {
+        if ('id' in response) {
+          this.setSuccessullyLogedInMessage();
+          this.$router.push('/login');
+        } else {
+          this.setInvalidLogedInMessage();
+        }
+        return response;
+      },
+      setSuccessullyLogedInMessage() {
+        this.displayIsLoginInvalid = false;
+        this.displayIsLoginSuccessfully = true;
+      },
+      setInvalidLogedInMessage() {
+        this.displayIsLoginSuccessfully = false;
+        this.displayIsLoginInvalid = true;
       },
     },
     created() {
-      //  TODO check cookie and notify if already logged in
+      //  check cookie and notify if already logged in.
+      const token = Cookies.get('access_token');
+      if (typeof (token) !== 'undefined') {
+        this.setSuccessullyLogedInMessage();
+      }
     },
   };
 </script>

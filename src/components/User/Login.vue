@@ -36,6 +36,9 @@
 </style>
 
 <script>
+
+  const Cookies = require('js-cookie');
+
   export default {
     data() {
       return {
@@ -45,22 +48,6 @@
     },
     components: {},
     methods: {
-      setSuccessullyLogedInMessage() {
-        this.displayIsLoginInvalid = false;
-        this.displayIsLoginSuccessfully = true;
-      },
-      setInvalidLogedInMessage() {
-        this.displayIsLoginSuccessfully = false;
-        this.displayIsLoginInvalid = true;
-      },
-      setIsLoginSuccessfully(response) {
-        if ('id' in response) {
-          this.setSuccessullyLogedInMessage();
-        } else {
-          this.setInvalidLogedInMessage();
-        }
-        return response;
-      },
       loginUser() {
         const data = {
           email: document.getElementById('emailInput')
@@ -76,18 +63,43 @@
           {
             method: 'post',
             headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
+              'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: loginData.join('&')
           })
           .then(response => response.json())
-          .then(response =>
-            this.setIsLoginSuccessfully(response)
-          ).catch(this.setInvalidLogedInMessage());
+          .then(response => this.setIsLogin(response))
+          .then(response => this.unsetLoginCookie(response))
+          .catch(this.setInvalidLogedInMessage());
+      },
+      setIsLogin(response) {
+        if ('id' in response) {
+          this.setSuccessullyLogedInMessage();
+        } else {
+          this.setInvalidLogedInMessage();
+        }
+        return response;
+      },
+      setSuccessullyLogedInMessage() {
+        this.displayIsLoginInvalid = false;
+        this.displayIsLoginSuccessfully = true;
+        this.$router.push('/logout');
+      },
+      setInvalidLogedInMessage() {
+        this.displayIsLoginSuccessfully = false;
+        this.displayIsLoginInvalid = true;
+      },
+      unsetLoginCookie(response) {
+        Cookies.set('access_token', `Bearer ${response.token}`, { expires: 9000 });
+        return response;
       },
     },
     created() {
-      //  TODO check cookie and notify if already logged in
+      //  check cookie and notify if already logged in.
+      const token = Cookies.get('access_token');
+      if (typeof (token) !== 'undefined') {
+        this.setSuccessullyLogedInMessage();
+      }
     },
   };
 </script>
