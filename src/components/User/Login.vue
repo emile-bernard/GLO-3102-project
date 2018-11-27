@@ -30,11 +30,9 @@
 </template>
 
 <style>
-  <!--
+  /*<!--
   TODO: Fix the disapearing responsive icons
-
-  -->
-
+  -->*/
 </style>
 
 <script>
@@ -84,13 +82,8 @@
           })
           .then(response => response.json())
           .then(response =>
-            //  TODO Print success label
             this.setIsLoginSuccessfully(response)
-          // ).then(response =>
-          //   console.log(response)
-          // //  TODO Print success label
-
-        ).catch(this.setInvalidLogedInMessage());
+          ).catch(this.setInvalidLogedInMessage());
       },
     },
     created() {

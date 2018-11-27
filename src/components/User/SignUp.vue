@@ -40,11 +40,9 @@
 </template>
 
 <style>
-  <!--
+  /*<!--
   TODO: Fix the disapearing responsive icons
-
-  -->
-
+  -->*/
 </style>
 
 <script>
@@ -85,7 +83,8 @@
             .value
             .toString(),
         };
-        const signUpData = Object.keys(data).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`);
+        const signUpData = Object.keys(data)
+          .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`);
 
         //  TODO Validate fields
         fetch('https://ubeat.herokuapp.com/signup',
@@ -98,9 +97,9 @@
           })
           .then(response => response.json())
           .then(response =>
-              this.setIsLoginSuccessfully(response)
-            // console.log(response)
-          ).catch(this.setInvalidLogedInMessage());
+            this.setIsLoginSuccessfully(response)
+          )
+          .catch(this.setInvalidLogedInMessage());
       },
     },
     created() {
