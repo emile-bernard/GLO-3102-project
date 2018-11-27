@@ -9,6 +9,9 @@ import Account from '@/components/User/Account';
 import Settings from '@/components/User/Settings';
 import Logout from '@/components/User/Logout';
 import Search from '@/components/Search/Search';
+import Login from '@/components/User/Login';
+import SignUp from '@/components/User/SignUp';
+
 
 Vue.use(Router);
 
@@ -87,6 +90,16 @@ const router = new Router({
       name: 'Search',
       component: Search,
       meta: { tab: 'search' }
+    }, {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      meta: { tab: 'users' }
+    }, {
+      path: '/signup',
+      name: 'SignUp',
+      component: SignUp,
+      meta: { tab: 'users' }
     }
   ],
 });
