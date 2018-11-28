@@ -69,6 +69,7 @@
 
 <script>
   import PlaylistOverview from './PlaylistOverview';
+  import { redirectToLoginIfNotLoggedIn } from '../../LoginCookies';
 
   export default {
     data() {
@@ -170,6 +171,7 @@
       }
     },
     created() {
+      redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
       fetch('https://ubeat.herokuapp.com/unsecure/playlists/',
         {
           method: 'get'

@@ -1,6 +1,7 @@
 <template>
   <!-- Input section -->
   <section class="section">
+    <h1 class="title">You must log in to access the content. We <3 DRM (not).</h1>
     <div class="container is-5">
       <div class="field">
         <label class="label">Email</label>
@@ -25,6 +26,8 @@
       <button id="submitBtn" class="button is-success" @click="loginUser">Log In</button>
       <p v-if="displayIsLoginSuccessfully" id="validMessage" class="help is-success">Success!</p>
       <p v-if="displayIsLoginInvalid" id="invalidMessage" class="help is-danger">Invalid!</p>
+      <hr>
+      <router-link class="button is-primary" :to="signUpLoc">Don't have an account? Register now!</router-link>
     </div>
   </section>
 </template>
@@ -37,16 +40,26 @@
 
 <script>
 
-  const Cookies = require('js-cookie');
+  import { getLoginToken, redirectBackToWhereItWasBeforeOrDefault, setLoginToken } from '../../LoginCookies';
 
   export default {
+    components: {},
     data() {
       return {
         displayIsLoginSuccessfully: false,
         displayIsLoginInvalid: false,
       };
     },
-    components: {},
+    computed: {
+      signUpLoc() {
+        let loc = '/signup';
+        const fromRedir = this.$route.query.redir;
+        if (typeof (fromRedir) !== 'undefined') {
+          loc = `${loc}?redir=${decodeURIComponent(fromRedir)}`;
+        }
+        return loc;
+      }
+    },
     methods: {
       loginUser() {
         const data = {
@@ -57,7 +70,8 @@
             .value
             .toString(),
         };
-        const loginData = Object.keys(data).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`);
+        const loginData = Object.keys(data)
+          .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`);
 
         fetch('https://ubeat.herokuapp.com/login',
           {
@@ -68,8 +82,8 @@
             body: loginData.join('&')
           })
           .then(response => response.json())
+          .then(response => this.setLoginCookie(response))
           .then(response => this.setIsLogin(response))
-          .then(response => this.unsetLoginCookie(response))
           .catch(this.setInvalidLogedInMessage());
       },
       setIsLogin(response) {
@@ -83,20 +97,26 @@
       setSuccessullyLogedInMessage() {
         this.displayIsLoginInvalid = false;
         this.displayIsLoginSuccessfully = true;
-        this.$router.push('/logout');
+        setTimeout(this.redirectAfterLogin(), 100);
       },
       setInvalidLogedInMessage() {
         this.displayIsLoginSuccessfully = false;
         this.displayIsLoginInvalid = true;
       },
-      unsetLoginCookie(response) {
-        Cookies.set('access_token', `Bearer ${response.token}`, { expires: 9000 });
+      redirectAfterLogin() {
+        const fromRedir = this.$route.query.redir;
+        const router = this.$router;
+        const nested = false;
+        redirectBackToWhereItWasBeforeOrDefault(router, fromRedir, '/logout', nested);
+      },
+      setLoginCookie(response) {
+        setLoginToken(response.token);
         return response;
       },
     },
     created() {
       //  check cookie and notify if already logged in.
-      const token = Cookies.get('access_token');
+      const token = getLoginToken();
       if (typeof (token) !== 'undefined') {
         this.setSuccessullyLogedInMessage();
       }

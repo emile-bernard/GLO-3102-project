@@ -89,6 +89,7 @@
 <script>
   import AlbumInformation from '@/components/Album/AlbumInformation';
   import * as api from '@/Api';
+  import { redirectToLoginIfNotLoggedIn } from '../../LoginCookies';
 
   export default {
     components: {
@@ -105,6 +106,7 @@
       };
     },
     created() {
+      redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
       this.create();
     },
     methods: {

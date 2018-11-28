@@ -47,7 +47,7 @@
 
 <script>
 
-  const Cookies = require('js-cookie');
+  import { getLoginToken, redirectBackToWhereItWasBeforeOrDefault } from '../../LoginCookies';
 
   export default {
     data() {
@@ -92,7 +92,6 @@
       setIsLogin(response) {
         if ('id' in response) {
           this.setSuccessullyLogedInMessage();
-          this.$router.push('/login');
         } else {
           this.setInvalidLogedInMessage();
         }
@@ -101,15 +100,22 @@
       setSuccessullyLogedInMessage() {
         this.displayIsLoginInvalid = false;
         this.displayIsLoginSuccessfully = true;
+        setTimeout(this.redirectAfterLogin(), 100);
       },
       setInvalidLogedInMessage() {
         this.displayIsLoginSuccessfully = false;
         this.displayIsLoginInvalid = true;
       },
+      redirectAfterLogin() {
+        const fromRedir = this.$route.query.redir;
+        const router = this.$router;
+        const nested = true;
+        redirectBackToWhereItWasBeforeOrDefault(router, fromRedir, '/login', nested);
+      },
     },
     created() {
       //  check cookie and notify if already logged in.
-      const token = Cookies.get('access_token');
+      const token = getLoginToken();
       if (typeof (token) !== 'undefined') {
         this.setSuccessullyLogedInMessage();
       }

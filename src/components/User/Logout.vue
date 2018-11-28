@@ -15,7 +15,7 @@
 
 <script>
 
-  const Cookies = require('js-cookie');
+  import { getLoginToken, removeLoginToken } from '../../LoginCookies';
 
   export default {
     data() {
@@ -26,24 +26,25 @@
     },
     methods: {
       logoutUser() {
-        const token = Cookies.get('access_token');
+        const token = getLoginToken();
         if (typeof (token) !== 'undefined') {
           fetch('https://ubeat.herokuapp.com/logout',
             {
               method: 'get',
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
+                // TODO: use token like this in EVERY API call of the app if token is set!
                 Authorization: token
               }
             })
             .then(this.setSuccessullyLogedOutMessage)
-            .catch(this.handleLogoutError);
+            .catch(this.setInvalidLogedOutMessage);
         } else {
           this.setInvalidLogedOutMessage();
         }
       },
       setSuccessullyLogedOutMessage() {
-        this.unsetLoginCookie();
+        removeLoginToken();
         this.displayIsLogoutInvalid = false;
         this.displayIsLogoutSuccessfully = true;
         this.$router.push('/login');
@@ -52,13 +53,6 @@
         this.displayIsLogoutSuccessfully = false;
         this.displayIsLogoutInvalid = true;
       },
-      unsetLoginCookie(response) {
-        Cookies.remove('access_token');
-        return response;
-      },
     },
-    handleLogoutError() {
-      this.setInvalidLogedOutMessage();
-    }
   };
 </script>

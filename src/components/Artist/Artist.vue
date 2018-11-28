@@ -107,6 +107,7 @@
   import ArtistImage from './ArtistImage';
   import ArtistMostRecentAlbum from './ArtistMostRecentAlbum';
   import ArtistAlbum from './ArtistAlbum';
+  import { redirectToLoginIfNotLoggedIn } from '../../LoginCookies';
 
   export default {
     components: {
@@ -162,6 +163,7 @@
       };
     },
     created() {
+      redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
       const GET_HEADER = { method: 'get' };
       fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}`, GET_HEADER)
         .then(res => res.json())

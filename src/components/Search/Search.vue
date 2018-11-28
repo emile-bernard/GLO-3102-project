@@ -23,6 +23,7 @@
 <script>
   import SearchInlineBar from './SearchInlineBar';
   import SearchResults from './SearchResults';
+  import { redirectToLoginIfNotLoggedIn } from '../../LoginCookies';
 
   export default {
     components: {
@@ -41,6 +42,7 @@
       }
     },
     created() {
+      redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
       this.init();
     },
     methods: {
