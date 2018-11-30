@@ -9,13 +9,12 @@
     <section id="hero-news" class="hero is-primary is-medium is-bold">
       <div class="hero-body">
         <div class="container has-text-centered">
-          <h1 class="title">Current music news, artist interviews, album reviews, and music industry news from UBeat
-            Music.</h1>
+          <h1 class="title">Current music news</h1>
         </div>
       </div>
     </section>
 
-    <div class="section">
+    <div id="news-container" class="section">
       <news-article v-for="(item, index) in newsArticles"
                     v-bind:key=index
                     v-bind:articleAuthor="item.articleAuthor"
@@ -32,7 +31,12 @@
 </template>
 
 <style>
-
+  #news-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-around;
+  }
 </style>
 
 <script>
@@ -74,7 +78,10 @@
     },
     created() {
       const apiKey = 'cf21ecee96d94f34a71e17dcca6638f9';
-      const url = 'https://newsapi.org/v2/everything?q=music&from=2018-11-29&to=2018-11-29&sortBy=popularity&apiKey=';
+      const querySubject = encodeURIComponent('music');
+      const queryFrom = '2018-11-29&to=2018-11-29';
+      const querySortBy = encodeURIComponent('relevance');
+      const url = `https://newsapi.org/v2/everything?q=${querySubject}&from=${queryFrom}&sortBy=${querySortBy}&apiKey=`;
       const fullUrl = url + apiKey;
       fetch(fullUrl,
         {
