@@ -23,10 +23,9 @@
         <p class="subtitle">{{ articleDescription }}</p>
         <p>{{ articleContent }}</p>
         <p>
-          <span class="title is-6">
-            <a v-bind:href=articleUrl target="_blank">Read More&nbsp;<i class="fas fa-glasses"></i></a>
-
-          </span>
+          <span class="tag is-success is-medium"><span class="title is-6">
+            <a class="read-more-link" v-bind:href=articleUrl target="_blank">Read More</a>
+          </span></span>
         </p>
       </div>
     </div>
@@ -39,6 +38,10 @@
   }
 
   .content {
+    color: white;
+  }
+
+  .read-more-link{
     color: white;
   }
 </style>
