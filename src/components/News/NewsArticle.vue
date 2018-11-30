@@ -1,5 +1,5 @@
 <template>
-  <div id="news-article-card" class="card large">
+  <div class="card large news-article-card">
     <div class="card-image">
       <figure class="image">
         <a v-bind:href=articleUrl target="_blank">
@@ -13,17 +13,17 @@
           <i class="fas fa-at fa-6x"></i>
         </div>
         <div class="media-content">
-          <p class="title is-4 no-padding">{{ articleAuthor }}</p>
-          <p><span class="title is-6">{{ articleSource.name }}</span></p>
-          <p class="subtitle is-6">{{ articlePublishedAt }}</p>
+          <p class="title is-3 no-padding">{{ articleAuthor }}</p>
+          <p><span class="title is-6"> <span class="tag is-primary">{{ articleSource.name }}</span></span></p>
+          <p class="subtitle is-6"><span class="tag is-light">{{ articlePublishedAt }}</span></p>
         </div>
       </div>
       <div class="content">
         <p class="tile">{{ articleTitle }}</p>
         <p class="subtitle">{{ articleDescription }}</p>
         <p>{{ articleContent }}</p>
-        <p>
-          <span class="tag is-success is-medium"><span class="title is-6">
+        <p class="read-more-paragraph">
+          <span class="tag is-success is-large"><span class="title is-6">
             <a class="read-more-link" v-bind:href=articleUrl target="_blank">Read More</a>
           </span></span>
         </p>
@@ -33,16 +33,34 @@
 </template>
 
 <style>
-  #news-article-card {
+  .news-article-card {
     margin-bottom: 2em;
+  }
+
+  .card-content {
+    background-color: #3c3f42;
   }
 
   .content {
     color: white;
   }
 
-  .read-more-link{
+  .read-more-link {
     color: white;
+  }
+
+  .card {
+    display: inline-block;
+    border-radius: 1em;
+    padding: 5px;
+    color: #fff;
+    font-size: 18px;
+    background-color: rgba(87, 225, 181, 1);
+    box-shadow: 0 5px 20px rgba(87, 225, 181, .5);
+  }
+
+  .tag {
+    margin-bottom: 2em;
   }
 </style>
 
