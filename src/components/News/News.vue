@@ -26,353 +26,115 @@
           </div>
         </div>
       </div>
+
       <!-- Developers -->
       <div class="row columns">
-        <div class="column is-one-third">
-          <div class="card large">
-            <div class="card-image">
-              <figure class="image">
-                <img
-                  src="https://images.unsplash.com/photo-1475778057357-d35f37fa89dd?dpr=1&auto=compress,format&fit=crop&w=1920&h=&q=80&cs=tinysrgb&crop="
-                  alt="Image">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-96x96">
-                    <img src="https://i.imgsafe.org/a4/a4bb9acc5e.jpeg" alt="Image">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4 no-padding">Okinami</p>
-                  <p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>
-                  <p class="subtitle is-6">Lead Developer</p>
-                </div>
-              </div>
-              <div class="content">
-                The Beast stumbled in the dark for it could no longer see the path. It started to fracture and weaken,
-                trying to reshape itself into the form of metal. Even the witches would no longer lay eyes upon it, for
-                it had become hideous and twisted.
-                <div class="background-icon"><span class="icon-twitter"></span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="card large">
-            <div class="card-image">
-              <figure class="image">
-                <img src="https://source.unsplash.com/uzDLtlPY8kQ" alt="Image">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-96x96">
-                    <img
-                      src="https://cdn.discordapp.com/avatars/244932903530659841/0c924a19fcf1b5c59bc9dc1b58b61bb0.jpg?size=1024"
-                      alt="Image">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4 no-padding">McSocks</p>
-                  <p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>
-                  <p class="subtitle is-6">Developer</p>
-                </div>
-              </div>
-              <div class="content">
-                The soul of the Beast seemed lost forever. Then, by the full moon's light, a child was born; child with
-                the unbridled soul of the Beast that would make all others pale in comparison.
-                <div class="background-icon"><span class="icon-facebook"></span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="card large">
-            <div class="card-image">
-              <figure class="image">
-                <img src="https://source.unsplash.com/pe_R74hldW4" alt="Image">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-96x96">
-                    <img src="https://i.imgsafe.org/a5/a5e978ce20.jpeg" alt="Image">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4 no-padding">The Conceptionist</p>
-                  <p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>
-                  <p class="subtitle is-6">Developer</p>
-                </div>
-              </div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad
-                amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore
-                reprehenderit beatae magnam animi!
-                <div class="background-icon"><span class="icon-barcode"></span></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!--<div class="column is-one-third">-->
+        <!--<div class="card large">-->
+        <!--<div class="card-image">-->
+        <!--<figure class="image">-->
+        <!--<img-->
+        <!--src="https://images.unsplash.com/photo-1475778057357-d35f37fa89dd?dpr=1&auto=compress,format&fit=crop&w=1920&h=&q=80&cs=tinysrgb&crop="-->
+        <!--alt="Image">-->
+        <!--</figure>-->
+        <!--</div>-->
+        <!--<div class="card-content">-->
+        <!--<div class="media">-->
+        <!--<div class="media-left">-->
+        <!--<figure class="image is-96x96">-->
+        <!--<img src="https://i.imgsafe.org/a4/a4bb9acc5e.jpeg" alt="Image">-->
+        <!--</figure>-->
+        <!--</div>-->
+        <!--<div class="media-content">-->
+        <!--<p class="title is-4 no-padding">Okinami</p>-->
+        <!--<p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>-->
+        <!--<p class="subtitle is-6">Lead Developer</p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="content">-->
+        <!--The Beast stumbled in the dark for it could no longer see the path. It started to fracture and weaken,-->
+        <!--trying to reshape itself into the form of metal. Even the witches would no longer lay eyes upon it, for-->
+        <!--it had become hideous and twisted.-->
+        <!--<div class="background-icon"><span class="icon-twitter"></span></div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="column is-one-third">-->
+        <!--<div class="card large">-->
+        <!--<div class="card-image">-->
+        <!--<figure class="image">-->
+        <!--<img src="https://source.unsplash.com/uzDLtlPY8kQ" alt="Image">-->
+        <!--</figure>-->
+        <!--</div>-->
+        <!--<div class="card-content">-->
+        <!--<div class="media">-->
+        <!--<div class="media-left">-->
+        <!--<figure class="image is-96x96">-->
+        <!--<img-->
+        <!--src="https://cdn.discordapp.com/avatars/244932903530659841/0c924a19fcf1b5c59bc9dc1b58b61bb0.jpg?size=1024"-->
+        <!--alt="Image">-->
+        <!--</figure>-->
+        <!--</div>-->
+        <!--<div class="media-content">-->
+        <!--<p class="title is-4 no-padding">McSocks</p>-->
+        <!--<p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>-->
+        <!--<p class="subtitle is-6">Developer</p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="content">-->
+        <!--The soul of the Beast seemed lost forever. Then, by the full moon's light, a child was born; child with-->
+        <!--the unbridled soul of the Beast that would make all others pale in comparison.-->
+        <!--<div class="background-icon"><span class="icon-facebook"></span></div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="column is-one-third">-->
+        <!--<div class="card large">-->
+        <!--<div class="card-image">-->
+        <!--<figure class="image">-->
+        <!--<img src="https://source.unsplash.com/pe_R74hldW4" alt="Image">-->
+        <!--</figure>-->
+        <!--</div>-->
+        <!--<div class="card-content">-->
+        <!--<div class="media">-->
+        <!--<div class="media-left">-->
+        <!--<figure class="image is-96x96">-->
+        <!--<img src="https://i.imgsafe.org/a5/a5e978ce20.jpeg" alt="Image">-->
+        <!--</figure>-->
+        <!--</div>-->
+        <!--<div class="media-content">-->
+        <!--<p class="title is-4 no-padding">The Conceptionist</p>-->
+        <!--<p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>-->
+        <!--<p class="subtitle is-6">Developer</p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="content">-->
+        <!--Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad-->
+        <!--amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore-->
+        <!--reprehenderit beatae magnam animi!-->
+        <!--<div class="background-icon"><span class="icon-barcode"></span></div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+
+        <news-article v-for="(item, index) in newsArticles"
+                      v-bind:key=index
+                      v-bind:articleAuthor="item.articleAuthor"
+                      v-bind:articleContent="item.articleContent"
+                      v-bind:articleDescription="item.articleDescription"
+                      v-bind:articlePublishedAt="item.articlePublishedAt"
+                      v-bind:articleSource="item.articleSource"
+                      v-bind:articleTitle="item.articleTitle"
+                      v-bind:articleUrl="item.articleUrl"
+                      v-bind:articleUrlToImage="item.articleUrlToImage">
+        </news-article>
+
       </div>
       <!-- End Developers -->
-
-      <!-- Staff -->
-      <div class="row columns is-multiline">
-        <div class="column is-one-third">
-          <div class="card large round">
-            <div class="card-image ">
-              <figure class="image">
-                <img src="https://source.unsplash.com/Jy6luiLBsrk" alt="Image">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-96x96">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample5.jpg" alt="Image">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4 no-padding">Atsui</p>
-                  <p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>
-                  <p class="subtitle is-6">Moderator</p>
-                </div>
-              </div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad
-                amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore
-                reprehenderit beatae magnam animi!
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="card large">
-            <div class="card-image">
-              <figure class="image">
-                <img src="https://source.unsplash.com//i1CR3CY2hE4" alt="Image">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-96x96">
-                    <img src='http://www.radfaces.com/images/avatars/richard-wang.jpg' alt="Image">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4 no-padding">Sphirou Sapphirou</p>
-                  <p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>
-                  <p class="subtitle is-6">Moderator</p>
-                </div>
-              </div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad
-                amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore
-                reprehenderit beatae magnam animi!
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="card large">
-            <div class="card-image">
-              <figure class="image">
-                <img src="https://source.unsplash.com/b6VzeoRZiS0" alt="Image">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-96x96">
-                    <img src='http://www.radfaces.com/images/avatars/jeffrey-douglas.jpg' alt="Image">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4 no-padding">PlayTheFallen</p>
-                  <p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>
-                  <p class="subtitle is-6">Moderator</p>
-                </div>
-              </div>
-              <div class="content">
-                Sometimes I dip my nose into my cereals. I do it coz it's funny.
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="card large">
-            <div class="card-image">
-              <figure class="image">
-                <img src="https://i.imgsafe.org/a4/a4bda71ae4.jpeg" alt="Image">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-96x96">
-                    <img src="http://www.radfaces.com/images/avatars/scrappy-doo.jpg" alt="Image">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4 no-padding">FelixCAT</p>
-                  <p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>
-                  <p class="subtitle is-6">Moderator</p>
-                </div>
-              </div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad
-                amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore
-                reprehenderit beatae magnam animi!
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="card large">
-            <div class="card-image">
-              <figure class="image">
-                <img src="https://source.unsplash.com/ogYIzsNGu3Y" alt="Image">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-96x96">
-                    <img src="http://www.radfaces.com/images/avatars/scrappy-doo.jpg" alt="Image">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4 no-padding">ScoobyDOG</p>
-                  <p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>
-                  <p class="subtitle is-6">Moderator</p>
-                </div>
-              </div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad
-                amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore
-                reprehenderit beatae magnam animi!
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="card large">
-            <div class="card-image">
-              <figure class="image">
-                <img src="https://source.unsplash.com/KgjcndVr7tU" alt="Image">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-96x96">
-                    <img src="http://www.radfaces.com/images/avatars/scrappy-doo.jpg" alt="Image">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4 no-padding">Scrappy Doo</p>
-                  <p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>
-                  <p class="subtitle is-6">Moderator</p>
-                </div>
-              </div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad
-                amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore
-                reprehenderit beatae magnam animi!
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="card large">
-            <div class="card-image">
-              <figure class="image">
-                <img src="https://i.imgsafe.org/a5/a5e978ce20.jpeg" alt="Image">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-96x96">
-                    <img src="http://www.radfaces.com/images/avatars/alex-mack.jpg" alt="Image">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4">Prototyp3</p>
-                  <p class="subtitle is-6">Moderator</p>
-                </div>
-              </div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad
-                amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore
-                reprehenderit beatae magnam animi!
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="card large">
-            <div class="card-image">
-              <figure class="image">
-                <img src="https://source.unsplash.com/Gnxquq4oYQc" alt="Image">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-96x96">
-                    <img src="http://www.radfaces.com/images/avatars/alex-mack.jpg" alt="Image">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4 no-padding">Alex Mack</p>
-                  <p><span class="title is-6"><a href="http://twitter.com/#">@twitterid</a></span></p>
-                  <p class="subtitle is-6">Moderator</p>
-                </div>
-              </div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad
-                amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore
-                reprehenderit beatae magnam animi!
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="card large">
-            <div class="card-image">
-              <figure class="image">
-                <img src="https://source.unsplash.com/qbtyUQtqJ8k" alt="Image">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-96x96">
-                    <img src="http://www.radfaces.com/images/avatars/alex-mack.jpg" alt="Image">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4">Alex Mack</p>
-                  <p class="subtitle is-6">Moderator</p>
-                </div>
-              </div>
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum consequatur numquam aliquam tenetur ad
-                amet inventore hic beatae, quas accusantium perferendis sapiente explicabo, corporis totam! Labore
-                reprehenderit beatae magnam animi!
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End Staff -->
     </div>
   </div>
 </template>
@@ -384,7 +146,58 @@
 </style>
 
 <script>
+  import NewsArticle from './NewsArticle';
+
   export default {
-    name: 'News'
+    name: 'News',
+    components: {
+      'news-article': NewsArticle,
+    },
+    data() {
+      return {
+        newsArticles: [],
+      };
+    },
+    methods: {
+      populateNewsArticles(articles) {
+        const articlesArray = [];
+
+        for (let i = 0; i < articles.length; i += 1) {
+          articlesArray.push(
+            {
+              articleAuthor: articles[i].author,
+              articleContent: articles[i].content,
+              articleDescription: articles[i].description,
+              articlePublishedAt: articles[i].publishedAt,
+              articleSource: articles[i].source,
+              articleTitle: articles[i].title,
+              articleUrl: articles[i].url,
+              articleUrlToImage: articles[i].urlToImage
+            });
+        }
+
+        this.setNewsArticles(articlesArray);
+      },
+      setNewsArticles(articles) {
+        console.log('News articles Retrieved');
+        console.log(articles);
+        this.newsArticles = articles;
+      },
+    },
+    created() {
+      const apiKey = 'cf21ecee96d94f34a71e17dcca6638f9';
+      const url = 'https://newsapi.org/v2/everything?q=apple&from=2018-11-29&to=2018-11-29&sortBy=popularity&apiKey=';
+      const fullUrl = url + apiKey;
+      fetch(fullUrl,
+        {
+          method: 'get'
+        })
+        .then(response => response.json())
+        .then((response) => {
+          console.log('Response:');
+          console.log(response);
+          this.populateNewsArticles(response.articles);
+        });
+    },
   };
 </script>
