@@ -6,9 +6,6 @@
       </a>
     </figure>
     <div class="media">
-      <div class="media-left">
-        <i class="fas fa-at fa-6x"></i>
-      </div>
       <div class="media-content">
         <p class="title is-3 no-padding">{{ articleAuthor }}</p>
         <p><span class="title is-6"> <span class="tag is-primary">{{ articleSource.name }}</span></span></p>
