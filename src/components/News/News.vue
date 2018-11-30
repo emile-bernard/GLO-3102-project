@@ -77,7 +77,7 @@
     },
     created() {
       const apiKey = 'cf21ecee96d94f34a71e17dcca6638f9';
-      const url = 'https://newsapi.org/v2/everything?q=apple&from=2018-11-29&to=2018-11-29&sortBy=popularity&apiKey=';
+      const url = 'https://newsapi.org/v2/everything?q=music&from=2018-11-29&to=2018-11-29&sortBy=popularity&apiKey=';
       const fullUrl = url + apiKey;
       fetch(fullUrl,
         {
