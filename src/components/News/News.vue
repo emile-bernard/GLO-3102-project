@@ -72,8 +72,6 @@
         this.setNewsArticles(articlesArray);
       },
       setNewsArticles(articles) {
-        console.log('News articles Retrieved');
-        console.log(articles);
         this.newsArticles = articles;
       },
     },
@@ -87,8 +85,6 @@
         })
         .then(response => response.json())
         .then((response) => {
-          console.log('Response:');
-          console.log(response);
           this.populateNewsArticles(response.articles);
         });
     },
