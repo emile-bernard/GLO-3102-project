@@ -17,7 +17,7 @@
     <div class="box">
       <div class="tabs is-centered">
         <ul>
-          <li class="is-active">
+          <li>
             <a>
               <span @click="changeTab('Music')">All</span>
             </a>
