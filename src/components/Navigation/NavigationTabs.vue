@@ -16,6 +16,9 @@
       <li id="navigation-tab-playlists">
         <router-link to="/playlists">Playlists</router-link>
       </li>
+      <li id="navigation-tab-news">
+        <router-link to="/news">News</router-link>
+      </li>
       <li id="navigation-tab-users">
         <router-link to="/users">Users</router-link>
       </li>

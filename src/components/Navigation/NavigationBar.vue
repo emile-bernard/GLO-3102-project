@@ -38,6 +38,12 @@
             <p>Playlists</p>
           </div>
         </router-link>
+        <router-link to="/news">
+          <div class="navbar-item">
+            <i class="fas fa-newspaper fa-2x"></i>
+            <p>News</p>
+          </div>
+        </router-link>
         <router-link to="/users">
           <div class="navbar-item">
             <i class="fas fa-users fa-2x"></i>

@@ -5,6 +5,7 @@ import Album from '@/components/Album/AlbumPage';
 import Artist from '@/components/Artist/Artist';
 import PlaylistList from '@/components/Playlist/PlaylistList';
 import Playlist from '@/components/Playlist/Playlist';
+import News from '@/components/News/News';
 import Account from '@/components/User/Account';
 import Settings from '@/components/User/Settings';
 import Logout from '@/components/User/Logout';
@@ -54,6 +55,11 @@ const router = new Router({
       name: 'Playlists',
       component: PlaylistList,
       meta: { tab: 'playlists' }
+    }, {
+      path: '/news',
+      name: 'News',
+      component: News,
+      meta: { tab: 'news' }
     }, {
       path: '/playlists/:id',
       name: 'Playlist',
