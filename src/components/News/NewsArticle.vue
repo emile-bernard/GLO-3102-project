@@ -2,7 +2,9 @@
   <div id="news-article-card" class="card large">
     <div class="card-image">
       <figure class="image">
-        <img v-bind:src=articleUrlToImage alt="Article Image">
+        <a v-bind:href=articleUrl target="_blank">
+          <img v-bind:src=articleUrlToImage alt="Article Image">
+        </a>
       </figure>
     </div>
     <div class="card-content">

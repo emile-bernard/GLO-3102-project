@@ -29,7 +29,6 @@
       </news-article>
     </div>
   </div>
-
 </template>
 
 <style>
