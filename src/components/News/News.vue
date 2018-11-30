@@ -29,13 +29,10 @@
       </news-article>
     </div>
   </div>
-
 </template>
 
 <style>
-  .content {
-    color: white;
-  }
+
 </style>
 
 <script>
@@ -61,7 +58,7 @@
               articleAuthor: articles[i].author,
               articleContent: articles[i].content,
               articleDescription: articles[i].description,
-              articlePublishedAt: articles[i].publishedAt,
+              articlePublishedAt: new Date(articles[i].publishedAt).toLocaleString(),
               articleSource: articles[i].source,
               articleTitle: articles[i].title,
               articleUrl: articles[i].url,
