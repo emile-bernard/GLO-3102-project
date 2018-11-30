@@ -14,18 +14,56 @@
       </div>
     </section>
 
-    <div id="news-container" class="section">
-      <news-article v-for="(item, index) in newsArticles"
-                    v-bind:key=index
-                    v-bind:articleAuthor="item.articleAuthor"
-                    v-bind:articleContent="item.articleContent"
-                    v-bind:articleDescription="item.articleDescription"
-                    v-bind:articlePublishedAt="item.articlePublishedAt"
-                    v-bind:articleSource="item.articleSource"
-                    v-bind:articleTitle="item.articleTitle"
-                    v-bind:articleUrl="item.articleUrl"
-                    v-bind:articleUrlToImage="item.articleUrlToImage">
-      </news-article>
+    <div class="box">
+      <div class="tabs is-centered">
+        <ul>
+          <li class="is-active">
+            <a>
+              <span @click="changeTab('Music')">All</span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span @click="changeTab('Country Music')">Country</span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span @click="changeTab('Rock Music')">Rock</span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span @click="changeTab('Rap Music')">Rap</span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span @click="changeTab('Techno Music')">Techno</span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span @click="changeTab('Dubstep')">Dubstep</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+
+      <div id="news-container" class="section">
+        <news-article v-for="(item, index) in newsArticles"
+                      v-bind:key=index
+                      v-bind:articleAuthor="item.articleAuthor"
+                      v-bind:articleContent="item.articleContent"
+                      v-bind:articleDescription="item.articleDescription"
+                      v-bind:articlePublishedAt="item.articlePublishedAt"
+                      v-bind:articleSource="item.articleSource"
+                      v-bind:articleTitle="item.articleTitle"
+                      v-bind:articleUrl="item.articleUrl"
+                      v-bind:articleUrlToImage="item.articleUrlToImage">
+        </news-article>
+      </div>
     </div>
   </div>
 </template>
@@ -34,8 +72,10 @@
   #news-container {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
     align-content: flex-start;
     justify-content: space-around;
+    background-color: transparent;
   }
 </style>
 
@@ -53,6 +93,9 @@
       };
     },
     methods: {
+      changeTab(musicStyle) {
+        this.queryApi(musicStyle);
+      },
       populateNewsArticles(articles) {
         const articlesArray = [];
 
@@ -75,22 +118,31 @@
       setNewsArticles(articles) {
         this.newsArticles = articles;
       },
+      queryApi(musicStyle) {
+        const apiKey = 'cf21ecee96d94f34a71e17dcca6638f9';
+        const querySubject = encodeURIComponent(musicStyle);
+        const toDate = new Date();
+        const fromDate = new Date();
+        fromDate.setDate(fromDate.getDate() - 5);
+        const toDateFormat = toDate.toISOString().split('T')[0];
+        const fromDateFormat = fromDate.toISOString().split('T')[0];
+
+        const queryFrom = `${fromDateFormat}&to=${toDateFormat}`;
+        const querySortBy = encodeURIComponent('relevance');
+        const url = `https://newsapi.org/v2/everything?q=${querySubject}&from=${queryFrom}&sortBy=${querySortBy}&apiKey=`;
+        const fullUrl = url + apiKey;
+        fetch(fullUrl,
+          {
+            method: 'get'
+          })
+          .then(response => response.json())
+          .then((response) => {
+            this.populateNewsArticles(response.articles);
+          });
+      }
     },
     created() {
-      const apiKey = 'cf21ecee96d94f34a71e17dcca6638f9';
-      const querySubject = encodeURIComponent('music');
-      const queryFrom = '2018-11-29&to=2018-11-29';
-      const querySortBy = encodeURIComponent('relevance');
-      const url = `https://newsapi.org/v2/everything?q=${querySubject}&from=${queryFrom}&sortBy=${querySortBy}&apiKey=`;
-      const fullUrl = url + apiKey;
-      fetch(fullUrl,
-        {
-          method: 'get'
-        })
-        .then(response => response.json())
-        .then((response) => {
-          this.populateNewsArticles(response.articles);
-        });
+      this.queryApi('Music');
     },
   };
 </script>
