@@ -35,6 +35,10 @@
   #news-article-card {
     margin-bottom: 2em;
   }
+
+  .content {
+    color: white;
+  }
 </style>
 
 <script>
