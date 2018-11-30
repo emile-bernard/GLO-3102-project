@@ -10,6 +10,7 @@
       <div class="hero-body">
         <div class="container has-text-centered">
           <h1 class="title">Current music news</h1>
+          <i id="news-icon" class="fas fa-newspaper fa-4x"></i>
         </div>
       </div>
     </section>
@@ -69,6 +70,10 @@
 </template>
 
 <style>
+  #news-icon {
+    color: white;
+  }
+
   #news-container {
     display: flex;
     flex-wrap: wrap;
