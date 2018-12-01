@@ -22,9 +22,7 @@
   }
 </style>
 
-
 <script>
-
   import { getLoginToken, removeLoginToken } from '../../LoginCookies';
 
   export default {

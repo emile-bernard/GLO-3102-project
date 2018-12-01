@@ -8,7 +8,8 @@
           <div class="field">
             <label class="label">Full name</label>
             <div class="control has-icons-left">
-              <input id="fullNameInput" class="input" type="text" placeholder="Full name..." @keyup.enter="createNewUser">
+              <input id="fullNameInput" class="input" type="text" placeholder="Full name..."
+                     @keyup.enter="createNewUser">
               <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
@@ -33,8 +34,9 @@
             </div>
           </div>
           <button id="submitBtn" class="button is-success" @click="createNewUser">Sign Up</button>
-          <p v-if="displayIsSignUpSuccessfully" id="validMessage" class="help is-success">Success! You can now log in.</p>
-          <p v-if="displayIsSignUpInvalid" id="invalidMessage" class="help is-danger">Invalid!</p>
+          <p v-if="displayIsSignUpSuccessfully" id="validMessage" class="help is-success">Success! You can now log
+            in.</p>
+          <p v-if="displayIsSignUpInvalid" id="invalidMessage" class="help is-danger">Invalid</p>
           <hr>
           <router-link class="button is-primary" :to="logInLoc">Already have an account? Login now!
           </router-link>
@@ -51,7 +53,6 @@
 </style>
 
 <script>
-
   import { getLoginToken, redirectBackToWhereItWasBeforeOrDefault } from '../../LoginCookies';
 
   export default {
@@ -88,18 +89,22 @@
         const signUpData = Object.keys(data)
           .map(k => this.concatEquals(k, data));
 
-        //  TODO Validate fields
-        fetch('https://ubeat.herokuapp.com/signup',
-          {
-            method: 'post',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: signUpData.join('&')
-          })
-          .then(response => response.json())
-          .then(this.setIsSignedUp)
-          .catch(this.setInvalidSignedUpMessage());
+        // Validate fields
+        if (this.isNameValid(data.name)
+          && this.isEmailValid(data.email)
+          && this.isPasswordValid(data.password)) {
+          fetch('https://ubeat.herokuapp.com/signup',
+            {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              body: signUpData.join('&')
+            })
+            .then(response => response.json())
+            .then(this.setIsSignedUp)
+            .catch(this.setInvalidSignedUpMessage('Server Error'));
+        }
       },
       concatEquals(k, data) {
         return `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`;
@@ -117,9 +122,10 @@
         this.displayIsSignUpSuccessfully = true;
         setTimeout(this.redirectAfterSignUp(), 100);
       },
-      setInvalidSignedUpMessage() {
+      setInvalidSignedUpMessage(message) {
         this.displayIsSignUpSuccessfully = false;
         this.displayIsSignUpInvalid = true;
+        setTimeout(document.getElementById('invalidMessage').innerHTML = message, 1000);
       },
       redirectAfterSignUp() {
         const fromRedir = this.$route.query.redir;
@@ -127,6 +133,27 @@
         const nested = true;
         redirectBackToWhereItWasBeforeOrDefault(router, fromRedir, '/login', nested);
       },
+      isNameValid(name) {
+        if (name === null || name === '') {
+          this.setInvalidSignedUpMessage('Name cannot be empty');
+          return false;
+        }
+        return true;
+      },
+      isEmailValid(email) {
+        if (email === null || email === '') {
+          this.setInvalidSignedUpMessage('Email cannot be empty');
+          return false;
+        }
+        return true;
+      },
+      isPasswordValid(password) {
+        if (password === null || password === '') {
+          this.setInvalidSignedUpMessage('Password cannot be empty');
+          return false;
+        }
+        return true;
+      }
     },
     created() {
       //  check cookie and notify if already logged in.
