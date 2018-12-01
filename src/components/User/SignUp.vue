@@ -1,37 +1,45 @@
 <template>
-  <!-- Input section -->
   <section class="section">
-    <div class="container is-5">
-      <div class="field">
-        <label class="label">Full name</label>
-        <div class="control has-icons-left">
-          <input id="fullNameInput" class="input" type="text" placeholder="Full name..." @keyup.enter="createNewUser">
-          <span class="icon is-small is-left">
+    <div class="hero is-fullheight">
+      <div class="column is-6 is-offset-4">
+        <h3 class="title has-text-white">SignUp</h3>
+        <p class="subtitle has-text-white">Please create your UBeat account.</p>
+        <div class="box">
+          <div class="field">
+            <label class="label">Full name</label>
+            <div class="control has-icons-left">
+              <input id="fullNameInput" class="input" type="text" placeholder="Full name..." @keyup.enter="createNewUser">
+              <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Email</label>
-        <div class="control has-icons-left">
-          <input id="emailInput" class="input" type="email" placeholder="email..." @keyup.enter="createNewUser">
-          <span class="icon is-small is-left">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Email</label>
+            <div class="control has-icons-left">
+              <input id="emailInput" class="input" type="email" placeholder="email..." @keyup.enter="createNewUser">
+              <span class="icon is-small is-left">
                     <i class="fas fa-at"></i>
                 </span>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Password</label>
-        <div class="control has-icons-left">
-          <input id="passwordInput" class="input" type="password" @keyup.enter="createNewUser">
-          <span class="icon is-small is-left">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Password</label>
+            <div class="control has-icons-left">
+              <input id="passwordInput" class="input" type="password" @keyup.enter="createNewUser">
+              <span class="icon is-small is-left">
                     <i class="fas fa-key"></i>
                 </span>
+            </div>
+          </div>
+          <button id="submitBtn" class="button is-success" @click="createNewUser">Sign Up</button>
+          <p v-if="displayIsLoginSuccessfully" id="validMessage" class="help is-success">Success! You can now log in.</p>
+          <p v-if="displayIsLoginInvalid" id="invalidMessage" class="help is-danger">Invalid!</p>
+          <hr>
+          <router-link class="button is-primary" :to="logInLoc">Already have an account? Login now!
+          </router-link>
         </div>
       </div>
-      <button id="submitBtn" class="button is-success" @click="createNewUser">Sign Up</button>
-      <p v-if="displayIsLoginSuccessfully" id="validMessage" class="help is-success">Success! You can now log in.</p>
-      <p v-if="displayIsLoginInvalid" id="invalidMessage" class="help is-danger">Invalid!</p>
     </div>
   </section>
 </template>
@@ -52,6 +60,16 @@
         displayIsLoginSuccessfully: false,
         displayIsLoginInvalid: false,
       };
+    },
+    computed: {
+      logInLoc() {
+        let loc = '/login';
+        const fromRedir = this.$route.query.redir;
+        if (typeof (fromRedir) !== 'undefined') {
+          loc = `${loc}?redir=${decodeURIComponent(fromRedir)}`;
+        }
+        return loc;
+      }
     },
     components: {},
     methods: {
