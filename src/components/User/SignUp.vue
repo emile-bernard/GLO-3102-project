@@ -125,7 +125,9 @@
       setInvalidSignedUpMessage(message) {
         this.displayIsSignUpSuccessfully = false;
         this.displayIsSignUpInvalid = true;
-        setTimeout(document.getElementById('invalidMessage').innerHTML = `${"<i id='invalidMessageIcon' class='fas fa-exclamation-circle'></i>"}${message}`, 1000);
+        setTimeout(() => {
+          document.getElementById('invalidMessage').innerHTML = `${"<i id='invalidMessageIcon' class='fas fa-exclamation-circle'></i>"}${message}`;
+        }, 10);
       },
       redirectAfterSignUp() {
         const fromRedir = this.$route.query.redir;

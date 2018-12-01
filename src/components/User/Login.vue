@@ -36,11 +36,11 @@
 </template>
 
 <style>
-  #invalidMessage{
+  #invalidMessage {
     font-size: 2em;
   }
 
-  #invalidMessageIcon{
+  #invalidMessageIcon {
     color: red;
   }
 </style>
@@ -113,7 +113,9 @@
       setInvalidLogedInMessage(message) {
         this.displayIsLoginSuccessfully = false;
         this.displayIsLoginInvalid = true;
-        setTimeout(document.getElementById('invalidMessage').innerHTML = `${"<i id='invalidMessageIcon' class='fas fa-exclamation-circle'></i>"}${message}`, 1000);
+        setTimeout(() => {
+          document.getElementById('invalidMessage').innerHTML = `${"<i id='invalidMessageIcon' class='fas fa-exclamation-circle'></i>"}${message}`;
+        }, 10);
       },
       redirectAfterLogin() {
         const fromRedir = this.$route.query.redir;
