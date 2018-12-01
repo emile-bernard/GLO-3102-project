@@ -25,7 +25,7 @@
           </div>
           <button id="submitBtn" class="button is-success" @click="loginUser">Log In</button>
           <p v-if="displayIsLoginSuccessfully" id="validMessage" class="help is-success">Success!</p>
-          <p v-if="displayIsLoginInvalid" id="invalidMessage" class="help is-danger"><i id="invalidMessageIcon" class="fas fa-exclamation-circle fa-2x"></i> Invalid email or password!</p>
+          <p v-if="displayIsLoginInvalid" id="invalidMessage" class="help is-danger">Invalid</p>
           <hr>
           <router-link class="button is-primary" :to="signUpLoc">Don't have an account? Register now!
           </router-link>
@@ -80,18 +80,22 @@
         const loginData = Object.keys(data)
           .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`);
 
-        fetch('https://ubeat.herokuapp.com/login',
-          {
-            method: 'post',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: loginData.join('&')
-          })
-          .then(response => response.json())
-          .then(response => this.setLoginCookie(response))
-          .then(response => this.setIsLogin(response))
-          .catch(this.setInvalidLogedInMessage());
+        // Validate fields
+        if (this.isEmailValid(data.email)
+          && this.isPasswordValid(data.password)) {
+          fetch('https://ubeat.herokuapp.com/login',
+            {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: loginData.join('&')
+            })
+            .then(response => response.json())
+            .then(response => this.setLoginCookie(response))
+            .then(response => this.setIsLogin(response))
+            .catch(this.setInvalidLogedInMessage('Server Error'));
+        }
       },
       setIsLogin(response) {
         if ('id' in response) {
@@ -106,9 +110,10 @@
         this.displayIsLoginSuccessfully = true;
         setTimeout(this.redirectAfterLogin(), 100);
       },
-      setInvalidLogedInMessage() {
+      setInvalidLogedInMessage(message) {
         this.displayIsLoginSuccessfully = false;
         this.displayIsLoginInvalid = true;
+        setTimeout(document.getElementById('invalidMessage').innerHTML = `${"<i id='invalidMessageIcon' class='fas fa-exclamation-circle'></i>"}${message}`, 1000);
       },
       redirectAfterLogin() {
         const fromRedir = this.$route.query.redir;
@@ -120,6 +125,20 @@
         setLoginToken(response.token);
         return response;
       },
+      isEmailValid(email) {
+        if (email === null || email === '') {
+          this.setInvalidLogedInMessage('Email cannot be empty');
+          return false;
+        }
+        return true;
+      },
+      isPasswordValid(password) {
+        if (password === null || password === '') {
+          this.setInvalidLogedInMessage('Password cannot be empty');
+          return false;
+        }
+        return true;
+      }
     },
     created() {
       //  check cookie and notify if already logged in.

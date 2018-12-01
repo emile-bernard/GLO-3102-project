@@ -36,7 +36,7 @@
           <button id="submitBtn" class="button is-success" @click="createNewUser">Sign Up</button>
           <p v-if="displayIsSignUpSuccessfully" id="validMessage" class="help is-success">Success! You can now log
             in.</p>
-          <p v-if="displayIsSignUpInvalid" id="invalidMessage" class="help is-danger">Invalid</p>
+          <p v-if="displayIsSignUpInvalid" id="invalidMessage" class="help is-danger"><i id="invalidMessageIcon" class="fas fa-exclamation-circle"></i>Invalid</p>
           <hr>
           <router-link class="button is-primary" :to="logInLoc">Already have an account? Login now!
           </router-link>
@@ -125,7 +125,7 @@
       setInvalidSignedUpMessage(message) {
         this.displayIsSignUpSuccessfully = false;
         this.displayIsSignUpInvalid = true;
-        setTimeout(document.getElementById('invalidMessage').innerHTML = message, 1000);
+        setTimeout(document.getElementById('invalidMessage').innerHTML = `${"<i id='invalidMessageIcon' class='fas fa-exclamation-circle'></i>"}${message}`, 1000);
       },
       redirectAfterSignUp() {
         const fromRedir = this.$route.query.redir;
