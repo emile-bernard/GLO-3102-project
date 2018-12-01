@@ -132,6 +132,13 @@
           this.setInvalidLogedInMessage('Email cannot be empty');
           return false;
         }
+
+        const regExEmail = /\S+@\S+\.\S+/;
+        if (!regExEmail.test(email)) {
+          this.setInvalidLogedInMessage('Email format is invalid');
+          return false;
+        }
+
         return true;
       },
       isPasswordValid(password) {
