@@ -26,7 +26,7 @@
           </div>
           <button id="submitBtn" class="button is-success" @click="loginUser">Log In</button>
           <p v-if="displayIsLoginSuccessfully" id="validMessage" class="help is-success">Success!</p>
-          <p v-if="displayIsLoginInvalid" id="invalidMessage" class="help is-danger">Invalid!</p>
+          <p v-if="displayIsLoginInvalid" id="invalidMessage" class="help is-danger"><i id="invalidMessageIcon" class="fas fa-exclamation-circle fa-2x"></i> Invalid email or password!</p>
           <hr>
           <router-link class="button is-primary" :to="signUpLoc">Don't have an account? Register now!
           </router-link>
@@ -37,9 +37,13 @@
 </template>
 
 <style>
-  /*<!--
-  TODO: Fix the disapearing responsive icons
-  -->*/
+  #invalidMessage{
+    font-size: 2em;
+  }
+
+  #invalidMessageIcon{
+    color: red;
+  }
 </style>
 
 <script>
