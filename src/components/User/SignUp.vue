@@ -36,7 +36,9 @@
           <button id="submitBtn" class="button is-success" @click="createNewUser">Sign Up</button>
           <p v-if="displayIsSignUpSuccessfully" id="validMessage" class="help is-success">Success! You can now log
             in.</p>
-          <p v-if="displayIsSignUpInvalid" id="invalidMessage" class="help is-danger"><i id="invalidMessageIcon" class="fas fa-exclamation-circle"></i>Invalid</p>
+          <p v-if="displayIsSignUpInvalid" id="invalidMessage" class="help is-danger"><i id="invalidMessageIcon"
+                                                                                         class="fas fa-exclamation-circle"></i>Invalid
+          </p>
           <hr>
           <router-link class="button is-primary" :to="logInLoc">Already have an account? Login now!
           </router-link>
@@ -140,6 +142,13 @@
           this.setInvalidSignedUpMessage('Name cannot be empty');
           return false;
         }
+
+        const regExName = /^[a-zA-Z0-9]*$/;
+        if (!regExName.test(name)) {
+          this.setInvalidSignedUpMessage('Name format is invalid');
+          return false;
+        }
+
         return true;
       },
       isEmailValid(email) {
@@ -161,6 +170,7 @@
           this.setInvalidSignedUpMessage('Password cannot be empty');
           return false;
         }
+
         return true;
       }
     },
