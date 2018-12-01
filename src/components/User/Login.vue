@@ -6,22 +6,20 @@
       <div class="field">
         <label class="label">Email</label>
         <div class="control has-icons-left">
-          <input id="emailInput" class="input" type="email" placeholder="email...">
+          <input id="emailInput" class="input" type="email" placeholder="email..." @keyup.enter="loginUser">
           <span class="icon is-small is-left">
                     <i class="fas fa-at"></i>
                 </span>
         </div>
-        <!--<p id="invalidUserName" class="help is-danger" style="display: none">This field is invalid</p>-->
       </div>
       <div class="field">
         <label class="label">Password</label>
         <div class="control has-icons-left">
-          <input id="passwordInput" class="input" type="password">
+          <input id="passwordInput" class="input" type="password" @keyup.enter="loginUser">
           <span class="icon is-small is-left">
                     <i class="fas fa-key"></i>
                 </span>
         </div>
-        <!--<p id="invalidMessage" class="help is-danger" style="display: none">This field is invalid</p>-->
       </div>
       <button id="submitBtn" class="button is-success" @click="loginUser">Log In</button>
       <p v-if="displayIsLoginSuccessfully" id="validMessage" class="help is-success">Success!</p>

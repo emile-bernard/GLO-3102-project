@@ -5,32 +5,29 @@
       <div class="field">
         <label class="label">Full name</label>
         <div class="control has-icons-left">
-          <input id="fullNameInput" class="input" type="text" placeholder="Full name...">
+          <input id="fullNameInput" class="input" type="text" placeholder="Full name..." @keyup.enter="createNewUser">
           <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
         </div>
-        <!--<p id="invalidUserName" class="help is-danger" style="display: none">This field is invalid</p>-->
       </div>
       <div class="field">
         <label class="label">Email</label>
         <div class="control has-icons-left">
-          <input id="emailInput" class="input" type="email" placeholder="email...">
+          <input id="emailInput" class="input" type="email" placeholder="email..." @keyup.enter="createNewUser">
           <span class="icon is-small is-left">
                     <i class="fas fa-at"></i>
                 </span>
         </div>
-        <!--<p id="invalidUserName" class="help is-danger" style="display: none">This field is invalid</p>-->
       </div>
       <div class="field">
         <label class="label">Password</label>
         <div class="control has-icons-left">
-          <input id="passwordInput" class="input" type="password">
+          <input id="passwordInput" class="input" type="password" @keyup.enter="createNewUser">
           <span class="icon is-small is-left">
                     <i class="fas fa-key"></i>
                 </span>
         </div>
-        <!--<p id="invalidMessage" class="help is-danger" style="display: none">This field is invalid</p>-->
       </div>
       <button id="submitBtn" class="button is-success" @click="createNewUser">Sign Up</button>
       <p v-if="displayIsLoginSuccessfully" id="validMessage" class="help is-success">Success! You can now log in.</p>
