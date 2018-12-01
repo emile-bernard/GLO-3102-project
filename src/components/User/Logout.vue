@@ -1,15 +1,25 @@
 <template>
-  <div>
-    <h1>Logout</h1>
-    <div>
-      <button id="submitBtn" class="button is-danger" @click="logoutUser">Log Out</button>
+  <section class="section">
+    <div class="hero is-fullheight">
+      <div class="column is-6 is-offset-4">
+        <h3 class="title has-text-white">Logout</h3>
+        <p class="subtitle has-text-white">Are you sure ?</p>
+        <div class="box">
+        <div>
+          <button id="submitBtn" class="button is-danger" @click="logoutUser">Log Out &nbsp;<i id="logOutIcon" class="fas fa-sign-out-alt is-white"></i></button>
+        </div>
+        <p v-if="displayIsLogoutSuccessfully" id="validMessage" class="help is-success">Logged Out!</p>
+        <p v-if="displayIsLogoutInvalid" id="invalidMessage" class="help is-danger">Couldn't log-out: error!</p>
+      </div>
     </div>
-    <p v-if="displayIsLogoutSuccessfully" id="validMessage" class="help is-success">Logged Out!</p>
-    <p v-if="displayIsLogoutInvalid" id="invalidMessage" class="help is-danger">Couldn't log-out: error!</p>
-  </div>
+    </div>
+  </section>
 </template>
 
 <style>
+  #logOutIcon{
+    color: white;
+  }
 </style>
 
 
