@@ -33,8 +33,8 @@
             </div>
           </div>
           <button id="submitBtn" class="button is-success" @click="createNewUser">Sign Up</button>
-          <p v-if="displayIsLoginSuccessfully" id="validMessage" class="help is-success">Success! You can now log in.</p>
-          <p v-if="displayIsLoginInvalid" id="invalidMessage" class="help is-danger">Invalid!</p>
+          <p v-if="displayIsSignUpSuccessfully" id="validMessage" class="help is-success">Success! You can now log in.</p>
+          <p v-if="displayIsSignUpInvalid" id="invalidMessage" class="help is-danger">Invalid!</p>
           <hr>
           <router-link class="button is-primary" :to="logInLoc">Already have an account? Login now!
           </router-link>
@@ -57,8 +57,8 @@
   export default {
     data() {
       return {
-        displayIsLoginSuccessfully: false,
-        displayIsLoginInvalid: false,
+        displayIsSignUpSuccessfully: false,
+        displayIsSignUpInvalid: false,
       };
     },
     computed: {
@@ -98,30 +98,30 @@
             body: signUpData.join('&')
           })
           .then(response => response.json())
-          .then(this.setIsLogin)
-          .catch(this.setInvalidLogedInMessage());
+          .then(this.setIsSignedUp)
+          .catch(this.setInvalidSignedUpMessage());
       },
       concatEquals(k, data) {
         return `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`;
       },
-      setIsLogin(response) {
+      setIsSignedUp(response) {
         if ('id' in response) {
-          this.setSuccessullyLogedInMessage();
+          this.setSuccessullySignedUpMessage();
         } else {
-          this.setInvalidLogedInMessage();
+          this.setInvalidSignedUpMessage();
         }
         return response;
       },
-      setSuccessullyLogedInMessage() {
-        this.displayIsLoginInvalid = false;
-        this.displayIsLoginSuccessfully = true;
-        setTimeout(this.redirectAfterLogin(), 100);
+      setSuccessullySignedUpMessage() {
+        this.displayIsSignUpInvalid = false;
+        this.displayIsSignUpSuccessfully = true;
+        setTimeout(this.redirectAfterSignUp(), 100);
       },
-      setInvalidLogedInMessage() {
-        this.displayIsLoginSuccessfully = false;
-        this.displayIsLoginInvalid = true;
+      setInvalidSignedUpMessage() {
+        this.displayIsSignUpSuccessfully = false;
+        this.displayIsSignUpInvalid = true;
       },
-      redirectAfterLogin() {
+      redirectAfterSignUp() {
         const fromRedir = this.$route.query.redir;
         const router = this.$router;
         const nested = true;
@@ -132,7 +132,7 @@
       //  check cookie and notify if already logged in.
       const token = getLoginToken();
       if (typeof (token) !== 'undefined') {
-        this.setSuccessullyLogedInMessage();
+        this.setSuccessullySignedUpMessage();
       }
     },
   };
