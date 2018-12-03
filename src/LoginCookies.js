@@ -22,7 +22,8 @@ export function redirectToLoginIfNotLoggedIn(router, route) {
   //  const router = this.$router;
   //  const route = encodeURIComponent(this.$route.path);
 
-  const token = Cookies.get(ACCESS_TOKEN);
+  // const token = Cookies.get(ACCESS_TOKEN);
+  const token = getLoginToken();
   if (typeof (token) === 'undefined') {
     router.push(`/login?redir=${route}`);
   }

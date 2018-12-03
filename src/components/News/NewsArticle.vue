@@ -39,7 +39,7 @@
   }
 
   .card {
-    min-width: 360px;
+    min-width: 320px;
     width: 40%;
     display: block;
     border-radius: 1em;
