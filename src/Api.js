@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
-const baseURL = 'http://ubeat.herokuapp.com';
-const unsecureBaseURL = 'http://ubeat.herokuapp.com/unsecure';
+const baseURL = 'https://ubeat.herokuapp.com';
+const unsecureBaseURL = 'https://ubeat.herokuapp.com/unsecure';
+
 
 function FormatStringForSearch(stringToFormat) {
   const string = String(stringToFormat);
@@ -147,8 +148,32 @@ export const getAlbumTracks = (albumId, unsecured) => {
 //-------------------------------------------------------------
 // Listes de lectures
 //-------------------------------------------------------------
-// GET /playlists
 // GET /playlists/:id
+export const getPlayListCollection = (playListId, unsecured) => {
+  let URL = baseURL;
+  if (unsecured) URL = unsecureBaseURL;
+  return fetch(`${URL}/playlists/${playListId}`, {
+    method: 'GET',
+    headers: GetCORSAllowedHeader(), })
+    .then(response => response.json())
+    .catch((error) => {
+      FormatAndLogErrorMessage('Unable to fetch the playlist.', error);
+    });
+};
+
+// GET /playlists/
+export const getCommonPlayList = (unsecured) => {
+  let URL = baseURL;
+  if (unsecured) URL = unsecureBaseURL;
+  return fetch(`${URL}/playlists/`, {
+    method: 'GET',
+    headers: GetCORSAllowedHeader(), })
+    .then(response => response.json())
+    .catch((error) => {
+      FormatAndLogErrorMessage('Unable to fetch the playlist.', error);
+    });
+};
+
 // POST /playlists
 // PUT /playlists/:id
 // POST /playlists/:id/tracks

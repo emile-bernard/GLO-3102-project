@@ -6,7 +6,7 @@
       {{trackName}}
     </span>
     <div id="controls">
-      <audio id="player" :src="previewUrl"></audio>
+      <audio id="player" :src="previewUrl" controls></audio>
       <div>
         <button class="button" @click="playTrack">
           <i class="fas fa-play action" aria-hidden="true"></i>
@@ -102,8 +102,7 @@
         this.$emit('track-deleted');
       },
       playTrack() {
-        document.getElementById('player')
-          .play();
+        document.getElementById('player').play();
       },
       pauseTrack() {
         document.getElementById('player')

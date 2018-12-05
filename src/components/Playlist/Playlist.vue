@@ -95,6 +95,7 @@
 </style>
 
 <script>
+  import * as api from '@/Api';
   import PlaylistSong from '@/components/Playlist/PlaylistTrack';
   import { redirectToLoginIfNotLoggedIn } from '@/LoginCookies';
 
@@ -110,18 +111,16 @@
         },
       };
     },
-    methods: {},
+    methods: {
+      async getPlayList() {
+        const playList = await api.getPlayListCollection(this.$route.params.id, true);
+        this.tracks = playList.tracks;
+        this.name = playList.name;
+      },
+    },
     created() {
       redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
-      fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.$route.params.id}`,
-        {
-          method: 'get'
-        })
-        .then(response => response.json())
-        .then((response) => {
-          this.tracks = response.tracks;
-          this.name = response.name;
-        });
+      this.getPlayList();
     },
   };
 </script>

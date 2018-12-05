@@ -56,6 +56,7 @@
 </style>
 
 <script>
+  import * as api from '@/Api';
   import PlaylistChoiceItem from '@/components/Playlist/PlayListChoiceItem';
 
   export default {
@@ -82,21 +83,13 @@
           this.populatePlaylists(allPlaylists[i]);
         }
       },
-      populatePlaylists(playlist) {
-        try {
-          if (playlist.owner.name === 'unclebob') {
-            fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlist.id}`,
-              {
-                method: 'get'
-              })
-              .then(response => response.json())
-              .then(response => this.playlists.push({
-                id: response.id,
-                name: response.name,
-              }));
-          }
-        } catch (error) {
-          // IGNORED
+      async populatePlaylists(playlist) {
+        if (playlist.owner.name === 'unclebob') {
+          const playList = await api.getPlayListCollection(playlist.id, true);
+          this.playlists.push({
+            id: playList.id,
+            name: playList.name,
+          });
         }
       },
       closeModal() {
@@ -143,21 +136,16 @@
           .then();
         this.closeModal();
       },
+      async getCommonPlayList() {
+        const commonPlayList = await api.getCommonPlayList(true);
+        this.filterPlaylists(commonPlayList);
+        document.getElementById('playlist-modal')
+              .classList
+              .add('is-active');
+      }
     },
     created() {
-      const baseUri = 'https://ubeat.herokuapp.com/unsecure';
-      const uri = `${baseUri}/playlists/`;
-      const options = { method: 'get' };
-      fetch(uri, options)
-        .then(response => response.json())
-        .then((response) => {
-          this.filterPlaylists(response);
-        })
-        .then(() => {
-          document.getElementById('playlist-modal')
-            .classList
-            .add('is-active');
-        });
+      this.getCommonPlayList();
     },
     watch: {
       isActive(newValue) {
