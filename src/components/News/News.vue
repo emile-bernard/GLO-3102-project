@@ -86,6 +86,7 @@
 
 <script>
   import NewsArticle from './NewsArticle';
+  import { getLoginToken } from '../../LoginCookies';
 
   export default {
     name: 'News',
@@ -136,14 +137,18 @@
         const querySortBy = encodeURIComponent('relevance');
         const url = `https://newsapi.org/v2/everything?q=${querySubject}&from=${queryFrom}&sortBy=${querySortBy}&apiKey=`;
         const fullUrl = url + apiKey;
-        fetch(fullUrl,
-          {
-            method: 'get'
-          })
-          .then(response => response.json())
-          .then((response) => {
-            this.populateNewsArticles(response.articles);
-          });
+        const token = getLoginToken();
+        if (typeof (token) !== 'undefined') {
+          fetch(fullUrl,
+            {
+              method: 'get',
+              Authorization: token
+            })
+            .then(response => response.json())
+            .then((response) => {
+              this.populateNewsArticles(response.articles);
+            });
+        }
       }
     },
     created() {
