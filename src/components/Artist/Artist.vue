@@ -107,7 +107,7 @@
   import ArtistImage from './ArtistImage';
   import ArtistMostRecentAlbum from './ArtistMostRecentAlbum';
   import ArtistAlbum from './ArtistAlbum';
-  import { redirectToLoginIfNotLoggedIn } from '../../LoginCookies';
+  import { getLoginToken, redirectToLoginIfNotLoggedIn } from '../../LoginCookies';
 
   export default {
     components: {
@@ -164,13 +164,16 @@
     },
     created() {
       redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
-      const GET_HEADER = { method: 'get' };
-      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}`, GET_HEADER)
-        .then(res => res.json())
-        .then(res => this.initArtist(res));
-      fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}/albums`, GET_HEADER)
-        .then(res => res.json())
-        .then(res => this.initArtistAlbums(res));
+      const token = getLoginToken();
+      const GET_HEADER = { method: 'get', Authorization: token };
+      if (typeof (token) !== 'undefined') {
+        fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}`, GET_HEADER)
+          .then(res => res.json())
+          .then(res => this.initArtist(res));
+        fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}/albums`, GET_HEADER)
+          .then(res => res.json())
+          .then(res => this.initArtistAlbums(res));
+      }
     },
     methods: {
       initArtist(response) {
