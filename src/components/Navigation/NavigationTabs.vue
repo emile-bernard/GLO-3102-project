@@ -34,6 +34,10 @@
 </template>
 
 <style>
+  .tabs a {
+    padding: 0.5em 0.5em;
+  }
+
   .tabs li a {
     color: darkgray;
   }
