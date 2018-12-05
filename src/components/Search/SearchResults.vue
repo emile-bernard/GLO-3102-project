@@ -17,6 +17,7 @@
 <script>
   import SearchResultFactory from './SearchResultElementObject';
   import SearchResultElement from './SearchResultElement';
+  import { getLoginToken } from '../../LoginCookies';
 
   export default {
     components: {
@@ -69,10 +70,13 @@
         if (remoteSearchPath === '/search') {
           remoteSearchPath = '';
         }
-        const GET_HEADER = { method: 'get' };
-        fetch(`http://ubeat.herokuapp.com/unsecure/search${remoteSearchPath}?q=${encodeURI(this.query)}`, GET_HEADER)
-          .then(res => res.json())
-          .then(res => this.initSearchResults(res));
+        const token = getLoginToken();
+        const GET_HEADER = { method: 'get', Authorization: token };
+        if (typeof (token) !== 'undefined') {
+          fetch(`http://ubeat.herokuapp.com/unsecure/search${remoteSearchPath}?q=${encodeURI(this.query)}`, GET_HEADER)
+            .then(res => res.json())
+            .then(res => this.initSearchResults(res));
+        }
       },
       initSearchResults(response) {
         let results;
