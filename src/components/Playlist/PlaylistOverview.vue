@@ -45,6 +45,8 @@
 </style>
 
 <script>
+  import { getLoginToken } from '../../LoginCookies';
+
   export default {
     props: {
       id: {
@@ -75,20 +77,24 @@
         this.displaySaveButton = this.displaySaveButton === 'block' ? 'none' : 'block';
       },
       saveName() {
-        fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,
-          {
-            method: 'put',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(
-              {
-                name: this.nameData,
-                owner: 'unclebob@ubeat.com'
-              })
-          })
-          .then(response => response.json())
-          .then(this.toggleSaveButton());
+        const token = getLoginToken();
+        if (typeof (token) !== 'undefined') {
+          fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,
+            {
+              method: 'put',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: token
+              },
+              body: JSON.stringify(
+                {
+                  name: this.nameData,
+                  owner: 'unclebob@ubeat.com'
+                })
+            })
+            .then(response => response.json())
+            .then(this.toggleSaveButton());
+        }
       },
     },
     watch: {

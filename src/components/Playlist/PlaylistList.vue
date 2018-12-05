@@ -69,7 +69,7 @@
 
 <script>
   import PlaylistOverview from './PlaylistOverview';
-  import { redirectToLoginIfNotLoggedIn } from '../../LoginCookies';
+  import { redirectToLoginIfNotLoggedIn, getLoginToken } from '../../LoginCookies';
 
   export default {
     data() {
@@ -96,16 +96,22 @@
       populatePlaylists(playlist) {
         try {
           if (playlist.owner.name === 'unclebob') {
-            fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlist.id}`,
-              {
-                method: 'get'
-              })
-              .then(response => response.json())
-              .then(response => this.playlists.push({
-                id: response.id,
-                name: response.name,
-                tracks: playlist.tracks
-              }));
+            const token = getLoginToken();
+            if (typeof (token) !== 'undefined') {
+              fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlist.id}`,
+                {
+                  method: 'get',
+                  headers: {
+                    Authorization: token
+                  }
+                })
+                .then(response => response.json())
+                .then(response => this.playlists.push({
+                  id: response.id,
+                  name: response.name,
+                  tracks: playlist.tracks
+                }));
+            }
           }
         } catch (error) {
           // Todo
@@ -125,37 +131,49 @@
         this.cancelSelectionData = !this.cancelSelectionData;
       },
       createNewPlaylist() {
-        fetch('https://ubeat.herokuapp.com/unsecure/playlists',
-          {
-            method: 'post',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(
-              {
-                name: document.getElementById('new-playlist-input')
-                  .value
-                  .toString(),
-                owner: 'unclebob@ubeat.com'
-              })
-          })
-          .then(response => response.json())
-          .then(this.toggleCreateNewPlaylist())
-          .then(response => this.playlists.push({
-            id: response.id,
-            name: response.name,
-            tracks: []
-          }));
+        const token = getLoginToken();
+        if (typeof (token) !== 'undefined') {
+          fetch('https://ubeat.herokuapp.com/unsecure/playlists',
+            {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: token
+              },
+              body: JSON.stringify(
+                {
+                  name: document.getElementById('new-playlist-input')
+                    .value
+                    .toString(),
+                  owner: 'unclebob@ubeat.com'
+                })
+            })
+            .then(response => response.json())
+            .then(this.toggleCreateNewPlaylist())
+            .then(response => this.playlists.push({
+              id: response.id,
+              name: response.name,
+              tracks: []
+            }));
+        }
       },
       deleteSelectedPlaylist() {
         for (let i = 0; i < this.selectedPlaylists.length; i += 1) {
           const playlistId = this.selectedPlaylists[i];
-          fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlistId}`,
-            {
-              method: 'delete',
-            })
-            .then(response => response.json());
-          this.removePlaylistById(playlistId);
+
+          const token = getLoginToken();
+          if (typeof (token) !== 'undefined') {
+            fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlistId}`,
+              {
+                method: 'delete',
+                headers: {
+                  Authorization: token
+                }
+              })
+              .then(response => response.json());
+
+            this.removePlaylistById(playlistId);
+          }
         }
         this.togglePlaylistSelection();
         this.selectedPlaylists = [];
@@ -172,14 +190,21 @@
     },
     created() {
       redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
-      fetch('https://ubeat.herokuapp.com/unsecure/playlists/',
-        {
-          method: 'get'
-        })
-        .then(response => response.json())
-        .then((response) => {
-          this.filterPlaylists(response);
-        });
+
+      const token = getLoginToken();
+      if (typeof (token) !== 'undefined') {
+        fetch('https://ubeat.herokuapp.com/unsecure/playlists/',
+          {
+            method: 'get',
+            headers: {
+              Authorization: token
+            }
+          })
+          .then(response => response.json())
+          .then((response) => {
+            this.filterPlaylists(response);
+          });
+      }
     },
   };
 </script>

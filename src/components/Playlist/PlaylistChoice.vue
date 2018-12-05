@@ -58,6 +58,7 @@
 <script>
   import * as api from '@/Api';
   import PlaylistChoiceItem from '@/components/Playlist/PlayListChoiceItem';
+  import { getLoginToken } from '../../LoginCookies';
 
   export default {
     name: 'PlaylistChoice',
@@ -114,27 +115,34 @@
           this.closeModal();
         } else {
           for (let i = 0; i < this.trackIds.length; i += 1) {
+            const token = getLoginToken();
             const currentTrackId = this.trackIds[i];
             const baseUri = 'https://ubeat.herokuapp.com/unsecure';
             const uri = `${baseUri}/tracks/${currentTrackId}`;
-            const options = { method: 'get' };
-            fetch(uri, options)
-              .then(response => response.json())
-              .then((response) => {
-                this.addTrackToSelectedPlaylist(response.results[0]);
-              });
+            const headers = { 'Content-Type': 'application/json', Authorization: token };
+            const options = { method: 'get', headers };
+            if (typeof (token) !== 'undefined') {
+              fetch(uri, options)
+                .then(response => response.json())
+                .then((response) => {
+                  this.addTrackToSelectedPlaylist(response.results[0]);
+                });
+            }
           }
         }
       },
       addTrackToSelectedPlaylist(track) {
+        const token = getLoginToken();
         const baseUri = 'https://ubeat.herokuapp.com/unsecure';
         const uri = `${baseUri}/playlists/${this.currentSelection}/tracks`;
-        const headers = { 'Content-Type': 'application/json' };
+        const headers = { 'Content-Type': 'application/json', Authorization: token };
         const body = JSON.stringify(track);
         const options = { method: 'post', headers, body };
-        fetch(uri, options)
-          .then();
-        this.closeModal();
+        if (typeof (token) !== 'undefined') {
+          fetch(uri, options)
+            .then();
+          this.closeModal();
+        }
       },
       async getCommonPlayList() {
         const commonPlayList = await api.getCommonPlayList(true);

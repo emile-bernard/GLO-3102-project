@@ -66,8 +66,8 @@
 </style>
 
 <script>
-
   import PlaylistChoice from '@/components/Playlist/PlaylistChoice';
+  import { getLoginToken } from '../../LoginCookies';
 
   export default {
     props: {
@@ -96,10 +96,14 @@
       removeTrack() {
         const baseUri = 'https://ubeat.herokuapp.com/unsecure';
         const uri = `${baseUri}/playlists/${this.$route.params.id}/tracks/${this.trackId}`;
-        const options = { method: 'delete' };
-        fetch(uri, options)
-          .then(response => response.json());
-        this.$emit('track-deleted');
+        const token = getLoginToken();
+        const headers = { Authorization: token };
+        const options = { method: 'delete', headers };
+        if (typeof (token) !== 'undefined') {
+          fetch(uri, options)
+            .then(response => response.json());
+          this.$emit('track-deleted');
+        }
       },
       playTrack() {
         document.getElementById('player').play();
