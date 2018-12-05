@@ -50,7 +50,9 @@
             <p>Users</p>
           </div>
         </router-link>
+        <router-link to="/account">
         <navigation-bar-account-menu></navigation-bar-account-menu>
+        </router-link>
       </div>
     </div>
   </nav>
