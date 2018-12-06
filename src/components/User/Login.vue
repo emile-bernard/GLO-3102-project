@@ -27,8 +27,8 @@
           <p v-if="displayIsLoginSuccessfully" id="validMessage" class="help is-success">Success!</p>
           <p v-if="displayIsLoginInvalid" id="invalidMessage" class="help is-danger">Invalid</p>
           <hr>
-          <router-link class="button is-primary" :to="signUpLoc">Don't have an account? Register now!
-          </router-link>
+          <label class="label">Don't have an account? </label>
+          <router-link class="button is-primary" :to="signUpLoc">Register now!</router-link>
         </div>
       </div>
     </div>

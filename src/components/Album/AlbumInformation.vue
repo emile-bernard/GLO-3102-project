@@ -81,6 +81,9 @@
 
   #album-info-songs {
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 </style>
 

@@ -6,16 +6,13 @@
       {{trackName}}
     </span>
     <div id="controls">
-      <audio id="player" :src="previewUrl" controls></audio>
+      <audio :id="trackId" :src="previewUrl" controls></audio>
       <div>
-        <button class="button" @click="playTrack">
-          <i class="fas fa-play action" aria-hidden="true"></i>
-        </button>
-        <button class="button" @click="pauseTrack">
-          <i class="fas fa-pause action" aria-hidden="true"></i>
+        <button class="button" @click="togglePlay">
+          <i :id="playBtnId" class="fas fa-play action" aria-hidden="true"></i>
         </button>
         <button class="button" @click="toggleMute">
-          <i id="mute-unmute-btn" class="fas fa-volume-up action" aria-hidden="true"></i>
+          <i :id="muteBtnId" class="fas fa-volume-up action" aria-hidden="true"></i>
         </button>
         <button id="add-to-playlist" class="button is-danger" @click="removeTrack">
           <i class="fas fa-times action" aria-hidden="true"></i>
@@ -27,12 +24,13 @@
 
 <style>
   #track-description {
-    width: 300px;
-    display: inline-flex;
-    align-content: flex-start;
+    display: table;
     text-align: left;
+    min-width: 300px;
+    max-width: 300px;
+    text-wrap: normal;
   }
-
+  
   .button {
     min-width: 50px;
   }
@@ -105,17 +103,23 @@
           this.$emit('track-deleted');
         }
       },
-      playTrack() {
-        document.getElementById('player').play();
-      },
-      pauseTrack() {
-        document.getElementById('player')
-          .pause();
+      togglePlay() {
+        const player = document.getElementById(this.trackId);
+        const playBtnIcon = document.getElementById(`${this.trackId}-play-btn`);
+        if (player.paused) {
+          player.play();
+          playBtnIcon.classList.remove('fa-play');
+          playBtnIcon.classList.add('fa-pause');
+        } else {
+          player.pause();
+          playBtnIcon.classList.remove('fa-pause');
+          playBtnIcon.classList.add('fa-play');
+        }
       },
       toggleMute() {
-        const player = document.getElementById('player');
+        const player = document.getElementById(this.trackId);
         player.muted = !player.muted;
-        const muteBtnIcon = document.getElementById('mute-unmute-btn');
+        const muteBtnIcon = document.getElementById(`${this.trackId}-mute-btn`);
         if (player.muted) {
           muteBtnIcon.classList.remove('fa-volume-up');
           muteBtnIcon.classList.add('fa-volume-off');
@@ -146,6 +150,12 @@
         } catch (e) {
           return `${minutes.toString()}:${(`00${'0'.toString()}`).substr(-2, 2)}`;
         }
+      },
+      playBtnId() {
+        return `${this.trackId}-play-btn`;
+      },
+      muteBtnId() {
+        return `${this.trackId}-mute-btn`;
       }
     }
   };
