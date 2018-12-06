@@ -105,7 +105,7 @@
             })
             .then(response => response.json())
             .then(this.setIsSignedUp)
-            .catch(this.setInvalidSignedUpMessage('Server Error'));
+            .catch(() => this.setInvalidLogedInMessage('Server error'));
         }
       },
       concatEquals(k, data) {

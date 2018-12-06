@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { getLoginToken } from './LoginCookies';
 
 const baseURL = 'https://ubeat.herokuapp.com';
@@ -6,6 +5,9 @@ const unsecureBaseURL = 'https://ubeat.herokuapp.com/unsecure';
 
 
 function FormatStringForSearch(stringToFormat) {
+  // Commentaire de GUCHE sur ce code: peut-être remplacer toute cette fonction par celle-ci
+  // laquelle est déjà disponible par defauilt dans JS: encodeURIComponent()
+
   const string = String(stringToFormat);
   const array = string.split(' ');
   const arraySize = array.length;
@@ -20,12 +22,22 @@ function FormatStringForSearch(stringToFormat) {
   return finalSring;
 }
 
-function GetCORSAllowedHeader(token) {
+function GetCORSAllowedHeader() {
+  const token = getLoginToken();
+
+  if (typeof (token) !== 'undefined') {
+    return {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credential': 'true',
+      Authorization: token
+    };
+  }
+
   return {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Credential': 'true',
-    Authorization: token
   };
 }
 
@@ -58,9 +70,8 @@ function FormatAndLogErrorMessage(message, originalError) {
 export const generalSearch = (q, unsecured, limit = 20) => {
   let URL = baseURL;
   if (unsecured) URL = unsecureBaseURL;
-  const token = getLoginToken();
   return fetch(`${URL}/search?q=/${q}&limit=${limit}`, {
-    headers: GetCORSAllowedHeader(token), })
+    headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
     .catch((error) => {
       FormatAndLogErrorMessage('Unable to fetch general search.', error);
@@ -70,10 +81,9 @@ export const generalSearch = (q, unsecured, limit = 20) => {
 export const albumSearch = (q, unsecured, limit = 20) => {
   let URL = baseURL;
   if (unsecured) URL = unsecureBaseURL;
-  const token = getLoginToken();
   const searchStringFormated = FormatStringForSearch(q);
   return fetch(`${URL}/search/album?q=/${searchStringFormated}&limit=${limit}`, {
-    headers: GetCORSAllowedHeader(token), })
+    headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
     .catch((error) => {
       FormatAndLogErrorMessage('Unable to fetch album general search. Original error: ', error);
@@ -83,11 +93,13 @@ export const albumSearch = (q, unsecured, limit = 20) => {
 export const artistSearch = (q, unsecured, limit = 20) => {
   let URL = baseURL;
   if (unsecured) URL = unsecureBaseURL;
-  const token = getLoginToken();
-// eslint-disable-next-line max-len
-  const searchStringFormated = FormatStringForSearch(q); // ici je me suis dis que le formatage est probablement pareil mais à essayer  comme le serveur semble down en ce moment
+
+  const searchStringFormated = FormatStringForSearch(q);
+  // ici je me suis dis que le formatage est probablement pareil mais à essayer
+  // comme le serveur semble down en ce moment
+
   return fetch(`${URL}/search/artists?q=/${searchStringFormated}&limit=${limit}`, {
-    headers: GetCORSAllowedHeader(token), })
+    headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
     .catch((error) => {
       FormatAndLogErrorMessage('Unable to fetch artist general search.', error);
@@ -97,10 +109,9 @@ export const artistSearch = (q, unsecured, limit = 20) => {
 export const trackSearch = (q, unsecured, limit = 20) => {
   let URL = baseURL;
   if (unsecured) URL = unsecureBaseURL;
-  const token = getLoginToken();
   const searchStringFormated = FormatStringForSearch(q);
   return fetch(`${URL}/search/tracks?q=/${searchStringFormated}&limit=${limit}`, {
-    headers: GetCORSAllowedHeader(token), })
+    headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
     .catch((error) => {
       FormatAndLogErrorMessage('Unable to fetch track general search.', error);
@@ -124,10 +135,9 @@ export const trackSearch = (q, unsecured, limit = 20) => {
 export const getAlbum = (albumId, unsecured) => {
   let URL = baseURL;
   if (unsecured) URL = unsecureBaseURL;
-  const token = getLoginToken();
   return fetch(`${URL}/albums/${albumId}`, {
     method: 'GET',
-    headers: GetCORSAllowedHeader(token), })
+    headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
     .catch((error) => {
       FormatAndLogErrorMessage('Unable to fetch an album.', error);
@@ -138,10 +148,9 @@ export const getAlbum = (albumId, unsecured) => {
 export const getAlbumTracks = (albumId, unsecured) => {
   let URL = baseURL;
   if (unsecured) URL = unsecureBaseURL;
-  const token = getLoginToken();
   return fetch(`${URL}/albums/${albumId}/tracks`, {
     method: 'GET',
-    headers: GetCORSAllowedHeader(token), })
+    headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
     .catch((error) => {
       FormatAndLogErrorMessage('Unable to fetch album tracks list.', error);
@@ -161,10 +170,9 @@ export const getAlbumTracks = (albumId, unsecured) => {
 export const getPlayListCollection = (playListId, unsecured) => {
   let URL = baseURL;
   if (unsecured) URL = unsecureBaseURL;
-  const token = getLoginToken();
   return fetch(`${URL}/playlists/${playListId}`, {
     method: 'GET',
-    headers: GetCORSAllowedHeader(token), })
+    headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
     .catch((error) => {
       FormatAndLogErrorMessage('Unable to fetch the playlist.', error);
@@ -175,10 +183,9 @@ export const getPlayListCollection = (playListId, unsecured) => {
 export const getCommonPlayList = (unsecured) => {
   let URL = baseURL;
   if (unsecured) URL = unsecureBaseURL;
-  const token = getLoginToken();
   return fetch(`${URL}/playlists/`, {
     method: 'GET',
-    headers: GetCORSAllowedHeader(token), })
+    headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
     .catch((error) => {
       FormatAndLogErrorMessage('Unable to fetch the playlist.', error);

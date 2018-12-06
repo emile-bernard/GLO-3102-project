@@ -38,9 +38,12 @@
     <div class="section">
       <div class="container">
         <h1 class="title is-size-2">Account</h1>
-        <div class="card">
+        <div>
           <div class="account-info-element">
             <h2 class="title"><b>Username</b> <p>Uncle Bob</p></h2>
+            <!-- TODO: CTRL+F for "Uncle" and remove everywhere it's used.
+            We might want to set the username and email in a new cookie too...-->
+
             <figure class="card-image is-centered card-header-icon ">
               <v-gravatar></v-gravatar>
             </figure>

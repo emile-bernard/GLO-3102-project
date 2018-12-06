@@ -4,8 +4,6 @@
     <p>
       <router-link to="/"><span>UBeat</span></router-link>
       <span> > </span>
-      <router-link to="/settings"><span>Uncle Bob</span></router-link>
-      <span> > </span>
       <router-link to="/playlists"><span>Playlists</span></router-link>
     </p>
     <br/>
@@ -36,7 +34,7 @@
                  class="input is-primary"
                  type="text"
                  placeholder="Playlist name..."
-                 value="Uncle Bob Playlist"/>
+                 value="Playlist"/>
         </div>
         <div class="control">
           <button class="button is-primary" @click="createNewPlaylist">Create</button>

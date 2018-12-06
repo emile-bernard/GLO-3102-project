@@ -94,7 +94,7 @@
             .then(response => response.json())
             .then(response => this.setLoginCookie(response))
             .then(response => this.setIsLogin(response))
-            .catch(this.setInvalidLogedInMessage('Server Error'));
+            .catch(() => this.setInvalidLogedInMessage('Server error'));
         }
       },
       setIsLogin(response) {

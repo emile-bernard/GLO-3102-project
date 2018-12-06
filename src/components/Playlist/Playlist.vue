@@ -3,8 +3,6 @@
     <p>
       <router-link to="/"><span>UBeat</span></router-link>
       <span> > </span>
-      <router-link to="/settings"><span>Uncle Bob</span></router-link>
-      <span> > </span>
       <router-link to="/playlists"><span>Playlists</span></router-link>
       <span> > </span>
       <router-link :to="'/playlists'+$route.params.id"><span>{{ name }}</span></router-link>

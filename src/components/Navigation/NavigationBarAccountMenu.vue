@@ -4,7 +4,7 @@
     <p>Account</p>
     <div class="navbar-dropdown">
       <div id="user-name">
-        <a href="#">Uncle Bob</a>
+        <a href="#"><i class="fas fa-user"></i> My Account</a>
       </div>
       <router-link to="/settings">
         <div class="navbar-item">
