@@ -24,6 +24,7 @@
             </div>
           </div>
           <button id="submitBtn" class="button is-success" @click="loginUser">Log In</button>
+          <pulse-loader v-if="displayLoginSpinner"></pulse-loader>
           <p v-if="displayIsLoginSuccessfully" id="validMessage" class="help is-success">Success!</p>
           <p v-if="displayIsLoginInvalid" id="invalidMessage" class="help is-danger">Invalid</p>
           <hr>
@@ -46,15 +47,19 @@
 </style>
 
 <script>
-
   import { getLoginToken, redirectBackToWhereItWasBeforeOrDefault, setLoginToken } from '../../LoginCookies';
+  import PulseLoader from '../../../node_modules/vue-spinner/src/ScaleLoader';
+
 
   export default {
-    components: {},
+    components: {
+      'pulse-loader': PulseLoader,
+    },
     data() {
       return {
         displayIsLoginSuccessfully: false,
         displayIsLoginInvalid: false,
+        displayLoginSpinner: false,
       };
     },
     computed: {
@@ -79,6 +84,8 @@
         };
         const loginData = Object.keys(data)
           .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`);
+
+        this.displayLoginSpinner = true;
 
         // Validate fields
         if (this.isEmailValid(data.email)
@@ -106,11 +113,13 @@
         return response;
       },
       setSuccessullyLogedInMessage() {
+        this.displayLoginSpinner = true;
         this.displayIsLoginInvalid = false;
         this.displayIsLoginSuccessfully = true;
         setTimeout(this.redirectAfterLogin(), 100);
       },
       setInvalidLogedInMessage(message) {
+        this.displayLoginSpinner = false;
         this.displayIsLoginSuccessfully = false;
         this.displayIsLoginInvalid = true;
         setTimeout(() => {
