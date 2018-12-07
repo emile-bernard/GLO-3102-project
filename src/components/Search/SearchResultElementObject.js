@@ -28,6 +28,9 @@ class ArtistSearchResult extends AbstractSearchResult {
   getTypeColorClass() {
     return this.colorClass;
   }
+  getArtworkUrl() {
+    return this.results.artworkUrl100;
+  }
 }
 
 class AlbumSearchResult extends AbstractSearchResult {
@@ -79,6 +82,9 @@ class TrackSearchResult extends AbstractSearchResult {
   getTypeColorClass() {
     return this.colorClass;
   }
+  getArtworkUrl() {
+    return this.results.artworkUrl100;
+  }
 }
 
 class UserSearchResult extends AbstractSearchResult {
@@ -102,6 +108,9 @@ class UserSearchResult extends AbstractSearchResult {
   }
   getTypeColorClass() {
     return this.colorClass;
+  }
+  getArtworkUrl() {
+    return this.results.artworkUrl100;
   }
 }
 
