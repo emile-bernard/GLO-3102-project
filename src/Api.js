@@ -3,7 +3,6 @@ import { getLoginToken } from './LoginCookies';
 const baseURL = 'https://ubeat.herokuapp.com';
 const unsecureBaseURL = 'https://ubeat.herokuapp.com/unsecure';
 
-
 function FormatStringForSearch(stringToFormat) {
   // Commentaire de GUCHE sur ce code: peut-être remplacer toute cette fonction par celle-ci
   // laquelle est déjà disponible par defauilt dans JS: encodeURIComponent()

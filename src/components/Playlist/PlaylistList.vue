@@ -72,6 +72,7 @@
   export default {
     data() {
       return {
+        PLAYLIST_LOCAL_STORAGE_KEY: 'playlists-storage',
         playlists: [],
         displayCancelSelectionButton: 'none',
         displayCreatePlaylistButton: 'inline',
@@ -104,11 +105,16 @@
                   }
                 })
                 .then(response => response.json())
-                .then(response => this.playlists.push({
-                  id: response.id,
-                  name: response.name,
-                  tracks: playlist.tracks
-                }));
+                .then((response) => {
+                  this.playlists.push({
+                    id: response.id,
+                    name: response.name,
+                    tracks: playlist.tracks
+                  });
+                  localStorage.setItem(
+                    this.PLAYLIST_LOCAL_STORAGE_KEY,
+                    JSON.stringify(this.playlists));
+                });
             }
           }
         } catch (error) {
@@ -148,11 +154,14 @@
             })
             .then(response => response.json())
             .then(this.toggleCreateNewPlaylist())
-            .then(response => this.playlists.push({
-              id: response.id,
-              name: response.name,
-              tracks: []
-            }));
+            .then((response) => {
+              this.playlists.push({
+                id: response.id,
+                name: response.name,
+                tracks: []
+              });
+              localStorage.setItem(this.PLAYLIST_LOCAL_STORAGE_KEY, JSON.stringify(this.playlists));
+            });
         }
       },
       deleteSelectedPlaylist() {
@@ -181,6 +190,7 @@
           const playlist = this.playlists[i];
           if (playlist.id === playlistId) {
             this.playlists.splice(i, 1);
+            localStorage.setItem(this.PLAYLIST_LOCAL_STORAGE_KEY, JSON.stringify(this.playlists));
             break;
           }
         }
@@ -188,20 +198,23 @@
     },
     created() {
       redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
-
-      const token = getLoginToken();
-      if (typeof (token) !== 'undefined') {
-        fetch('https://ubeat.herokuapp.com/unsecure/playlists/',
-          {
-            method: 'get',
-            headers: {
-              Authorization: token
-            }
-          })
-          .then(response => response.json())
-          .then((response) => {
-            this.filterPlaylists(response);
-          });
+      this.playlists = JSON.parse(localStorage.getItem(this.PLAYLIST_LOCAL_STORAGE_KEY));
+      if (this.playlists === null) {
+        this.playlists = [];
+        const token = getLoginToken();
+        if (typeof (token) !== 'undefined') {
+          fetch('https://ubeat.herokuapp.com/unsecure/playlists/',
+            {
+              method: 'get',
+              headers: {
+                Authorization: token
+              }
+            })
+            .then(response => response.json())
+            .then((response) => {
+              this.filterPlaylists(response);
+            });
+        }
       }
     },
   };
