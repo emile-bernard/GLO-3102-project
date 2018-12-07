@@ -51,8 +51,8 @@
         </ul>
       </div>
 
-
       <div id="news-container" class="section">
+        <pulse-loader v-if="!newsArticles.length"></pulse-loader>
         <news-article v-for="(item, index) in newsArticles"
                       v-bind:key=index
                       v-bind:articleAuthor="item.articleAuthor"
@@ -87,11 +87,14 @@
 <script>
   import NewsArticle from './NewsArticle';
   import { getLoginToken } from '../../LoginCookies';
+  import PulseLoader from '../../../node_modules/vue-spinner/src/ScaleLoader';
+
 
   export default {
     name: 'News',
     components: {
       'news-article': NewsArticle,
+      'pulse-loader': PulseLoader,
     },
     data() {
       return {
