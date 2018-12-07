@@ -34,6 +34,7 @@
             </div>
           </div>
           <button id="submitBtn" class="button is-success" @click="createNewUser">Sign Up</button>
+          <pulse-loader v-if="displaySignUpSpinner"></pulse-loader>
           <p v-if="displayIsSignUpSuccessfully" id="validMessage" class="help is-success">Success! You can now log
             in.</p>
           <p v-if="displayIsSignUpInvalid" id="invalidMessage" class="help is-danger"><i id="invalidMessageIcon"
@@ -56,12 +57,17 @@
 
 <script>
   import { getLoginToken, redirectBackToWhereItWasBeforeOrDefault } from '../../LoginCookies';
+  import PulseLoader from '../../../node_modules/vue-spinner/src/ScaleLoader';
 
   export default {
+    components: {
+      'pulse-loader': PulseLoader,
+    },
     data() {
       return {
         displayIsSignUpSuccessfully: false,
         displayIsSignUpInvalid: false,
+        displaySignUpSpinner: false,
       };
     },
     computed: {
@@ -74,7 +80,6 @@
         return loc;
       }
     },
-    components: {},
     methods: {
       createNewUser() {
         const data = {
@@ -90,6 +95,8 @@
         };
         const signUpData = Object.keys(data)
           .map(k => this.concatEquals(k, data));
+
+        this.displaySignUpSpinner = true;
 
         // Validate fields
         if (this.isNameValid(data.name)
@@ -120,11 +127,13 @@
         return response;
       },
       setSuccessullySignedUpMessage() {
+        this.displaySignUpSpinner = true;
         this.displayIsSignUpInvalid = false;
         this.displayIsSignUpSuccessfully = true;
         setTimeout(this.redirectAfterSignUp(), 100);
       },
       setInvalidSignedUpMessage(message) {
+        this.displaySignUpSpinner = false;
         this.displayIsSignUpSuccessfully = false;
         this.displayIsSignUpInvalid = true;
         setTimeout(() => {
