@@ -52,6 +52,9 @@ class AlbumSearchResult extends AbstractSearchResult {
   getTypeColorClass() {
     return this.results.colorClass;
   }
+  getArtworkUrl() {
+    return this.results.artworkUrl100;
+  }
 }
 
 class TrackSearchResult extends AbstractSearchResult {
