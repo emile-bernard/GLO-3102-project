@@ -1,0 +1,67 @@
+\documentclass[12pt]{/home/samuel/Documents/GLO/latex/documentClass/GLO_ULAVAL}
+
+\bool_Team
+\TeamNumber{9}
+\Author{
+      Bernard, Émile \\ (EMBER89 - 111 128 181)
+\and  Cabral Cruz, Samuel \\ (SACAC1 - 111 006 369)
+\and  Cadotte Lawless, Pamella \\ (PACAL7 - 111 047 949)
+\and  Chevalier, Guillaume \\ (GUCHE29 - 111 131 607)}
+
+\Course{Développement d'applications Web \\ GLO-3102}
+\ProjectTitle{Projet de session - UBeat}
+\ReportTitle{Document Design - Livrable 3}
+\Teacher{Vincent Séguin}
+\Department{d'informatique et de génie logiciel}
+\TrimesterYear{Automne 2018}
+
+\usepackage{url}
+
+\begin{document}
+\modifyItemize{}
+\maketitle
+
+\chapter*{Comment lancer l'application}
+Afin de lancer l'application, il suffit de suivre les étapes suivantes:
+\begin{enumerate}
+  \item Télécharger le dossier compressé (.zip) sur votre poste de travail.
+  \item Décompresser le dossier vers un emplacement choisi.
+  \item En utilisant un invite de commande, commencer tout d'abord par installer les dépendances au projet avec la commande
+  $$\texttt{npm install}$$
+  \item Une fois le téléchargement terminé, lancer l'application à l'aide de la commande
+  $$\texttt{npm build \&\& npm run start}$$
+\end{enumerate}
+
+\chapter*{Comment voir chacune des pages}
+
+La navigation dans le site web est intuitive. \\
+
+\begin{description}[style=nextline]
+  \item[\texttt{\slash{}}]\item[] Page d'accueil de l'application.
+  \item[\texttt{\slash{}search}] Page de résultat de recherche de la barre du menu. Les résultats de recherche des recherches avancées (par catégories) se trouvent plutôt à leurs endroits respectifs (ex: sous \texttt{\slash{}artists} directement). Les résultats de recherche sont cliquables, et il sera possible d'interagir avec les playlists une fois rendu dans un album précis suite à plus de clicks si un résultat est un artiste.
+  \item[\texttt{\slash{}artists}] Page de recherche par artiste. Cliquer sur l'artiste pour le consulter.
+  \item[\texttt{\slash{}artists\slash{}:id}] Page d'un artiste. Cliquer sur une pochette d'album pour accéder à l'album..
+  \item[\texttt{\slash{}albums}] Page de recherche par album. Cliquer sur l'album pour le consulter.
+  \item[\texttt{\slash{}albums\slash{}:id}] Page d'un artiste. Il est possible d'ajouter les chansons à une playlist avec les liens correspondants à chaque album.
+  \item[\texttt{\slash{}tracks}] Page de recherche par chanson. Cliquer sur la chanson nous ramène à la page de l'album qui contient la chanson.
+  \item[\texttt{\slash{}playlists}] Consulter les playlists de l'usager. Possibilité de les éditer avec les boutons.
+  \item[\texttt{\slash{}playlists\slash{}:id}] Page d'une playlist et la liste des chansons qu'elle contient. Possibilité de supprimer une chanson.
+  \item[\texttt{\slash{}users}] Page de recherche par usager.
+  \item[\texttt{\slash{}account}] Page d'un usager.
+  \item[\texttt{\slash{}settings}] Page des paramètres de l'usager.
+  \item[\texttt{\slash{}logout}] Déconnexion de l'usager.
+\end{description}
+
+\begin{center}
+  \begin{minipage}{0.8\linewidth}
+    \textbf{Note sur la recherche}
+    \begin{itemize}
+      \item Il faut utiliser la recherche pour trouver les artistes, albums, ou chansons à partir desquelles il sera possible de se construire une playlist. Cliquer sur les catégories dans le menu et lancer des recherches.
+      \item Nous avons pris de l'avance sur les fonctionnalitées de recherche, ce qui facilitera la tâche du correcteur.
+      \item Faire \texttt{Enter} dans les barres de recherche ne fonctionne pas. Il faut cliquer le bouton juste à droite de la barre.
+    \end{itemize}
+  \end{minipage}
+\end{center}
+
+Pour plus d'informations, voir directement le router dans \texttt{index.js}.
+\end{document}
