@@ -104,20 +104,20 @@
           && this.isEmailValid(data.email)
           && this.isPasswordValid(data.password)) {
           const finaldata = signUpData.join('&');
-          await api.singUpNewUser(finaldata, false)
-            .then(response => this.setIsSignedUp(response));
+          const response = await api.singUpNewUser(finaldata, false);
+          this.setIsSignedUp(response);
+           // .then(response => );
         }
       },
       concatEquals(k, data) {
         return `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`;
       },
       setIsSignedUp(response) {
-        const potentialError = api.getLastErrorMessage;
-        if (potentialError === undefined) {
+        if (typeof (response.errorCode) === 'undefined') {
           if ('id' in response) {
             this.setSuccessullySignedUpMessage();
           } else {
-            this.setInvalidSignedUpMessage(potentialError);
+            this.setInvalidSignedUpMessage(response.message);
           }
         }
       },

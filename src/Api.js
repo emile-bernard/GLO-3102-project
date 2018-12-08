@@ -32,8 +32,8 @@ function FormatStringForSearch(stringToFormat) {
 }
 
 function GetCORSAllowedHeader() {
-  let token = getLoginToken();
-  token = token.substr(token.indexOf(' ') + 1);
+  const token = getLoginToken();
+  // token = token.substr(token.indexOf(' ') + 1);
 
   if (typeof (token) !== 'undefined') {
     return {
@@ -54,6 +54,7 @@ function GetCORSAllowedHeader() {
 function FormatAndLogErrorMessage(message, originalError) {
   lastErrotMessage = message.toString() + originalError.toString();
   window.console.error(lastErrotMessage);
+  alert(lastErrotMessage);
 }
 //-------------------------------------------------------------
 // Se connecter/déconnecter
