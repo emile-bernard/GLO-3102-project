@@ -47,9 +47,9 @@
 </style>
 
 <script>
+  // import * as api from '@/Api';
   import { getLoginToken, redirectBackToWhereItWasBeforeOrDefault, setLoginToken } from '../../LoginCookies';
   import PulseLoader from '../../../node_modules/vue-spinner/src/ScaleLoader';
-
 
   export default {
     components: {
@@ -73,7 +73,7 @@
       }
     },
     methods: {
-      loginUser() {
+      async loginUser() {
         const data = {
           email: document.getElementById('emailInput')
             .value

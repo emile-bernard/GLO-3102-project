@@ -2,6 +2,16 @@ import { getLoginToken } from './LoginCookies';
 
 const baseURL = 'https://ubeat.herokuapp.com';
 const unsecureBaseURL = 'https://ubeat.herokuapp.com/unsecure';
+let lastErrotMessage;
+
+export const getLastErrorMessage = () => lastErrotMessage;
+
+function getURL(unsecured) {
+  lastErrotMessage = undefined;
+  let URL = baseURL;
+  if (unsecured) URL = unsecureBaseURL;
+  return URL;
+}
 
 function FormatStringForSearch(stringToFormat) {
   // Commentaire de GUCHE sur ce code: peut-être remplacer toute cette fonction par celle-ci
@@ -11,18 +21,19 @@ function FormatStringForSearch(stringToFormat) {
   const array = string.split(' ');
   const arraySize = array.length;
   let wordProcessed = 0;
-  let finalSring = '';
+  let finalString = '';
   array.forEach((word) => {
     wordProcessed += 1;
     if (wordProcessed !== arraySize) {
-      finalSring = `${finalSring + word}%20`;
+      finalString = `${finalString + word}%20`;
     }
   });
-  return finalSring;
+  return finalString;
 }
 
 function GetCORSAllowedHeader() {
-  const token = getLoginToken();
+  let token = getLoginToken();
+  token = token.substr(token.indexOf(' ') + 1);
 
   if (typeof (token) !== 'undefined') {
     return {
@@ -41,7 +52,8 @@ function GetCORSAllowedHeader() {
 }
 
 function FormatAndLogErrorMessage(message, originalError) {
-  window.console.error(message.toString() + originalError.toString());
+  lastErrotMessage = message.toString() + originalError.toString();
+  window.console.error(lastErrotMessage);
 }
 //-------------------------------------------------------------
 // Se connecter/déconnecter
@@ -54,21 +66,41 @@ function FormatAndLogErrorMessage(message, originalError) {
 // Enregistrer un nouvel utilisateur
 //-------------------------------------------------------------
 // POST /signup
-
-
+export const singUpNewUser = (data, unsecured) => {
+  const URL = getURL(unsecured);
+  return fetch(`${URL}/signup/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: data })
+    .then(response => response.json())
+    .catch((error) => {
+      FormatAndLogErrorMessage('Unable to register a new user. The server error is : ', error);
+    });
+};
 //-------------------------------------------------------------
 // Token info
 //-------------------------------------------------------------
 // GET /tokenInfo
-
+export const getTokenInfo = (unsecured) => {
+  const URL = getURL(unsecured);
+  return fetch(`${URL}/tokeninfo/`, {
+    method: 'GET',
+    Header: GetCORSAllowedHeader(),
+  })
+    .then(response => response.json())
+    .catch((error) => {
+      FormatAndLogErrorMessage('Unable to get token information related to a user. The server error is : ', error);
+    });
+};
 
 //-------------------------------------------------------------
 // Recherche
 //-------------------------------------------------------------
 // GET /search
 export const generalSearch = (q, unsecured, limit = 20) => {
-  let URL = baseURL;
-  if (unsecured) URL = unsecureBaseURL;
+  const URL = getURL(unsecured);
   return fetch(`${URL}/search?q=/${q}&limit=${limit}`, {
     headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
@@ -78,8 +110,7 @@ export const generalSearch = (q, unsecured, limit = 20) => {
 };
 // GET /search/albums
 export const albumSearch = (q, unsecured, limit = 20) => {
-  let URL = baseURL;
-  if (unsecured) URL = unsecureBaseURL;
+  const URL = getURL(unsecured);
   const searchStringFormated = FormatStringForSearch(q);
   return fetch(`${URL}/search/album?q=/${searchStringFormated}&limit=${limit}`, {
     headers: GetCORSAllowedHeader(), })
@@ -90,9 +121,7 @@ export const albumSearch = (q, unsecured, limit = 20) => {
 };
 // GET /search/artists
 export const artistSearch = (q, unsecured, limit = 20) => {
-  let URL = baseURL;
-  if (unsecured) URL = unsecureBaseURL;
-
+  const URL = getURL(unsecured);
   const searchStringFormated = FormatStringForSearch(q);
   // ici je me suis dis que le formatage est probablement pareil mais à essayer
   // comme le serveur semble down en ce moment
@@ -106,8 +135,7 @@ export const artistSearch = (q, unsecured, limit = 20) => {
 };
 // GET /search/tracks
 export const trackSearch = (q, unsecured, limit = 20) => {
-  let URL = baseURL;
-  if (unsecured) URL = unsecureBaseURL;
+  const URL = getURL(unsecured);
   const searchStringFormated = FormatStringForSearch(q);
   return fetch(`${URL}/search/tracks?q=/${searchStringFormated}&limit=${limit}`, {
     headers: GetCORSAllowedHeader(), })
@@ -132,8 +160,7 @@ export const trackSearch = (q, unsecured, limit = 20) => {
 //-------------------------------------------------------------
 // GET /albums/:id
 export const getAlbum = (albumId, unsecured) => {
-  let URL = baseURL;
-  if (unsecured) URL = unsecureBaseURL;
+  const URL = getURL(unsecured);
   return fetch(`${URL}/albums/${albumId}`, {
     method: 'GET',
     headers: GetCORSAllowedHeader(), })
@@ -145,8 +172,7 @@ export const getAlbum = (albumId, unsecured) => {
 
 // GET /albums/:id/tracks
 export const getAlbumTracks = (albumId, unsecured) => {
-  let URL = baseURL;
-  if (unsecured) URL = unsecureBaseURL;
+  const URL = getURL(unsecured);
   return fetch(`${URL}/albums/${albumId}/tracks`, {
     method: 'GET',
     headers: GetCORSAllowedHeader(), })
@@ -167,8 +193,7 @@ export const getAlbumTracks = (albumId, unsecured) => {
 //-------------------------------------------------------------
 // GET /playlists/:id
 export const getPlayListCollection = (playListId, unsecured) => {
-  let URL = baseURL;
-  if (unsecured) URL = unsecureBaseURL;
+  const URL = getURL(unsecured);
   return fetch(`${URL}/playlists/${playListId}`, {
     method: 'GET',
     headers: GetCORSAllowedHeader(), })
@@ -180,8 +205,7 @@ export const getPlayListCollection = (playListId, unsecured) => {
 
 // GET /playlists/
 export const getCommonPlayList = (unsecured) => {
-  let URL = baseURL;
-  if (unsecured) URL = unsecureBaseURL;
+  const URL = getURL(unsecured);
   return fetch(`${URL}/playlists/`, {
     method: 'GET',
     headers: GetCORSAllowedHeader(), })
@@ -190,6 +214,7 @@ export const getCommonPlayList = (unsecured) => {
       FormatAndLogErrorMessage('Unable to fetch the playlist.', error);
     });
 };
+
 
 // POST /playlists
 // PUT /playlists/:id

@@ -56,6 +56,7 @@
 </style>
 
 <script>
+  import * as api from '@/Api';
   import { getLoginToken, redirectBackToWhereItWasBeforeOrDefault } from '../../LoginCookies';
   import PulseLoader from '../../../node_modules/vue-spinner/src/ScaleLoader';
 
@@ -81,7 +82,7 @@
       }
     },
     methods: {
-      createNewUser() {
+      async createNewUser() {
         const data = {
           name: document.getElementById('fullNameInput')
             .value
@@ -102,29 +103,23 @@
         if (this.isNameValid(data.name)
           && this.isEmailValid(data.email)
           && this.isPasswordValid(data.password)) {
-          fetch('https://ubeat.herokuapp.com/signup',
-            {
-              method: 'post',
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-              },
-              body: signUpData.join('&')
-            })
-            .then(response => response.json())
-            .then(this.setIsSignedUp)
-            .catch(() => this.setInvalidLogedInMessage('Server error'));
+          const finaldata = signUpData.join('&');
+          await api.singUpNewUser(finaldata, false)
+            .then(response => this.setIsSignedUp(response));
         }
       },
       concatEquals(k, data) {
         return `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`;
       },
       setIsSignedUp(response) {
-        if ('id' in response) {
-          this.setSuccessullySignedUpMessage();
-        } else {
-          this.setInvalidSignedUpMessage();
+        const potentialError = api.getLastErrorMessage;
+        if (potentialError === undefined) {
+          if ('id' in response) {
+            this.setSuccessullySignedUpMessage();
+          } else {
+            this.setInvalidSignedUpMessage(potentialError);
+          }
         }
-        return response;
       },
       setSuccessullySignedUpMessage() {
         this.displaySignUpSpinner = true;
