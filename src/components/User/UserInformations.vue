@@ -6,7 +6,8 @@
       We might want to set the username and email in a new cookie too...-->
 
       <figure class="card-image is-centered card-header-icon ">
-        <v-gravatar></v-gravatar>
+        <v-gravatar
+          :email="email"></v-gravatar>
       </figure>
     </div>
     <br>

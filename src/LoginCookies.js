@@ -10,7 +10,7 @@ export function getLoginToken() {
 }
 
 export function setLoginToken(token) {
-  Cookies.set(ACCESS_TOKEN, `Bearer ${token}`, { expires: 9000 });
+  Cookies.set(ACCESS_TOKEN, `${token}`, { expires: 9000 });
 }
 
 export function removeLoginToken() {

@@ -6,6 +6,11 @@ let lastErrotMessage;
 
 export const getLastErrorMessage = () => lastErrotMessage;
 
+function getQueryParamCurrentToken() {
+  const token = `?access_token=${getLoginToken()}`;
+  return token;
+}
+
 function getURL(unsecured) {
   lastErrotMessage = undefined;
   let URL = baseURL;
@@ -32,18 +37,6 @@ function FormatStringForSearch(stringToFormat) {
 }
 
 function GetCORSAllowedHeader() {
-  const token = getLoginToken();
-  // token = token.substr(token.indexOf(' ') + 1);
-
-  if (typeof (token) !== 'undefined') {
-    return {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credential': 'true',
-      Authorization: token
-    };
-  }
-
   return {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -86,7 +79,8 @@ export const singUpNewUser = (data, unsecured) => {
 // GET /tokenInfo
 export const getTokenInfo = (unsecured) => {
   const URL = getURL(unsecured);
-  return fetch(`${URL}/tokeninfo/`, {
+  const param = getQueryParamCurrentToken();
+  return fetch(`${URL}/tokeninfo/${param}`, {
     method: 'GET',
     Header: GetCORSAllowedHeader(),
   })

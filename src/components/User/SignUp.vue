@@ -106,7 +106,6 @@
           const finaldata = signUpData.join('&');
           const response = await api.singUpNewUser(finaldata, false);
           this.setIsSignedUp(response);
-           // .then(response => );
         }
       },
       concatEquals(k, data) {

@@ -98,7 +98,7 @@ class UserSearchResult extends AbstractSearchResult {
     return `${this.results.name}`;
   }
   getURL() {
-    return `/users/${this.results.id}`;
+    return `/account?id=${encodeURIComponent(this.results.id)}&name=${encodeURIComponent(this.results.name)}&email=${encodeURIComponent(this.results.email)}`;
   }
   getTypeColorClass() {
     return this.colorClass;
