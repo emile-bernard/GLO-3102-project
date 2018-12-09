@@ -7,8 +7,12 @@ let lastErrotMessage;
 export const getLastErrorMessage = () => lastErrotMessage;
 
 function getQueryParamCurrentToken() {
-  const token = `?access_token=${getLoginToken()}`;
-  return token;
+  const token = getLoginToken();
+  const accesstoken = `/?access_token=${token}`;
+  if (typeof (token) === 'undefined') {
+    return '';
+  }
+  return accesstoken;
 }
 
 function getURL(unsecured) {
@@ -80,7 +84,7 @@ export const singUpNewUser = (data, unsecured) => {
 export const getTokenInfo = (unsecured) => {
   const URL = getURL(unsecured);
   const param = getQueryParamCurrentToken();
-  return fetch(`${URL}/tokeninfo/${param}`, {
+  return fetch(`${URL}/tokeninfo${param}`, {
     method: 'GET',
     Header: GetCORSAllowedHeader(),
   })
@@ -156,7 +160,8 @@ export const trackSearch = (q, unsecured, limit = 20) => {
 // GET /albums/:id
 export const getAlbum = (albumId, unsecured) => {
   const URL = getURL(unsecured);
-  return fetch(`${URL}/albums/${albumId}`, {
+  const param = getQueryParamCurrentToken();
+  return fetch(`${URL}/albums/${albumId}${param}`, {
     method: 'GET',
     headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
@@ -168,7 +173,8 @@ export const getAlbum = (albumId, unsecured) => {
 // GET /albums/:id/tracks
 export const getAlbumTracks = (albumId, unsecured) => {
   const URL = getURL(unsecured);
-  return fetch(`${URL}/albums/${albumId}/tracks`, {
+  const param = getQueryParamCurrentToken();
+  return fetch(`${URL}/albums/${albumId}/tracks${param}`, {
     method: 'GET',
     headers: GetCORSAllowedHeader(), })
     .then(response => response.json())
@@ -189,7 +195,8 @@ export const getAlbumTracks = (albumId, unsecured) => {
 // GET /playlists/:id
 export const getPlayListCollection = (playListId, unsecured) => {
   const URL = getURL(unsecured);
-  return fetch(`${URL}/playlists/${playListId}`, {
+  const param = getQueryParamCurrentToken();
+  return fetch(`${URL}/playlists/${playListId}${param}`, {
     method: 'GET',
     headers: GetCORSAllowedHeader(), })
     .then(response => response.json())

@@ -105,17 +105,30 @@
         }]
       };
     },
+    watch: {
+      $route() {
+        this.init();
+      }
+    },
     created() {
-      redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
-      this.create();
+      this.init();
     },
     methods: {
       async create() {
-        const albumInfo = await api.getAlbum(this.id, true);
-        if (albumInfo !== '') {
-          this.albums = albumInfo.results;
-          this.albumCount = albumInfo.resultCount;
-        }
+        await api.getAlbum(this.id, false)
+          .then((reponse) => {
+            if (typeof (reponse.errorCode) === 'undefined') {
+              this.setInfo(reponse);
+            }
+          });
+      },
+      setInfo(response) {
+        this.albums = response.results;
+        this.albumCount = response.resultCount;
+      },
+      init() {
+        redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
+        this.create();
       }
     }
   };
