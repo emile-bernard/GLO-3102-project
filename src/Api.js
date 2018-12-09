@@ -173,8 +173,33 @@ export const trackSearch = (q, unsecured, limit = 20) => {
 // Utilisateurs
 //-------------------------------------------------------------
 // GET /users
+export const getAllUsers = (unsecured) => {
+  const URL = getURL(unsecured);
+  const param = getQueryParamCurrentToken();
+  return fetch(`${URL}/search/users${param}`, {
+    method: 'GET',
+    headers: GetCORSAllowedHeader(),
+  })
+    .then(response => response.json())
+    .catch((error) => {
+      FormatAndLogErrorMessage('Unable to fetch an album.', error);
+    });
+};
 // GET /users/:id
+export const getOneUsers = (userId, unsecured) => {
+  const URL = getURL(unsecured);
+  const param = getQueryParamCurrentToken();
+  return fetch(`${URL}/search/users/:${userId}${param}`, {
+    method: 'GET',
+    headers: GetCORSAllowedHeader(),
+  })
+    .then(response => response.json())
+    .catch((error) => {
+      FormatAndLogErrorMessage('Unable to fetch an album.', error);
+    });
+};
 // GET /search/users
+
 // POST /follow
 export const FollowAFriendAndGetFriendsListBack = (userIdToFollow, unsecured) => {
   const URL = getURL(unsecured);
