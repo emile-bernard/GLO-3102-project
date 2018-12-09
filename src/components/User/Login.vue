@@ -50,7 +50,15 @@
 <script>
   import { getLoginToken, redirectBackToWhereItWasBeforeOrDefault, setLoginToken } from '../../LoginCookies';
   import PulseLoader from '../../../node_modules/vue-spinner/src/ScaleLoader';
-  import { getPlaylistLocalStorageKey, getUserIdLocalStorageKey, getTokenLocalStorageKey } from '../../Api';
+  import {
+    getPlaylistLocalStorageKey,
+    getUserIdLocalStorageKey,
+    getTokenLocalStorageKey,
+    getOneUsers,
+    getFriendsLocalStorageKey,
+    getQueryParamCurrentToken,
+    GetCORSAllowedHeader
+  } from '../../Api';
 
   export default {
     components: {
@@ -109,31 +117,34 @@
         if ('id' in response) {
           localStorage.setItem(getUserIdLocalStorageKey(), JSON.stringify(response.id));
           localStorage.setItem(getTokenLocalStorageKey(), JSON.stringify(response.token));
-          this.setSuccessfullyLoggedInMessage();
+          this.setSuccessfullyLoggedInMessage(response);
         } else {
           this.setInvalidLoggedInMessage();
         }
         return response;
       },
-      setSuccessfullyLoggedInMessage() {
+      setSuccessfullyLoggedInMessage(response) {
         this.displayLoginSpinner = true;
         this.displayIsLoginInvalid = false;
         this.displayIsLoginSuccessfully = true;
         setTimeout(this.redirectAfterLogin(), 100);
         this.$root.$emit('userLoggedIn');
         this.getPlaylistsForCurrentUser();
+        getOneUsers(response.id, false)
+          .then((info) => {
+            localStorage.setItem(getFriendsLocalStorageKey(), JSON.stringify(info.following));
+            this.$root.$emit('friends-loaded');
+          });
       },
       populatePlaylists(playlist, id) {
         try {
           if (playlist.owner.id === id) {
             const token = getLoginToken();
             if (typeof (token) !== 'undefined') {
-              fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlist.id}`,
+              fetch(`https://ubeat.herokuapp.com/playlists/${playlist.id}${getQueryParamCurrentToken()}`,
                 {
                   method: 'get',
-                  headers: {
-                    Authorization: token
-                  }
+                  headers: GetCORSAllowedHeader()
                 })
                 .then(response => response.json())
                 .then((response) => {
@@ -164,12 +175,10 @@
       getPlaylistsForCurrentUser() {
         const userid = JSON.parse(localStorage.getItem(getUserIdLocalStorageKey()));
         localStorage.setItem(getPlaylistLocalStorageKey(), JSON.stringify([]));
-        return fetch('https://ubeat.herokuapp.com/unsecure/playlists/',
+        return fetch(`https://ubeat.herokuapp.com/playlists${getQueryParamCurrentToken()}`,
           {
             method: 'get',
-            headers: {
-              Authorization: JSON.parse(localStorage.getItem(getTokenLocalStorageKey()))
-            }
+            headers: GetCORSAllowedHeader(),
           })
           .then(response => response.json())
           .then((response) => {

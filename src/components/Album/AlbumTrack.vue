@@ -70,7 +70,7 @@
 
   export default {
     props: {
-      currentlyPlaying: String,
+      currentlyPlaying: Number,
       trackId: Number,
       trackName: String,
       previewUrl: String,

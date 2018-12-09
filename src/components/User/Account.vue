@@ -10,7 +10,12 @@
     <br/>
     <div id="main-content" class="container">
       <div class="column is-one-third">
-        <h1 class="title is-size-2">Account</h1>
+        <h1 class="title">Account &nbsp;
+          <i v-if="!currentUser && !followed" class="button is-primary fas fa-user-plus"
+             v-on:click="follow"></i>
+          <i v-if="!currentUser && followed" class="button is-primary fas fa-user-minus"
+             v-on:click="unfollow"></i>
+        </h1>
         <p v-if="errorOccured" id="invalidMessage" class="help is-danger">Invalid</p>
         <user-information
           v-bind:userName.sync="userName"
@@ -18,21 +23,27 @@
         </user-information>
       </div>
       <div class="column is-one-third">
-        <h1 class="title is-size-2">Playlists</h1>
+        <h1 class="title not-wrappable">Playlists</h1>
+        <p v-if="playlistsLoaded && !playlists.length" class="label not-wrappable">It's time to listen music!</p>
+        <pulse-loader v-if="!playlistsLoaded"></pulse-loader>
         <div class="row is-one-third">
           <router-link class="button is-primary playlist-button"
                        :to="getPlayListURL(playlist.id)"
-                       v-for="playlist in playlists">
+                       v-for="(playlist, index) in playlists"
+                       v-bind:key="index">
             {{playlist.name}}
           </router-link>
         </div>
       </div>
       <div class="column is-one-third">
-        <h1 class="title is-size-2">Friends</h1>
+        <h1 class="title not-wrappable">Friends</h1>
+        <p v-if="friendsLoaded && !friends.length" class="label not-wrappable">Go outside make some friends!</p>
+        <pulse-loader v-if="!friendsLoaded"></pulse-loader>
         <div class="row is-one-third">
           <router-link class="button is-primary playlist-button"
-                       :to="getPlayListURL(friend.id)"
-                       v-for="friend in playlists">
+                       :to="getFriendURL(friend.id, friend.name, friend.email)"
+                       v-for="(friend, index) in friends"
+                       v-bind:key="index">
             {{friend.name}}
           </router-link>
         </div>
@@ -49,6 +60,11 @@
 </template>
 
 <style scoped>
+  .not-wrappable{
+    text-wrap: none;
+    white-space: nowrap;
+  }
+
   #main-content {
     width: 100%;
     display: flex;
@@ -75,24 +91,32 @@
     getTokenInfo,
     getPlayListCollection,
     getCommonPlayList,
-    getFriendsLocalStorageKey
+    getFriendsLocalStorageKey,
+    getOneUsers,
+    FollowAFriendAndGetFriendsListBack,
+    StopFollowAFriendAndGetFriendsListBack
   } from '@/Api';
   import UserInformation from '@/components/User/UserInformations';
   import { redirectToLoginIfNotLoggedIn } from '../../LoginCookies';
+  import PulseLoader from '../../../node_modules/vue-spinner/src/ScaleLoader';
 
   export default {
     components: {
+      'pulse-loader': PulseLoader,
       'user-information': UserInformation
     },
     data() {
       return {
         id: String / Number,
+        followed: this.isAlreadyFollowed(),
         errorOccured: false,
         userName: 'Loading...',
         email: 'Loading...',
         playlists: [],
         friends: [],
-        currentUser: false,
+        currentUser: true,
+        playlistsLoaded: false,
+        friendsLoaded: false,
       };
     },
     watch: {
@@ -101,6 +125,12 @@
       }
     },
     created() {
+      this.$root.$on('playlist-loaded', () => {
+        this.playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
+      });
+      this.$root.$on('friends-loaded', () => {
+        this.friends = JSON.parse(localStorage.getItem(getFriendsLocalStorageKey()));
+      });
       this.init();
     },
     methods: {
@@ -113,6 +143,8 @@
             this.email = userInfo.email;
             this.id = userInfo.id;
             this.errorOccured = false;
+            this.playlistsLoaded = true;
+            this.friendsLoaded = true;
             this.playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
             this.friends = JSON.parse(localStorage.getItem(getFriendsLocalStorageKey()));
           } else {
@@ -126,27 +158,43 @@
           this.userName = decodeURIComponent(this.$route.query.name);
           this.email = decodeURIComponent(this.$route.query.email);
           this.id = decodeURIComponent(this.$route.query.id);
-          this.playlists = [];
-          this.friends = [];
+          this.retrievePlaylists();
+          this.retrieveFriends();
+        }
+        this.followed = this.isAlreadyFollowed();
+      },
+      async populatePlaylists(playlist) {
+        if (typeof (playlist.owner) !== 'undefined') {
+          if (playlist.owner.id === this.id) {
+            const playList = await getPlayListCollection(playlist.id, false);
+            this.playlists.push({
+              id: playList.id,
+              name: playList.name,
+            });
+            this.playlistsLoaded = true;
+          }
         }
       },
       filterPlaylists(allPlaylists) {
         for (let i = 0; i < allPlaylists.length; i += 1) {
           this.populatePlaylists(allPlaylists[i]);
         }
-      },
-      async populatePlaylists(playlist) {
-        if (playlist.owner.id === this.id) {
-          const playList = await getPlayListCollection(playlist.id, false);
-          this.playlists.push({
-            id: playList.id,
-            name: playList.name,
-          });
+        if (allPlaylists.length) {
+          this.playlistsLoaded = true;
         }
       },
-      async getCommonPlayList() {
+      async retrievePlaylists() {
+        this.playlists = [];
+        this.playlistsLoaded = false;
         const commonPlayList = await getCommonPlayList(true);
         this.filterPlaylists(commonPlayList);
+      },
+      async retrieveFriends() {
+        this.friends = [];
+        this.friendsLoaded = false;
+        const userInfos = await getOneUsers(this.id);
+        this.friends = userInfos.following;
+        this.friendsLoaded = true;
       },
       init() {
         redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
@@ -155,6 +203,33 @@
       },
       getPlayListURL(playlistId) {
         return `/playlists/${playlistId}`;
+      },
+      getFriendURL(friendId, friendName, friendEmail) {
+        return `/account?id=${friendId}&name=${friendName}&email=${friendEmail}`;
+      },
+      follow() {
+        FollowAFriendAndGetFriendsListBack(this.$route.query.id, false)
+          .then((response) => {
+            localStorage.setItem(getFriendsLocalStorageKey(), JSON.stringify(response.following));
+            this.followed = true;
+          });
+      },
+      unfollow() {
+        StopFollowAFriendAndGetFriendsListBack(this.$route.query.id, false)
+          .then((response) => {
+            localStorage.setItem(getFriendsLocalStorageKey(), JSON.stringify(response.following));
+            this.followed = false;
+          });
+      },
+      isAlreadyFollowed() {
+        const friends = JSON.parse(localStorage.getItem(getFriendsLocalStorageKey()));
+        for (let i = 0; i < friends.length; i += 1) {
+          const friend = friends[i];
+          if (friend.id === this.$route.query.id) {
+            return true;
+          }
+        }
+        return false;
       }
     },
   };

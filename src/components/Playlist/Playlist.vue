@@ -120,7 +120,7 @@
       },
       muteIfNotActiveSong(trackId) {
         this.activeSong = trackId;
-      },
+      }
     },
     created() {
       redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));

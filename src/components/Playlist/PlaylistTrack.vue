@@ -11,7 +11,7 @@
         <button class="button" @click="togglePlay">
           <i :id="playBtnId" class="fas fa-play action" aria-hidden="true"></i>
         </button>
-        <button id="add-to-playlist" class="button is-danger" @click="removeTrack">
+        <button v-if="isCurrentUserPlaylist" id="add-to-playlist" class="button is-danger" @click="removeTrack">
           <i class="fas fa-times action" aria-hidden="true"></i>
         </button>
       </div>
@@ -61,12 +61,13 @@
 </style>
 
 <script>
+  import { getPlaylistLocalStorageKey } from '@/Api';
   import PlaylistChoice from '@/components/Playlist/PlaylistChoice';
   import { getLoginToken } from '../../LoginCookies';
 
   export default {
     props: {
-      currentlyPlaying: String,
+      currentlyPlaying: Number,
       trackId: Number,
       trackIndex: Number,
       trackName: String,
@@ -155,6 +156,16 @@
       },
       muteBtnId() {
         return `${this.trackId}-mute-btn`;
+      },
+      isCurrentUserPlaylist() {
+        const playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
+        for (let i = 0; i < playlists.length; i += 1) {
+          const playlist = playlists[i];
+          if (playlist.id === this.$route.params.id) {
+            return true;
+          }
+        }
+        return false;
       }
     },
     watch: {

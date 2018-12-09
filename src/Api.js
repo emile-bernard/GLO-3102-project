@@ -60,7 +60,7 @@ function FormatStringForSearch(stringToFormat) {
   return finalString;
 }
 
-function GetCORSAllowedHeader() {
+export function GetCORSAllowedHeader() {
   return {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -176,7 +176,7 @@ export const trackSearch = (q, unsecured, limit = 20) => {
 export const getAllUsers = (unsecured) => {
   const URL = getURL(unsecured);
   const param = getQueryParamCurrentToken();
-  return fetch(`${URL}/search/users${param}`, {
+  return fetch(`${URL}/users${param}`, {
     method: 'GET',
     headers: GetCORSAllowedHeader(),
   })
@@ -189,7 +189,7 @@ export const getAllUsers = (unsecured) => {
 export const getOneUsers = (userId, unsecured) => {
   const URL = getURL(unsecured);
   const param = getQueryParamCurrentToken();
-  return fetch(`${URL}/search/users/:${userId}${param}`, {
+  return fetch(`${URL}/users/${userId}${param}`, {
     method: 'GET',
     headers: GetCORSAllowedHeader(),
   })
@@ -207,12 +207,13 @@ export const FollowAFriendAndGetFriendsListBack = (userIdToFollow, unsecured) =>
   return fetch(`${URL}/follow${param}`, {
     method: 'POST',
     headers: GetCORSAllowedHeader(),
-    body: {
+    body: JSON.stringify({
       id: userIdToFollow
-    } })
+    })
+  })
     .then(response => response.json())
     .catch((error) => {
-      FormatAndLogErrorMessage('Unable to fetch an album.', error);
+      FormatAndLogErrorMessage('Unable to follow.', error);
     });
 };
 
@@ -220,15 +221,13 @@ export const FollowAFriendAndGetFriendsListBack = (userIdToFollow, unsecured) =>
 export const StopFollowAFriendAndGetFriendsListBack = (userIdToStopFollow, unsecured) => {
   const URL = getURL(unsecured);
   const param = getQueryParamCurrentToken();
-  return fetch(`${URL}/follow${param}`, {
-    method: 'POST',
-    headers: GetCORSAllowedHeader(),
-    body: {
-      id: userIdToStopFollow
-    } })
+  return fetch(`${URL}/follow/${userIdToStopFollow}${param}`, {
+    method: 'DELETE',
+    headers: GetCORSAllowedHeader()
+  })
     .then(response => response.json())
     .catch((error) => {
-      FormatAndLogErrorMessage('Unable to fetch an album.', error);
+      FormatAndLogErrorMessage('Unable to unfollow.', error);
     });
 };
 
@@ -289,7 +288,7 @@ export const getPlayListCollection = (playListId, unsecured) => {
 // GET /playlists/
 export const getCommonPlayList = (unsecured) => {
   const URL = getURL(unsecured);
-  return fetch(`${URL}/playlists/`, {
+  return fetch(`${URL}/playlists${getQueryParamCurrentToken()}`, {
     method: 'GET',
     headers: GetCORSAllowedHeader(),
   })
