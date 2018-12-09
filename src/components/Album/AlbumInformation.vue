@@ -24,7 +24,9 @@
           v-bind:previewUrl.sync="song.previewUrl"
           v-bind:trackNumber.sync="song.trackNumber"
           v-bind:trackTimeMillis.sync="song.trackTimeMillis"
+          v-bind:currentlyPlaying="activeSong"
           v-on:add-to-playlist="addSongToPlayList"
+          v-on:playing-song="muteIfNotActiveSong"
         ></album-track>
       </div>
     </div>
@@ -116,6 +118,7 @@
     },
     data() {
       return {
+        activeSong: undefined,
         releaseDate: new Date(this.releaseDateString),
         resultsCount: 0,
         albumTracks: [],
@@ -140,6 +143,9 @@
       },
       create() {
         this.init();
+      },
+      muteIfNotActiveSong(trackId) {
+        this.activeSong = trackId;
       },
       addSongToPlayList(trackId) {
         this.trackIds = [trackId];

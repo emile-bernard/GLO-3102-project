@@ -26,7 +26,9 @@
                   v-bind:previewUrl="track.previewUrl"
                   v-bind:artistName="track.artistName"
                   v-bind:trackTimeMillis="track.trackTimeMillis"
+                  v-bind:currentlyPlaying="activeSong"
                   v-on:track-deleted="tracks.splice(index,1)"
+                  v-on:playing-song="muteIfNotActiveSong"
                 ></playlist-song>
               </div>
             </div>
@@ -37,7 +39,7 @@
   </section>
 </template>
 
-<style>
+<style scoped>
   .hero-parralax-bg {
     overflow: auto;
     position: relative;
@@ -103,6 +105,7 @@
     },
     data() {
       return {
+        activeSong: undefined,
         tracks: [],
         name: {
           typeTitleCase: String
@@ -114,6 +117,9 @@
         const playList = await api.getPlayListCollection(this.$route.params.id, true);
         this.tracks = playList.tracks;
         this.name = playList.name;
+      },
+      muteIfNotActiveSong(trackId) {
+        this.activeSong = trackId;
       },
     },
     created() {

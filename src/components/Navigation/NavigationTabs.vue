@@ -4,30 +4,32 @@
       <li id="navigation-tab-home" class="is-active">
         <router-link to="/">Home</router-link>
       </li>
-      <li id="navigation-tab-artists">
-        <router-link to="/artists">Artists</router-link>
-      </li>
-      <li id="navigation-tab-albums">
-        <router-link to="/albums">Albums</router-link>
-      </li>
-      <li id="navigation-tab-tracks">
-        <router-link to="/tracks">Tracks</router-link>
-      </li>
-      <li id="navigation-tab-playlists">
-        <router-link to="/playlists">Playlists</router-link>
-      </li>
       <li id="navigation-tab-news">
         <router-link to="/news">News</router-link>
       </li>
-      <li id="navigation-tab-users">
+      <li v-if="userLoggedIn" id="navigation-tab-search">
+        <router-link to="/search">Search</router-link>
+      </li>
+      <li v-if="userLoggedIn" id="navigation-tab-artists">
+        <router-link to="/artists">Artists</router-link>
+      </li>
+      <li v-if="userLoggedIn" id="navigation-tab-albums">
+        <router-link to="/albums">Albums</router-link>
+      </li>
+      <li v-if="userLoggedIn" id="navigation-tab-tracks">
+        <router-link to="/tracks">Tracks</router-link>
+      </li>
+      <li v-if="userLoggedIn" id="navigation-tab-users">
         <router-link to="/users">Users</router-link>
       </li>
-      <li id="navigation-tab-account">
+      <li v-if="userLoggedIn" id="navigation-tab-playlists">
+        <router-link to="/playlists">Playlists</router-link>
+      </li>
+      <li v-if="userLoggedIn" id="navigation-tab-account">
         <router-link to="/account">Account</router-link>
       </li>
-      <!--TODO: add search page-->
-      <li id="navigation-tab-search">
-        <router-link to="/search">Search</router-link>
+      <li v-else id="navigation-tab-login">
+        <router-link to="/login">Log In</router-link>
       </li>
     </ul>
   </div>
@@ -78,4 +80,7 @@
 </style>
 
 <script>
+  export default {
+    props: ['userLoggedIn'],
+  };
 </script>

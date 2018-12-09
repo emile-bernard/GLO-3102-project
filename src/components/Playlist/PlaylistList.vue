@@ -15,7 +15,7 @@
       <i class="fas fa-plus action"></i>
     </button>
 
-    <button class="button is-danger" @click="deleteSelectedPlaylist">
+    <button v-if="playlists.length" class="button is-danger" @click="deleteSelectedPlaylist">
       Delete{{selected}}playlist(s)&nbsp
       <i class="fas fa-trash action"></i>
     </button>
@@ -43,7 +43,8 @@
     </div>
 
     <br/>
-    <playlist-overview v-for="playlist in playlists"
+    <pulse-loader v-if="!isLoaded"></pulse-loader>
+    <playlist-overview v-else v-for="playlist in playlists"
                        v-bind:key="playlist.id"
                        v-bind:id="playlist.id"
                        v-bind:name="playlist.name"
@@ -67,12 +68,14 @@
 
 <script>
   import PlaylistOverview from './PlaylistOverview';
+  import PulseLoader from '../../../node_modules/vue-spinner/src/ScaleLoader';
   import { redirectToLoginIfNotLoggedIn, getLoginToken } from '../../LoginCookies';
+  import { getPlaylistLocalStorageKey, getTokenLocalStorageKey, getQueryParamCurrentToken } from '../../Api';
 
   export default {
     data() {
       return {
-        PLAYLIST_LOCAL_STORAGE_KEY: 'playlists-storage',
+        isLoaded: false,
         playlists: [],
         displayCancelSelectionButton: 'none',
         displayCreatePlaylistButton: 'inline',
@@ -84,43 +87,10 @@
       };
     },
     components: {
+      'pulse-loader': PulseLoader,
       'playlist-overview': PlaylistOverview,
     },
     methods: {
-      filterPlaylists(allPlaylists) {
-        for (let i = 0; i < allPlaylists.length; i += 1) {
-          this.populatePlaylists(allPlaylists[i]);
-        }
-      },
-      populatePlaylists(playlist) {
-        try {
-          if (playlist.owner.name === 'unclebob') {
-            const token = getLoginToken();
-            if (typeof (token) !== 'undefined') {
-              fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlist.id}`,
-                {
-                  method: 'get',
-                  headers: {
-                    Authorization: token
-                  }
-                })
-                .then(response => response.json())
-                .then((response) => {
-                  this.playlists.push({
-                    id: response.id,
-                    name: response.name,
-                    tracks: playlist.tracks
-                  });
-                  localStorage.setItem(
-                    this.PLAYLIST_LOCAL_STORAGE_KEY,
-                    JSON.stringify(this.playlists));
-                });
-            }
-          }
-        } catch (error) {
-          // Todo
-        }
-      },
       toggleCreateNewPlaylist() {
         this.displayNewPlaylistBlock = this.displayNewPlaylistBlock === 'block' ? 'none' : 'block';
       },
@@ -135,34 +105,30 @@
         this.cancelSelectionData = !this.cancelSelectionData;
       },
       createNewPlaylist() {
-        const token = getLoginToken();
-        if (typeof (token) !== 'undefined') {
-          fetch('https://ubeat.herokuapp.com/unsecure/playlists',
-            {
-              method: 'post',
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: token
-              },
-              body: JSON.stringify(
-                {
-                  name: document.getElementById('new-playlist-input')
-                    .value
-                    .toString(),
-                  owner: 'unclebob@ubeat.com'
-                })
-            })
-            .then(response => response.json())
-            .then(this.toggleCreateNewPlaylist())
-            .then((response) => {
-              this.playlists.push({
-                id: response.id,
-                name: response.name,
-                tracks: []
-              });
-              localStorage.setItem(this.PLAYLIST_LOCAL_STORAGE_KEY, JSON.stringify(this.playlists));
+        this.toggleCreateNewPlaylist();
+        fetch(`https://ubeat.herokuapp.com/playlists${getQueryParamCurrentToken()}`,
+          {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: localStorage.getItem(getTokenLocalStorageKey())
+            },
+            body: JSON.stringify(
+              {
+                name: document.getElementById('new-playlist-input')
+                  .value
+                  .toString(),
+              })
+          })
+          .then(response => response.json())
+          .then((response) => {
+            this.playlists.push({
+              id: response.id,
+              name: response.name,
+              tracks: []
             });
-        }
+            localStorage.setItem(getPlaylistLocalStorageKey(), JSON.stringify(this.playlists));
+          });
       },
       deleteSelectedPlaylist() {
         for (let i = 0; i < this.selectedPlaylists.length; i += 1) {
@@ -190,7 +156,7 @@
           const playlist = this.playlists[i];
           if (playlist.id === playlistId) {
             this.playlists.splice(i, 1);
-            localStorage.setItem(this.PLAYLIST_LOCAL_STORAGE_KEY, JSON.stringify(this.playlists));
+            localStorage.setItem(getPlaylistLocalStorageKey(), JSON.stringify(this.playlists));
             break;
           }
         }
@@ -198,24 +164,14 @@
     },
     created() {
       redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
-      this.playlists = JSON.parse(localStorage.getItem(this.PLAYLIST_LOCAL_STORAGE_KEY));
-      if (this.playlists === null) {
-        this.playlists = [];
-        const token = getLoginToken();
-        if (typeof (token) !== 'undefined') {
-          fetch('https://ubeat.herokuapp.com/unsecure/playlists/',
-            {
-              method: 'get',
-              headers: {
-                Authorization: token
-              }
-            })
-            .then(response => response.json())
-            .then((response) => {
-              this.filterPlaylists(response);
-            });
-        }
+      this.playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
+      if (typeof (this.playlists) !== 'undefined') {
+        this.isLoaded = true;
       }
+      this.$root.$on('playlist-loaded', () => {
+        this.playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
+        this.isLoaded = true;
+      });
     },
   };
 </script>

@@ -5,28 +5,31 @@
         <router-link to="/">Home</router-link>
       </div>
       <div @click="closeBurger">
-        <router-link to="/artists">Artists</router-link>
-      </div>
-      <div @click="closeBurger">
-        <router-link to="/albums">Albums</router-link>
-      </div>
-      <div @click="closeBurger">
-        <router-link to="/tracks">Tracks</router-link>
-      </div>
-      <div @click="closeBurger">
-        <router-link to="/playlists">Playlists</router-link>
-      </div>
-      <div @click="closeBurger">
         <router-link to="/news">News</router-link>
       </div>
-      <div @click="closeBurger">
+      <div v-if="userLoggedIn" @click="closeBurger">
+        <router-link to="/search">Search</router-link>
+      </div>
+      <div v-if="userLoggedIn" @click="closeBurger">
+        <router-link to="/artists">Artists</router-link>
+      </div>
+      <div v-if="userLoggedIn" @click="closeBurger">
+        <router-link to="/albums">Albums</router-link>
+      </div>
+      <div v-if="userLoggedIn" @click="closeBurger">
+        <router-link to="/tracks">Tracks</router-link>
+      </div>
+      <div v-if="userLoggedIn" @click="closeBurger">
         <router-link to="/users">Users</router-link>
       </div>
-      <div @click="closeBurger">
+      <div v-if="userLoggedIn" @click="closeBurger">
+        <router-link to="/playlists">Playlists</router-link>
+      </div>
+      <div v-if="userLoggedIn" @click="closeBurger">
         <router-link to="/account">Account</router-link>
       </div>
-      <div @click="closeBurger">
-        <router-link to="/search">Search</router-link>
+      <div v-else @click="closeBurger">
+        <router-link to="/login">Log In</router-link>
       </div>
     </div>
   </div>
@@ -73,6 +76,7 @@
 
 <script>
   export default {
+    props: ['userLoggedIn'],
     methods: {
       closeBurger() {
         const navigationBurgerMenu = document.getElementById('navigation-burger-menu-items');

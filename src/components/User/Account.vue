@@ -1,74 +1,84 @@
 <template>
-  <div class="columns is-vcentered">
-    <div class="column is-fullheight is-2 is-sidebar-menu is-hidden-mobile">
-      <aside class="menu">
-        <ul class="menu-list">
-          <li>
-            <p class="menu-label">Transactions</p>
-            <ul>
-              <li><a>Buy music</a></li>
-              <li><a>Current offers</a></li>
-              <li><a>Transactions historic</a></li>
-            </ul>
-          </li>
-        </ul>
-        <ul class="menu-list">
-          <li>
-            <p class="menu-label">Manage Your Friends</p>
-            <ul>
-              <li><a>Members</a></li>
-              <li><a>Add a member as friend</a></li>
-              <li><a>Invite a friend</a></li>
-              <li><a>Share playlist</a></li>
-            </ul>
-          </li>
-          <p class="menu-label">
-            Administration
-          </p>
-          <li><a>Cloud Storage Environment Settings</a></li>
-          <li><a>Authentication</a></li>
-          <li><a>MemberShip</a></li>
-        </ul>
-        <p class="menu-label">
-          Transactions
-        </p>
-      </aside>
-    </div>
-
-    <div class="section">
-      <div class="container">
-        <p v-if="errorOccured" id="invalidMessage" class="help is-danger">Invalid</p>
+  <section class="section">
+    <p>
+      <router-link to="/"><span>UBeat</span></router-link>
+      <span> > </span>
+      <router-link to="/users"><span>Users</span></router-link>
+      <span> > </span>
+      <router-link to="/account"><span>MyAccount</span></router-link>
+    </p>
+    <br/>
+    <div id="main-content" class="container">
+      <div class="column is-one-third">
         <h1 class="title is-size-2">Account</h1>
+        <p v-if="errorOccured" id="invalidMessage" class="help is-danger">Invalid</p>
         <user-information
           v-bind:userName.sync="userName"
           v-bind:email.sync="email">
         </user-information>
-        <h2 class="title"><b>PlayLists</b></h2>
-        <router-link class="button is-primary" :to="getPlayListURL()" >
-          {{playlistName}}
-        </router-link>
-        <hr>
-        <div id="acount-info-logout-button" class="container">
-          <router-link class="button is-primary" to="/logout">
-            Logout
+      </div>
+      <div class="column is-one-third">
+        <h1 class="title is-size-2">Playlists</h1>
+        <div class="row is-one-third">
+          <router-link class="button is-primary playlist-button"
+                       :to="getPlayListURL(playlist.id)"
+                       v-for="playlist in playlists">
+            {{playlist.name}}
+          </router-link>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <h1 class="title is-size-2">Friends</h1>
+        <div class="row is-one-third">
+          <router-link class="button is-primary playlist-button"
+                       :to="getPlayListURL(friend.id)"
+                       v-for="friend in playlists">
+            {{friend.name}}
           </router-link>
         </div>
       </div>
     </div>
-  </div>
+    <hr v-if="currentUser">
+    <div v-if="currentUser" id="account-info-logout-button" class="container">
+      <router-link class="button has-text-primary is-size-3 is-white" to="/logout">
+        Log Out &nbsp;
+        <i id="logOutIcon" class="fas fa-sign-out-alt is-white"></i>
+      </router-link>
+    </div>
+  </section>
 </template>
 
-<style>
-  #account-info {
-    background: rgba(0, 0, 0, 0.1);
+<style scoped>
+  #main-content {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+  }
+
+  #account-info-logout-button {
+    display: flex;
+    justify-content: center;
+  }
+
+  .playlist-button {
+    width: 100px;
+    overflow: hidden;
+    margin: 5px;
   }
 </style>
 
 <script>
-  import * as api from '@/Api';
+  import {
+    getPlaylistLocalStorageKey,
+    getTokenInfo,
+    getPlayListCollection,
+    getCommonPlayList,
+    getFriendsLocalStorageKey
+  } from '@/Api';
   import UserInformation from '@/components/User/UserInformations';
   import { redirectToLoginIfNotLoggedIn } from '../../LoginCookies';
-
 
   export default {
     components: {
@@ -80,9 +90,9 @@
         errorOccured: false,
         userName: 'Loading...',
         email: 'Loading...',
-        PLAYLIST_LOCAL_STORAGE_KEY: 'playlists-storage',
-        playlistName: 'Loading...',
-        playListId: Number
+        playlists: [],
+        friends: [],
+        currentUser: false,
       };
     },
     watch: {
@@ -96,12 +106,15 @@
     methods: {
       async create() {
         if (typeof (this.$route.query.email) === 'undefined') {
-          const userInfo = await api.getTokenInfo(false);
+          const userInfo = await getTokenInfo(false);
           if (typeof (userInfo.errorCode) === 'undefined') {
+            this.currentUser = true;
             this.userName = userInfo.name;
             this.email = userInfo.email;
             this.id = userInfo.id;
             this.errorOccured = false;
+            this.playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
+            this.friends = JSON.parse(localStorage.getItem(getFriendsLocalStorageKey()));
           } else {
             this.errorOccured = true;
             setTimeout(() => {
@@ -109,32 +122,39 @@
             }, 10);
           }
         } else {
+          this.currentUser = false;
           this.userName = decodeURIComponent(this.$route.query.name);
           this.email = decodeURIComponent(this.$route.query.email);
           this.id = decodeURIComponent(this.$route.query.id);
+          this.playlists = [];
+          this.friends = [];
         }
-        const playlists = JSON.parse(localStorage.getItem(this.PLAYLIST_LOCAL_STORAGE_KEY));
-        for (let i = 0; i < playlists.length; i += 1) {
-          const playlist = playlists[i];
-          const owner = playlist.owner;
-          if (typeof (owner) === 'undefined') {
-            this.playListId = playlist.id;
-            this.playlistName = playlist.name;
-            break;
-          } else if (owner.email === this.email) {
-            this.playListId = playlist.id;
-            this.playlistName = playlist.name;
-            break;
-          }
+      },
+      filterPlaylists(allPlaylists) {
+        for (let i = 0; i < allPlaylists.length; i += 1) {
+          this.populatePlaylists(allPlaylists[i]);
         }
+      },
+      async populatePlaylists(playlist) {
+        if (playlist.owner.id === this.id) {
+          const playList = await getPlayListCollection(playlist.id, false);
+          this.playlists.push({
+            id: playList.id,
+            name: playList.name,
+          });
+        }
+      },
+      async getCommonPlayList() {
+        const commonPlayList = await getCommonPlayList(true);
+        this.filterPlaylists(commonPlayList);
       },
       init() {
         redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
         this.errorOccured = false;
         this.create();
       },
-      getPlayListURL() {
-        return `/playlists/${this.playListId}`;
+      getPlayListURL(playlistId) {
+        return `/playlists/${playlistId}`;
       }
     },
   };

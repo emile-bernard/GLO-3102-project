@@ -11,9 +11,6 @@
         <button class="button" @click="togglePlay">
           <i :id="playBtnId" class="fas fa-play action" aria-hidden="true"></i>
         </button>
-        <button class="button" @click="toggleMute">
-          <i :id="muteBtnId" class="fas fa-volume-up action" aria-hidden="true"></i>
-        </button>
         <button id="add-to-playlist" class="button is-danger" @click="removeTrack">
           <i class="fas fa-times action" aria-hidden="true"></i>
         </button>
@@ -30,7 +27,7 @@
     max-width: 300px;
     text-wrap: normal;
   }
-  
+
   .button {
     min-width: 50px;
   }
@@ -69,6 +66,7 @@
 
   export default {
     props: {
+      currentlyPlaying: String,
       trackId: Number,
       trackIndex: Number,
       trackName: String,
@@ -107,6 +105,7 @@
         const player = document.getElementById(this.trackId);
         const playBtnIcon = document.getElementById(`${this.trackId}-play-btn`);
         if (player.paused) {
+          this.$emit('playing-song', this.trackId);
           player.play();
           playBtnIcon.classList.remove('fa-play');
           playBtnIcon.classList.add('fa-pause');
@@ -156,6 +155,16 @@
       },
       muteBtnId() {
         return `${this.trackId}-mute-btn`;
+      }
+    },
+    watch: {
+      currentlyPlaying(newValue) {
+        if (this.trackId !== newValue) {
+          const player = document.getElementById(this.trackId);
+          if (!player.paused) {
+            this.togglePlay();
+          }
+        }
       }
     }
   };

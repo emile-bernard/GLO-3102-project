@@ -11,9 +11,6 @@
         <button class="button" @click="togglePlay">
           <i :id="playBtnId" class="fas fa-play action" aria-hidden="true"></i>
         </button>
-        <button class="button" @click="toggleMute">
-          <i :id="muteBtnId" class="fas fa-volume-up action" aria-hidden="true"></i>
-        </button>
         <button id="add-to-playlist" class="button is-success" @click="addSongToPlaylist">
           <i class="fas fa-plus action" aria-hidden="true"></i>
         </button>
@@ -73,6 +70,7 @@
 
   export default {
     props: {
+      currentlyPlaying: String,
       trackId: Number,
       trackName: String,
       previewUrl: String,
@@ -98,6 +96,7 @@
         const player = document.getElementById(this.trackId);
         const playBtnIcon = document.getElementById(`${this.trackId}-play-btn`);
         if (player.paused) {
+          this.$emit('playing-song', this.trackId);
           player.play();
           playBtnIcon.classList.remove('fa-play');
           playBtnIcon.classList.add('fa-pause');
@@ -107,18 +106,6 @@
           playBtnIcon.classList.add('fa-play');
         }
       },
-      toggleMute() {
-        const player = document.getElementById(this.trackId);
-        player.muted = !player.muted;
-        const muteBtnIcon = document.getElementById(`${this.trackId}-mute-btn`);
-        if (player.muted) {
-          muteBtnIcon.classList.remove('fa-volume-up');
-          muteBtnIcon.classList.add('fa-volume-off');
-        } else {
-          muteBtnIcon.classList.remove('fa-volume-off');
-          muteBtnIcon.classList.add('fa-volume-up');
-        }
-      }
     },
     computed: {
       /**
@@ -147,6 +134,16 @@
       },
       muteBtnId() {
         return `${this.trackId}-mute-btn`;
+      }
+    },
+    watch: {
+      currentlyPlaying(newValue) {
+        if (this.trackId !== newValue) {
+          const player = document.getElementById(this.trackId);
+          if (!player.paused) {
+            this.togglePlay();
+          }
+        }
       }
     }
   };

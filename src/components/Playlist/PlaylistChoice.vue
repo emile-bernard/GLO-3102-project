@@ -56,7 +56,7 @@
 </style>
 
 <script>
-  import * as api from '@/Api';
+  import { getPlaylistLocalStorageKey } from '@/Api';
   import PlaylistChoiceItem from '@/components/Playlist/PlayListChoiceItem';
   import { getLoginToken } from '../../LoginCookies';
 
@@ -72,27 +72,13 @@
     data() {
       return {
         playlists: [],
-        isActiveData: 'modal',
+        isActiveData: 'modal is-active',
         isDropDownOpen: false,
         dropDownText: 'Select your playlist',
         currentSelection: undefined,
       };
     },
     methods: {
-      filterPlaylists(allPlaylists) {
-        for (let i = 0; i < allPlaylists.length; i += 1) {
-          this.populatePlaylists(allPlaylists[i]);
-        }
-      },
-      async populatePlaylists(playlist) {
-        if (playlist.owner.name === 'unclebob') {
-          const playList = await api.getPlayListCollection(playlist.id, true);
-          this.playlists.push({
-            id: playList.id,
-            name: playList.name,
-          });
-        }
-      },
       closeModal() {
         this.$emit('close-playlist-modal');
       },
@@ -144,16 +130,9 @@
           this.closeModal();
         }
       },
-      async getCommonPlayList() {
-        const commonPlayList = await api.getCommonPlayList(true);
-        this.filterPlaylists(commonPlayList);
-        document.getElementById('playlist-modal')
-              .classList
-              .add('is-active');
-      }
     },
     created() {
-      this.getCommonPlayList();
+      this.playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
     },
     watch: {
       isActive(newValue) {

@@ -45,6 +45,7 @@
 </style>
 
 <script>
+  import { getPlaylistLocalStorageKey } from '../../Api';
   import { getLoginToken } from '../../LoginCookies';
 
   export default {
@@ -79,7 +80,7 @@
       saveName() {
         const token = getLoginToken();
         if (typeof (token) !== 'undefined') {
-          fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${this.id}`,
+          fetch(`https://ubeat.herokuapp.com/playlists/${this.id}`,
             {
               method: 'put',
               headers: {
@@ -89,10 +90,21 @@
               body: JSON.stringify(
                 {
                   name: this.nameData,
-                  owner: 'unclebob@ubeat.com'
                 })
             })
             .then(response => response.json())
+            .then(() => {
+              const playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
+              for (let i = 0; i < playlists.length; i += 1) {
+                const playlist = playlists[i];
+                if (playlist.id === this.id) {
+                  playlists.splice(i, 1);
+                  playlist.name = this.nameData;
+                  playlists.push(playlist);
+                }
+              }
+              localStorage.setItem(getPlaylistLocalStorageKey(), JSON.stringify(playlists));
+            })
             .then(this.toggleSaveButton());
         }
       },

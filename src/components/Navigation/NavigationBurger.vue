@@ -1,6 +1,6 @@
 <template>
   <div id="navigation-burger">
-    <navigation-burger-menu></navigation-burger-menu>
+    <navigation-burger-menu v-bind:userLoggedIn="userLoggedIn"></navigation-burger-menu>
     <navigation-burger-icon></navigation-burger-icon>
   </div>
 </template>
@@ -24,6 +24,7 @@
   import NavigationBurgerMenu from '@/components/Navigation/NavigationBurgerMenu';
 
   export default {
+    props: ['userLoggedIn'],
     components: {
       'navigation-burger-icon': NavigationBurgerIcon,
       'navigation-burger-menu': NavigationBurgerMenu
