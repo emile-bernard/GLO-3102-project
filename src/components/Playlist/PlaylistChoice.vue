@@ -56,7 +56,7 @@
 </style>
 
 <script>
-  import { getPlaylistLocalStorageKey } from '@/Api';
+  import { GetCORSAllowedHeader, getQueryParamCurrentToken, getPlaylistLocalStorageKey } from '@/Api';
   import PlaylistChoiceItem from '@/components/Playlist/PlayListChoiceItem';
   import { getLoginToken } from '../../LoginCookies';
 
@@ -103,9 +103,9 @@
           for (let i = 0; i < this.trackIds.length; i += 1) {
             const token = getLoginToken();
             const currentTrackId = this.trackIds[i];
-            const baseUri = 'https://ubeat.herokuapp.com/unsecure';
-            const uri = `${baseUri}/tracks/${currentTrackId}`;
-            const headers = { 'Content-Type': 'application/json', Authorization: token };
+            const baseUri = 'https://ubeat.herokuapp.com';
+            const uri = `${baseUri}/tracks/${currentTrackId}${getQueryParamCurrentToken()}`;
+            const headers = GetCORSAllowedHeader();
             const options = { method: 'get', headers };
             if (typeof (token) !== 'undefined') {
               fetch(uri, options)
@@ -119,9 +119,9 @@
       },
       addTrackToSelectedPlaylist(track) {
         const token = getLoginToken();
-        const baseUri = 'https://ubeat.herokuapp.com/unsecure';
-        const uri = `${baseUri}/playlists/${this.currentSelection}/tracks`;
-        const headers = { 'Content-Type': 'application/json', Authorization: token };
+        const baseUri = 'https://ubeat.herokuapp.com';
+        const uri = `${baseUri}/playlists/${this.currentSelection}/tracks${getQueryParamCurrentToken()}`;
+        const headers = GetCORSAllowedHeader();
         const body = JSON.stringify(track);
         const options = { method: 'post', headers, body };
         if (typeof (token) !== 'undefined') {

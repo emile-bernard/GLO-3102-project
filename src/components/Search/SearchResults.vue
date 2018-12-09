@@ -20,6 +20,7 @@
   import SearchResultElement from './SearchResultElement';
   import { getLoginToken } from '../../LoginCookies';
   import PulseLoader from '../../../node_modules/vue-spinner/src/ScaleLoader';
+  import { GetCORSAllowedHeader, getQueryParamCurrentToken } from '../../Api';
 
 
   export default {
@@ -78,9 +79,10 @@
           remoteSearchPath = '';
         }
         const token = getLoginToken();
-        const GET_HEADER = { method: 'get', Authorization: token };
+        const GET_HEADER = GetCORSAllowedHeader();
         if (typeof (token) !== 'undefined') {
-          fetch(`http://ubeat.herokuapp.com/unsecure/search${remoteSearchPath}?q=${encodeURI(this.query)}`, GET_HEADER)
+          fetch(`http://ubeat.herokuapp.com/search${remoteSearchPath}?q=${encodeURI(this.query)}${getQueryParamCurrentToken()
+            .replace('/?', '&')}`, GET_HEADER)
             .then(res => res.json())
             .then(res => this.initSearchResults(res));
         }
