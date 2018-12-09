@@ -5,25 +5,28 @@
         <h3 class="title has-text-white">Login</h3>
         <p class="subtitle has-text-white">Please login to access UBeat.</p>
         <div class="box">
-          <div class="field">
-            <label class="label">Email</label>
-            <div class="control has-icons-left">
-              <input id="emailInput" class="input" type="email" placeholder="email..." @keyup.enter="loginUser">
-              <span class="icon is-small is-left">
+          <form>
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control has-icons-left">
+                <input id="emailInput" class="input" type="email" placeholder="email..." @keyup.enter="loginUser" autocomplete="username">
+                <span class="icon is-small is-left">
                     <i class="fas fa-at"></i>
                 </span>
+              </div>
             </div>
-          </div>
-          <div class="field">
-            <label class="label">Password</label>
-            <div class="control has-icons-left">
-              <input id="passwordInput" class="input" type="password" placeholder="password..."
-                     @keyup.enter="loginUser">
-              <span class="icon is-small is-left">
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control has-icons-left">
+                <input id="passwordInput" class="input" type="password" placeholder="password..."
+                       @keyup.enter="loginUser" autocomplete="current-password">
+                <span class="icon is-small is-left">
                     <i class="fas fa-key"></i>
                 </span>
+              </div>
             </div>
-          </div>
+          </form>
+          <br>
           <button id="submitBtn" class="button is-success" @click="loginUser">Log In</button>
           <pulse-loader v-if="displayLoginSpinner"></pulse-loader>
           <p v-if="displayIsLoginSuccessfully" id="validMessage" class="help is-success">Success!</p>

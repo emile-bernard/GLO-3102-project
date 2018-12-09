@@ -314,13 +314,10 @@ export function createNewPlaylist() {
           const email = userInfo.email;
           const playlists = JSON.parse(localStorage.getItem(
             getPlaylistLocalStorageKey())) || [];
-          fetch('https://ubeat.herokuapp.com/unsecure/playlists',
+          fetch(`https://ubeat.herokuapp.com/playlists${getQueryParamCurrentToken()}`,
             {
               method: 'post',
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: token
-              },
+              headers: GetCORSAllowedHeader,
               body: JSON.stringify(
                 {
                   name: document.getElementById('new-playlist-input')

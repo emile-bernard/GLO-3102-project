@@ -70,7 +70,12 @@
   import PlaylistOverview from './PlaylistOverview';
   import PulseLoader from '../../../node_modules/vue-spinner/src/ScaleLoader';
   import { redirectToLoginIfNotLoggedIn, getLoginToken } from '../../LoginCookies';
-  import { getPlaylistLocalStorageKey, getTokenLocalStorageKey, getQueryParamCurrentToken } from '../../Api';
+  import {
+    getPlaylistLocalStorageKey,
+    getTokenLocalStorageKey,
+    getQueryParamCurrentToken,
+    GetCORSAllowedHeader
+  } from '../../Api';
 
   export default {
     data() {
@@ -136,12 +141,10 @@
 
           const token = getLoginToken();
           if (typeof (token) !== 'undefined') {
-            fetch(`https://ubeat.herokuapp.com/unsecure/playlists/${playlistId}`,
+            fetch(`https://ubeat.herokuapp.com/playlists/${playlistId}${getQueryParamCurrentToken()}`,
               {
                 method: 'delete',
-                headers: {
-                  Authorization: token
-                }
+                headers: GetCORSAllowedHeader()
               })
               .then(response => response.json());
 

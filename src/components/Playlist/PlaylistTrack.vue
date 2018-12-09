@@ -61,7 +61,7 @@
 </style>
 
 <script>
-  import { getPlaylistLocalStorageKey } from '@/Api';
+  import { getPlaylistLocalStorageKey, GetCORSAllowedHeader, getQueryParamCurrentToken } from '@/Api';
   import PlaylistChoice from '@/components/Playlist/PlaylistChoice';
   import { getLoginToken } from '../../LoginCookies';
 
@@ -91,10 +91,10 @@
         this.$emit('add-to-playlist', this.trackId);
       },
       removeTrack() {
-        const baseUri = 'https://ubeat.herokuapp.com/unsecure';
-        const uri = `${baseUri}/playlists/${this.$route.params.id}/tracks/${this.trackId}`;
+        const baseUri = 'https://ubeat.herokuapp.com';
+        const uri = `${baseUri}/playlists/${this.$route.params.id}/tracks/${this.trackId}${getQueryParamCurrentToken()}`;
         const token = getLoginToken();
-        const headers = { Authorization: token };
+        const headers = GetCORSAllowedHeader();
         const options = { method: 'delete', headers };
         if (typeof (token) !== 'undefined') {
           fetch(uri, options)
