@@ -151,8 +151,36 @@ export const trackSearch = (q, unsecured, limit = 20) => {
 // GET /users/:id
 // GET /search/users
 // POST /follow
-// DELETE /follow/:id
+export const FollowAFriendAndGetFriendsListBack = (userIdToFollow, unsecured) => {
+  const URL = getURL(unsecured);
+  const param = getQueryParamCurrentToken();
+  return fetch(`${URL}/follow${param}`, {
+    method: 'POST',
+    headers: GetCORSAllowedHeader(),
+    body: {
+      id: userIdToFollow
+    } })
+    .then(response => response.json())
+    .catch((error) => {
+      FormatAndLogErrorMessage('Unable to fetch an album.', error);
+    });
+};
 
+// DELETE /follow/:id
+export const StopFollowAFriendAndGetFriendsListBack = (userIdToStopFollow, unsecured) => {
+  const URL = getURL(unsecured);
+  const param = getQueryParamCurrentToken();
+  return fetch(`${URL}/follow${param}`, {
+    method: 'POST',
+    headers: GetCORSAllowedHeader(),
+    body: {
+      id: userIdToStopFollow
+    } })
+    .then(response => response.json())
+    .catch((error) => {
+      FormatAndLogErrorMessage('Unable to fetch an album.', error);
+    });
+};
 
 //-------------------------------------------------------------
 // Album
