@@ -41,7 +41,12 @@
         <h1 class="title is-size-2">Account</h1>
         <user-information
           v-bind:userName.sync="userName"
-          v-bind:email.sync="email"></user-information>
+          v-bind:email.sync="email">
+        </user-information>
+        <h2 class="title"><b>PlayLists</b></h2>
+        <router-link class="button is-primary" :to="getPlayListURL()" >
+          {{playlistName}}
+        </router-link>
         <hr>
         <div id="acount-info-logout-button" class="container">
           <router-link class="button is-primary" to="/logout">
@@ -74,7 +79,10 @@
         id: String / Number,
         errorOccured: false,
         userName: 'Loading...',
-        email: 'Loading...'
+        email: 'Loading...',
+        PLAYLIST_LOCAL_STORAGE_KEY: 'playlists-storage',
+        playlistName: 'Loading...',
+        playListId: Number
       };
     },
     watch: {
@@ -105,12 +113,29 @@
           this.email = decodeURIComponent(this.$route.query.email);
           this.id = decodeURIComponent(this.$route.query.id);
         }
+        const playlists = JSON.parse(localStorage.getItem(this.PLAYLIST_LOCAL_STORAGE_KEY));
+        for (let i = 0; i < playlists.length; i += 1) {
+          const playlist = playlists[i];
+          const owner = playlist.owner;
+          if (typeof (owner) === 'undefined') {
+            this.playListId = playlist.id;
+            this.playlistName = playlist.name;
+            break;
+          } else if (owner.email === this.email) {
+            this.playListId = playlist.id;
+            this.playlistName = playlist.name;
+            break;
+          }
+        }
       },
       init() {
         redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
         this.errorOccured = false;
         this.create();
       },
+      getPlayListURL() {
+        return `/playlists/${this.playListId}`;
+      }
     },
   };
 </script>
