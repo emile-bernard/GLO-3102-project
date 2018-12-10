@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div id="search-result-container" class="container">
     <h2 class="title">Search Results:</h2>
     <hr>
     <div v-if="isResultsEmpty">No search Results. Try searching something or something else in the search bar right
@@ -15,7 +15,9 @@
   </div>
 </template>
 <style scoped>
-
+  #search-result-container {
+    width: 100%;
+  }
 </style>
 <script>
   import SearchResultFactory from './SearchResultElementObject';

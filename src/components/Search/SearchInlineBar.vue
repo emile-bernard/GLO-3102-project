@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div id="search-bar-container" class="container">
     <div id="navigation-bar-search" class="navbar-item">
       <div class="field has-addons">
         <div id="navigation-bar-search-input" class="control has-icons-left">
@@ -21,9 +21,14 @@
 </template>
 
 <style scoped>
+  #search-bar-container{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   #navigation-bar-search {
-    width: 100%;
-    flex-grow: 2;
   }
 
   #navigation-bar-search:hover {
