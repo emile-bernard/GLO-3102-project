@@ -52,6 +52,9 @@ class AlbumSearchResult extends AbstractSearchResult {
   getTypeColorClass() {
     return this.results.colorClass;
   }
+  getArtworkUrl() {
+    return this.results.artworkUrl100;
+  }
 }
 
 class TrackSearchResult extends AbstractSearchResult {
@@ -95,7 +98,7 @@ class UserSearchResult extends AbstractSearchResult {
     return `${this.results.name}`;
   }
   getURL() {
-    return `/users/${this.results.id}`;
+    return `/account?id=${encodeURIComponent(this.results.id)}&name=${encodeURIComponent(this.results.name)}&email=${encodeURIComponent(this.results.email)}`;
   }
   getTypeColorClass() {
     return this.colorClass;

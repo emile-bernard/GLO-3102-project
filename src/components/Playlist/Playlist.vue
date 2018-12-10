@@ -26,7 +26,9 @@
                   v-bind:previewUrl="track.previewUrl"
                   v-bind:artistName="track.artistName"
                   v-bind:trackTimeMillis="track.trackTimeMillis"
+                  v-bind:currentlyPlaying="activeSong"
                   v-on:track-deleted="tracks.splice(index,1)"
+                  v-on:playing-song="muteIfNotActiveSong"
                 ></playlist-song>
               </div>
             </div>
@@ -37,7 +39,7 @@
   </section>
 </template>
 
-<style>
+<style scoped>
   .hero-parralax-bg {
     overflow: auto;
     position: relative;
@@ -93,7 +95,7 @@
 </style>
 
 <script>
-  import * as api from '@/Api';
+  import { getPlaylistLocalStorageKey, getPlayListCollection } from '@/Api';
   import PlaylistSong from '@/components/Playlist/PlaylistTrack';
   import { redirectToLoginIfNotLoggedIn } from '@/LoginCookies';
 
@@ -103,22 +105,36 @@
     },
     data() {
       return {
+        activeSong: undefined,
         tracks: [],
-        name: {
-          typeTitleCase: String
-        },
+        name: '',
       };
     },
     methods: {
       async getPlayList() {
-        const playList = await api.getPlayListCollection(this.$route.params.id, true);
+        const playList = await getPlayListCollection(this.$route.params.id, false);
         this.tracks = playList.tracks;
         this.name = playList.name;
+      },
+      muteIfNotActiveSong(trackId) {
+        this.activeSong = trackId;
       },
     },
     created() {
       redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
-      this.getPlayList();
+      const playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
+      let found = false;
+      for (let i = 0; i < playlists.length; i += 1) {
+        const playlist = playlists[i];
+        if (playlist.id === this.$route.params.id) {
+          this.tracks = playlist.tracks;
+          this.name = playlist.name;
+          found = true;
+        }
+      }
+      if (!found) {
+        this.getPlayList();
+      }
     },
   };
 </script>

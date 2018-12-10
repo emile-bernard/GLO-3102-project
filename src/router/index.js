@@ -7,7 +7,6 @@ import PlaylistList from '@/components/Playlist/PlaylistList';
 import Playlist from '@/components/Playlist/Playlist';
 import News from '@/components/News/News';
 import Account from '@/components/User/Account';
-import Settings from '@/components/User/Settings';
 import Logout from '@/components/User/Logout';
 import Search from '@/components/Search/Search';
 import Login from '@/components/User/Login';
@@ -74,17 +73,12 @@ const router = new Router({
       path: '/users/:id',
       props: true,
       name: 'User',
-      component: Account,  // TODO: create a user page. For now, we redirect to Account...
+      component: Account,
       meta: { tab: 'users' }
     }, {
       path: '/account',
       name: 'Account',
       component: Account,
-      meta: { tab: 'account' }
-    }, {
-      path: '/settings',
-      name: 'Settings',
-      component: Settings,
       meta: { tab: 'account' }
     }, {
       path: '/logout',

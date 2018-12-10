@@ -108,6 +108,7 @@
   import ArtistMostRecentAlbum from './ArtistMostRecentAlbum';
   import ArtistAlbum from './ArtistAlbum';
   import { getLoginToken, redirectToLoginIfNotLoggedIn } from '../../LoginCookies';
+  import { GetCORSAllowedHeader, getQueryParamCurrentToken } from '../../Api';
 
   export default {
     components: {
@@ -125,52 +126,19 @@
           artistLinkUrl: '',
           artistId: -1,
           primaryGenreName: '',
-          /*
-          wrapperType: 'artist',
-          artistType: 'Artist',
-          artistName: 'Savant',
-          artistLinkUrl: 'https://itunes.apple.com/us/artist/savant/301490824?uo=4',
-          artistId: 301490824,
-          amgArtistId: 2900484,
-          primaryGenreName: 'Dance',
-          primaryGenreId: 17
-          */
         },
-        albums: [/*
-          {
-            wrapperType: 'collection',
-            collectionType: 'Album',
-            artistId: 301490824,
-            collectionId: 578643761,
-            amgArtistId: 2900484,
-            artistName: 'Savant',
-            collectionName: 'Alchemist',
-            collectionCensoredName: 'Alchemist',
-            artistViewUrl: 'https://itunes.apple.com/us/artist/savant/301490824?uo=4',
-            collectionViewUrl: 'https://itunes.apple.com/us/album/alchemist/578643761?uo=4',
-            artworkUrl60: 'https://is2-ssl.mzstatic.com/image/thumb/Music/v4/a2/ed/20/a2ed2016-acf9-1fec-0111-e247248d012b/source/60x60bb.jpg',
-            artworkUrl100: 'https://is2-ssl.mzstatic.com/image/thumb/Music/v4/a2/ed/20/a2ed2016-acf9-1fec-0111-e247248d012b/source/100x100bb.jpg',
-            collectionPrice: 9.99,
-            collectionExplicitness: 'notExplicit',
-            trackCount: 22,
-            copyright: '℗ 2012 SectionZ Records',
-            country: 'USA',
-            currency: 'USD',
-            releaseDate: '2012-12-12T08:00:00Z',
-            primaryGenreName: 'Dance'
-          }
-        */],
+        albums: [],
       };
     },
     created() {
       redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
       const token = getLoginToken();
-      const GET_HEADER = { method: 'get', Authorization: token };
+      const GET_HEADER = GetCORSAllowedHeader();
       if (typeof (token) !== 'undefined') {
-        fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}`, GET_HEADER)
+        fetch(`http://ubeat.herokuapp.com/artists/${this.$route.params.id}${getQueryParamCurrentToken()}`, GET_HEADER)
           .then(res => res.json())
           .then(res => this.initArtist(res));
-        fetch(`http://ubeat.herokuapp.com/unsecure/artists/${this.$route.params.id}/albums`, GET_HEADER)
+        fetch(`http://ubeat.herokuapp.com/artists/${this.$route.params.id}/albums${getQueryParamCurrentToken()}`, GET_HEADER)
           .then(res => res.json())
           .then(res => this.initArtistAlbums(res));
       }

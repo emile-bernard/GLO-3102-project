@@ -11,10 +11,7 @@
         <button class="button" @click="togglePlay">
           <i :id="playBtnId" class="fas fa-play action" aria-hidden="true"></i>
         </button>
-        <button class="button" @click="toggleMute">
-          <i :id="muteBtnId" class="fas fa-volume-up action" aria-hidden="true"></i>
-        </button>
-        <button id="add-to-playlist" class="button is-danger" @click="removeTrack">
+        <button v-if="isCurrentUserPlaylist" id="add-to-playlist" class="button is-danger" @click="removeTrack">
           <i class="fas fa-times action" aria-hidden="true"></i>
         </button>
       </div>
@@ -22,7 +19,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
   #track-description {
     display: table;
     text-align: left;
@@ -30,7 +27,7 @@
     max-width: 300px;
     text-wrap: normal;
   }
-  
+
   .button {
     min-width: 50px;
   }
@@ -64,11 +61,13 @@
 </style>
 
 <script>
+  import { getPlaylistLocalStorageKey, GetCORSAllowedHeader, getQueryParamCurrentToken } from '@/Api';
   import PlaylistChoice from '@/components/Playlist/PlaylistChoice';
   import { getLoginToken } from '../../LoginCookies';
 
   export default {
     props: {
+      currentlyPlaying: Number,
       trackId: Number,
       trackIndex: Number,
       trackName: String,
@@ -92,14 +91,37 @@
         this.$emit('add-to-playlist', this.trackId);
       },
       removeTrack() {
-        const baseUri = 'https://ubeat.herokuapp.com/unsecure';
-        const uri = `${baseUri}/playlists/${this.$route.params.id}/tracks/${this.trackId}`;
+        const trackToRemove = this.trackId;
+        const player = document.getElementById(trackToRemove);
+        if (!player.paused) {
+          this.togglePlay();
+        }
+        const baseUri = 'https://ubeat.herokuapp.com';
+        const uri = `${baseUri}/playlists/${this.$route.params.id}/tracks/${trackToRemove}${getQueryParamCurrentToken()}`;
         const token = getLoginToken();
-        const headers = { Authorization: token };
+        const headers = GetCORSAllowedHeader();
         const options = { method: 'delete', headers };
         if (typeof (token) !== 'undefined') {
           fetch(uri, options)
-            .then(response => response.json());
+            .then(response => response.json())
+            .then(() => {
+              const playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
+              for (let i = 0; i < playlists.length; i += 1) {
+                const playlist = playlists[i];
+                if (playlist.id === this.$route.params.id) {
+                  for (let j = 0; j < playlist.tracks.length; j += 1) {
+                    const track = playlist.tracks[j];
+                    if (track.trackId === trackToRemove) {
+                      playlists.splice(i, 1);
+                      playlist.tracks.splice(j, 1);
+                      playlists.push(playlist);
+                      localStorage.setItem(getPlaylistLocalStorageKey(), JSON.stringify(playlists));
+                      break;
+                    }
+                  }
+                }
+              }
+            });
           this.$emit('track-deleted');
         }
       },
@@ -107,6 +129,7 @@
         const player = document.getElementById(this.trackId);
         const playBtnIcon = document.getElementById(`${this.trackId}-play-btn`);
         if (player.paused) {
+          this.$emit('playing-song', this.trackId);
           player.play();
           playBtnIcon.classList.remove('fa-play');
           playBtnIcon.classList.add('fa-pause');
@@ -156,6 +179,26 @@
       },
       muteBtnId() {
         return `${this.trackId}-mute-btn`;
+      },
+      isCurrentUserPlaylist() {
+        const playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
+        for (let i = 0; i < playlists.length; i += 1) {
+          const playlist = playlists[i];
+          if (playlist.id === this.$route.params.id) {
+            return true;
+          }
+        }
+        return false;
+      }
+    },
+    watch: {
+      currentlyPlaying(newValue) {
+        if (this.trackId !== newValue) {
+          const player = document.getElementById(this.trackId);
+          if (!player.paused) {
+            this.togglePlay();
+          }
+        }
       }
     }
   };

@@ -86,7 +86,7 @@
 
 <script>
   import NewsArticle from './NewsArticle';
-  import { getLoginToken } from '../../LoginCookies';
+  import { getNewsToken } from '../../LoginCookies';
   import PulseLoader from '../../../node_modules/vue-spinner/src/ScaleLoader';
 
 
@@ -100,6 +100,14 @@
       return {
         newsArticles: [],
       };
+    },
+    watch: {
+      $route() {
+        this.queryApi('Music');
+      }
+    },
+    created() {
+      this.queryApi('Music');
     },
     methods: {
       changeTab(musicStyle) {
@@ -133,14 +141,16 @@
         const toDate = new Date();
         const fromDate = new Date();
         fromDate.setDate(fromDate.getDate() - 5);
-        const toDateFormat = toDate.toISOString().split('T')[0];
-        const fromDateFormat = fromDate.toISOString().split('T')[0];
+        const toDateFormat = toDate.toISOString()
+          .split('T')[0];
+        const fromDateFormat = fromDate.toISOString()
+          .split('T')[0];
 
         const queryFrom = `${fromDateFormat}&to=${toDateFormat}`;
         const querySortBy = encodeURIComponent('relevance');
         const url = `https://newsapi.org/v2/everything?q=${querySubject}&from=${queryFrom}&sortBy=${querySortBy}&apiKey=`;
         const fullUrl = url + apiKey;
-        const token = getLoginToken();
+        const token = getNewsToken();
         if (typeof (token) !== 'undefined') {
           fetch(fullUrl,
             {
@@ -152,10 +162,7 @@
               this.populateNewsArticles(response.articles);
             });
         }
-      }
-    },
-    created() {
-      this.queryApi('Music');
-    },
+      },
+    }
   };
 </script>

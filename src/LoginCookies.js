@@ -1,8 +1,24 @@
 
 const Cookies = require('js-cookie');
+const TokenGenerator = require('uuid-token-generator');
 
 const ACCESS_TOKEN = 'access_token';
+const NEWS_COOKIE = 'news_token';
+const tokengen = new TokenGenerator(); // Default is a 128-bit token encoded in base58
 
+function setNewsToken(token) {
+  Cookies.set(NEWS_COOKIE, `${token}`, { expires: 1 });
+}
+
+export function getNewsToken() {
+  let token = Cookies.get(NEWS_COOKIE);
+  if (typeof (token) === 'undefined') {
+    const tokenGenerated = tokengen.generate();
+    setNewsToken(tokenGenerated);
+  }
+  token = Cookies.get(NEWS_COOKIE);
+  return token;  // is undefined by default if not set.
+}
 
 export function getLoginToken() {
   const token = Cookies.get(ACCESS_TOKEN);
@@ -10,7 +26,7 @@ export function getLoginToken() {
 }
 
 export function setLoginToken(token) {
-  Cookies.set(ACCESS_TOKEN, `Bearer ${token}`, { expires: 9000 });
+  Cookies.set(ACCESS_TOKEN, `${token}`, { expires: 1 });
 }
 
 export function removeLoginToken() {

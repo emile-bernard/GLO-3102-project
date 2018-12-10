@@ -24,7 +24,9 @@
           v-bind:previewUrl.sync="song.previewUrl"
           v-bind:trackNumber.sync="song.trackNumber"
           v-bind:trackTimeMillis.sync="song.trackTimeMillis"
+          v-bind:currentlyPlaying="activeSong"
           v-on:add-to-playlist="addSongToPlayList"
+          v-on:playing-song="muteIfNotActiveSong"
         ></album-track>
       </div>
     </div>
@@ -116,6 +118,7 @@
     },
     data() {
       return {
+        activeSong: undefined,
         releaseDate: new Date(this.releaseDateString),
         resultsCount: 0,
         albumTracks: [],
@@ -133,12 +136,16 @@
     },
     methods: {
       async getAlbum(albumId) {
-        this.albumTracks = await api.getAlbumTracks(albumId, true);
+        const albumTrack = await api.getAlbumTracks(albumId, false);
+        if (typeof (albumTrack.errorCode) === 'undefined') {
+          this.albumTracks = albumTrack;
+        }
       },
-      async create() {
-        const albumInfo = await api.getAlbumTracks(this.collectionId, true);
-        this.albumTracks = albumInfo.results;
-        this.resultsCount = albumInfo.resultCount;
+      create() {
+        this.init();
+      },
+      muteIfNotActiveSong(trackId) {
+        this.activeSong = trackId;
       },
       addSongToPlayList(trackId) {
         this.trackIds = [trackId];
@@ -155,6 +162,19 @@
       closePlaylistModal() {
         this.isPlaylistChoiceActive = false;
       },
+      async init() {
+        await api.getAlbumTracks(this.collectionId, false)
+          .then((response) => {
+            if (typeof (response.errorCode) === 'undefined') {
+              this.setInfo(response);
+            }
+          });
+      },
+      setInfo(albumInfo) {
+        this.albumTracks = albumInfo.results;
+        this.resultsCount = albumInfo.resultCount;
+      }
     },
   };
+
 </script>

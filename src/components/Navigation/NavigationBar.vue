@@ -2,10 +2,6 @@
   <nav id="navigation-bar" class="navbar" role="navigation">
     <div class="navbar-menu">
       <div class="navbar-start">
-        <search-inline-bar
-          v-bind:targetPath="'/search'"
-          v-bind:name="'Search everything...'"
-        ></search-inline-bar>
       </div>
       <div class="navbar-end">
         <router-link to="/">
@@ -14,51 +10,66 @@
             <p>Home</p>
           </div>
         </router-link>
-        <router-link to="/artists">
-          <div class="navbar-item">
-            <i class="fas fa-user-astronaut fa-2x"></i>
-            <p>Artists</p>
-          </div>
-        </router-link>
-        <router-link to="/albums">
-          <div class="navbar-item">
-            <i class="fas fa-compact-disc fa-2x"></i>
-            <p>Albums</p>
-          </div>
-        </router-link>
-        <router-link to="/tracks">
-          <div class="navbar-item">
-            <i class="fas fa-music fa-2x"></i>
-            <p>Tracks</p>
-          </div>
-        </router-link>
-        <router-link to="/playlists">
-          <div class="navbar-item">
-            <i class="fas fa-headphones fa-2x"></i>
-            <p>Playlists</p>
-          </div>
-        </router-link>
         <router-link to="/news">
           <div class="navbar-item">
             <i class="fas fa-newspaper fa-2x"></i>
             <p>News</p>
           </div>
         </router-link>
-        <router-link to="/users">
+        <router-link v-if="userLoggedIn" to="/search">
+          <div class="navbar-item">
+            <i class="fas fa-search fa-2x"></i>
+            <p>Search</p>
+          </div>
+        </router-link>
+        <router-link v-if="userLoggedIn" to="/artists">
+          <div class="navbar-item">
+            <i class="fas fa-user-astronaut fa-2x"></i>
+            <p>Artists</p>
+          </div>
+        </router-link>
+        <router-link v-if="userLoggedIn" to="/albums">
+          <div class="navbar-item">
+            <i class="fas fa-compact-disc fa-2x"></i>
+            <p>Albums</p>
+          </div>
+        </router-link>
+        <router-link v-if="userLoggedIn" to="/tracks">
+          <div class="navbar-item">
+            <i class="fas fa-music fa-2x"></i>
+            <p>Tracks</p>
+          </div>
+        </router-link>
+        <router-link v-if="userLoggedIn" to="/users">
           <div class="navbar-item">
             <i class="fas fa-users fa-2x"></i>
             <p>Users</p>
           </div>
         </router-link>
-        <router-link to="/account">
-        <navigation-bar-account-menu></navigation-bar-account-menu>
+        <router-link v-if="userLoggedIn" to="/playlists">
+          <div class="navbar-item">
+            <i class="fas fa-headphones fa-2x"></i>
+            <p>Playlists</p>
+          </div>
+        </router-link>
+        <router-link v-if="userLoggedIn" to="/account">
+          <div class="navbar-item">
+            <i class="fas fa-user fa-2x"></i>
+            <p>Account</p>
+          </div>
+        </router-link>
+        <router-link v-else to="/login">
+          <div class="navbar-item">
+            <i class="fas fa-sign-in-alt fa-2x"></i>
+            <p>Log In</p>
+          </div>
         </router-link>
       </div>
     </div>
   </nav>
 </template>
 
-<style>
+<style scoped>
   .navbar-menu {
     display: flex;
   }
@@ -143,12 +154,11 @@
 
 <script>
   import SearchInlineBar from '@/components/Search/SearchInlineBar';
-  import NavigationBarAccountMenu from '@/components/Navigation/NavigationBarAccountMenu';
 
   export default {
+    props: ['userLoggedIn'],
     components: {
       'search-inline-bar': SearchInlineBar,
-      'navigation-bar-account-menu': NavigationBarAccountMenu
     },
   };
 </script>
