@@ -8,7 +8,7 @@
       </figure>
       <a href="https://fr.gravatar.com/">
         Not register to Gravatar.com? <br>
-        Create yout Gravatar account!</a>
+        Create your Gravatar account!</a>
     </div>
   </div>
 </template>
