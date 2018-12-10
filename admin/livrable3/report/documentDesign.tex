@@ -1,0 +1,84 @@
+\documentclass[12pt]{/home/samuel/Documents/GLO/latex/documentClass/GLO_ULAVAL}
+
+\bool_Team
+\TeamNumber{9}
+\Author{
+      Bernard, Émile \\ (EMBER89 - 111 128 181)
+\and  Cabral Cruz, Samuel \\ (SACAC1 - 111 006 369)
+\and  Cadotte Lawless, Pamella \\ (PACAL7 - 111 047 949)
+\and  Chevalier, Guillaume \\ (GUCHE29 - 111 131 607)}
+
+\Course{Développement d'applications Web \\ GLO-3102}
+\ProjectTitle{Projet de session - UBeat}
+\ReportTitle{Document Design - Livrable 3}
+\Teacher{Vincent Séguin}
+\Department{d'informatique et de génie logiciel}
+\TrimesterYear{Automne 2018}
+
+\usepackage{url}
+
+\begin{document}
+\modifyItemize{}
+\maketitle
+
+\chapter*{Comment lancer l'application}
+Afin de lancer l'application, il suffit de suivre les étapes suivantes:
+\begin{enumerate}
+  \item Télécharger le dossier compressé (.zip) sur votre poste de travail.
+  \item Décompresser le dossier vers un emplacement choisi.
+  \item En utilisant un invite de commande, commencer tout d'abord par installer les dépendances au projet avec la commande
+  $$\texttt{npm install}$$
+  \item Une fois le téléchargement terminé, lancer l'application à l'aide de la commande
+  $$\texttt{npm build \&\& npm run start}$$
+\end{enumerate}
+
+\chapter*{Comment voir chacune des pages}
+La navigation dans le site web est intuitive. \\
+
+\section*{Accès au site}
+Pour voir les pages, il faut d'abord s'inscrire. Le workflow est naturel depuis la page d'accueil de lien en lien.
+
+\section*{Description des différentes pages}
+\begin{description}[style=nextline]
+  \item[\texttt{\slash{}}]\item[] Page d'accueil de l'application.
+  \item[\texttt{\slash{}search}] Page de résultat de recherche de la barre du menu. Les résultats de recherche des recherches avancées (par catégories) se trouvent plutôt à leurs endroits respectifs (ex: sous \texttt{\slash{}artists} directement). Les résultats de recherche sont cliquables, et il sera possible d'interagir avec les playlists une fois rendu dans un album précis suite à plus de clicks si un résultat est un artiste.
+  \item[\texttt{\slash{}artists}] Page de recherche par artiste. Cliquer sur l'artiste pour le consulter.
+  \item[\texttt{\slash{}artists\slash{}:id}] Page d'un artiste. Cliquer sur une pochette d'album pour accéder à l'album..
+  \item[\texttt{\slash{}albums}] Page de recherche par album. Cliquer sur l'album pour le consulter.
+  \item[\texttt{\slash{}albums\slash{}:id}] Page d'un artiste. Il est possible d'ajouter les chansons à une playlist avec les liens correspondants à chaque album.
+  \item[\texttt{\slash{}tracks}] Page de recherche par chanson. Cliquer sur la chanson nous ramène à la page de l'album qui contient la chanson.
+  \item[\texttt{\slash{}playlists}] Consulter les playlists de l'usager. Possibilité de les éditer avec les boutons.
+  \item[\texttt{\slash{}playlists\slash{}:id}] Page d'une playlist et la liste des chansons qu'elle contient. Possibilité de supprimer une chanson.
+  \item[\texttt{\slash{}users}] Page de recherche par usager.
+  \item[\texttt{\slash{}account}] Page de l'utilisateur courant, excepté s'il y a des query params dans l'URL où à ce moment c'est un autre utilisateur qui est visité depuis la recherche d'utilisateurs. La fonctionnalité Gravatar est faite sur cette même page. Il faut s'inscrire avec le même email sur gravatar.
+  \item[\texttt{\slash{}signup}] Création d'un nouvel usager.  \item[\texttt{\slash{}login}] Connexion de l'usager.  \item[\texttt{\slash{}logout}] Déconnexion de l'usager.
+  \item[\texttt{\slash{}news}] Page de nouvelles courantes sur l'industrie de la musique. Essayer d'utiliser les onglets pour raffiner les résultats selon vos préférences!
+\end{description}
+
+Pour plus d'informations, voir directement le router dans \texttt{index.js}.
+
+\begin{center}
+  \begin{minipage}{0.8\linewidth}
+    \textbf{Note sur la recherche} \\[10pt]
+      Il faut utiliser la recherche pour trouver les artistes, albums, ou chansons à partir desquelles il sera possible de se construire une playlist. Cliquer sur les catégories dans le menu et lancer des recherches.
+  \end{minipage}
+\end{center}
+
+\chapter*{Fonctionnalitées au choix}
+\section*{Gravatar}
+Un gravatar est disponible dans la page account. Il faut s'inscrire sur gravatar pour qu'un gravatar s'affiche, correspondant au email de l'utilisateur se faisant consulter. \\
+Pour faciliter la correction, un gravatar est déjà créé pour au moins un utilisateur dans UBeat. Il suffit de se login avec le email et password suivant, puis de naviguer vers la page d'account (l'icône en haut complètement à droite dans les menus du site): \\
+\begin{center}
+  \begin{minipage}{0.5\linewidth}
+    \centering
+    \begin{description}
+      \item[email] guillaume-chevalier@outlook.com
+      \item[password] guillaume
+    \end{description}
+  \end{minipage}
+\end{center}
+
+\section*{Music News Page}
+Naviguez sous la page de nouvelles "News" depuis le menu du site pour voir les nouvelles sur la musique. Il est possible de choisir plusieurs tabs de nouvelles une fois rendu sur la page pour différents sujets. Les nouvelles se basent sur une API gratuite où nous nous sommes inscrits pour fetcher les nouvelles des derniers jours pour chaque sujets avec des mots clés.
+
+\end{document}
