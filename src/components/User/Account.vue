@@ -138,32 +138,43 @@
     methods: {
       async create() {
         if (typeof (this.$route.query.email) === 'undefined') {
-          const userInfo = await getTokenInfo(false);
-          if (typeof (userInfo.errorCode) === 'undefined') {
-            this.currentUser = true;
-            this.userName = userInfo.name;
-            this.email = userInfo.email;
-            this.id = userInfo.id;
-            this.errorOccured = false;
-            this.playlistsLoaded = true;
-            this.friendsLoaded = true;
-            this.playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
-            this.friends = JSON.parse(localStorage.getItem(getFriendsLocalStorageKey()));
-          } else {
-            this.errorOccured = true;
-            setTimeout(() => {
-              document.getElementById('invalidMessage').innerHTML = `${'<i id=\'invalidMessageIcon\' class=\'fas fa-exclamation-circle\'></i>'}${userInfo.message}`;
-            }, 10);
-          }
+          this.populateCurrentUser();
         } else {
-          this.currentUser = false;
-          this.userName = decodeURIComponent(this.$route.query.name);
-          this.email = decodeURIComponent(this.$route.query.email);
-          this.id = decodeURIComponent(this.$route.query.id);
-          this.retrievePlaylists();
-          this.retrieveFriends();
+          const userInfo = await getTokenInfo(false);
+          if (this.$route.query.id !== userInfo.id) {
+            this.populateAnotherUser();
+          } else {
+            this.populateCurrentUser();
+          }
         }
         this.followed = this.isAlreadyFollowed();
+      },
+      async populateCurrentUser() {
+        const userInfo = await getTokenInfo(false);
+        if (typeof (userInfo.errorCode) === 'undefined') {
+          this.currentUser = true;
+          this.userName = userInfo.name;
+          this.email = userInfo.email;
+          this.id = userInfo.id;
+          this.errorOccured = false;
+          this.playlistsLoaded = true;
+          this.friendsLoaded = true;
+          this.playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
+          this.friends = JSON.parse(localStorage.getItem(getFriendsLocalStorageKey()));
+        } else {
+          this.errorOccured = true;
+          setTimeout(() => {
+            document.getElementById('invalidMessage').innerHTML = `${'<i id=\'invalidMessageIcon\' class=\'fas fa-exclamation-circle\'></i>'}${userInfo.message}`;
+          }, 10);
+        }
+      },
+      populateAnotherUser() {
+        this.currentUser = false;
+        this.userName = decodeURIComponent(this.$route.query.name);
+        this.email = decodeURIComponent(this.$route.query.email);
+        this.id = decodeURIComponent(this.$route.query.id);
+        this.retrievePlaylists();
+        this.retrieveFriends();
       },
       async populatePlaylists(playlist) {
         if (typeof (playlist.owner) !== 'undefined') {
