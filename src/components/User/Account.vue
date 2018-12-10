@@ -19,7 +19,8 @@
         <p v-if="errorOccured" id="invalidMessage" class="help is-danger">Invalid</p>
         <user-information
           v-bind:userName.sync="userName"
-          v-bind:email.sync="email">
+          v-bind:email.sync="email"
+          v-bind:currentUser="currentUser">
         </user-information>
       </div>
       <div class="column is-one-third">

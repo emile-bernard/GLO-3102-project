@@ -6,7 +6,7 @@
       <figure class="card-image is-centered card-header-icon ">
         <v-gravatar :email="email"></v-gravatar>
       </figure>
-      <a href="https://fr.gravatar.com/">
+      <a v-if="currentUser" href="https://fr.gravatar.com/">
         Not registered to Gravatar.com? <br>
         Create your Gravatar account!</a>
     </div>
@@ -20,6 +20,7 @@
       userName: String,
       email: String,
       id: String,
+      currentUser: Boolean
     },
   };
 </script>

@@ -95,7 +95,7 @@
 </style>
 
 <script>
-  import { getPlaylistLocalStorageKey } from '@/Api';
+  import { getPlaylistLocalStorageKey, getPlayListCollection } from '@/Api';
   import PlaylistSong from '@/components/Playlist/PlaylistTrack';
   import { redirectToLoginIfNotLoggedIn } from '@/LoginCookies';
 
@@ -107,25 +107,33 @@
       return {
         activeSong: undefined,
         tracks: [],
-        name: {
-          typeTitleCase: String
-        },
+        name: '',
       };
     },
     methods: {
+      async getPlayList() {
+        const playList = await getPlayListCollection(this.$route.params.id, true);
+        this.tracks = playList.tracks;
+        this.name = playList.name;
+      },
       muteIfNotActiveSong(trackId) {
         this.activeSong = trackId;
-      }
+      },
     },
     created() {
       redirectToLoginIfNotLoggedIn(this.$router, encodeURIComponent(this.$route.path));
       const playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
+      let found = false;
       for (let i = 0; i < playlists.length; i += 1) {
         const playlist = playlists[i];
         if (playlist.id === this.$route.params.id) {
           this.tracks = playlist.tracks;
           this.name = playlist.name;
+          found = true;
         }
+      }
+      if (!found) {
+        this.getPlayList();
       }
     },
   };
