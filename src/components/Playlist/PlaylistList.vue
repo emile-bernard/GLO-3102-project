@@ -1,58 +1,60 @@
 <template>
   <section class="section">
-    <h1 class="title">Playlists</h1>
-    <p>
-      <router-link to="/"><span>UBeat</span></router-link>
-      <span> > </span>
-      <router-link to="/playlists"><span>Playlists</span></router-link>
-    </p>
-    <br/>
+    <div class="container">
+      <h1 class="title">Playlists</h1>
+      <p>
+        <router-link to="/"><span>UBeat</span></router-link>
+        <span> > </span>
+        <router-link to="/playlists"><span>Playlists</span></router-link>
+      </p>
+      <br/>
 
-    <button class="button is-success"
-            v-bind:style="{ display: displayCreatePlaylistButton}"
-            @click="toggleCreateNewPlaylist">
-      Create new playlist&nbsp;
-      <i class="fas fa-plus action"></i>
-    </button>
+      <button class="button is-success"
+              v-bind:style="{ display: displayCreatePlaylistButton}"
+              @click="toggleCreateNewPlaylist">
+        Create new playlist&nbsp;
+        <i class="fas fa-plus action"></i>
+      </button>
 
-    <button v-if="playlists.length" class="button is-danger" @click="deleteSelectedPlaylist">
-      Delete{{selected}}playlist(s)&nbsp
-      <i class="fas fa-trash action"></i>
-    </button>
+      <button v-if="playlists.length" class="button is-danger" @click="deleteSelectedPlaylist">
+        Delete{{selected}}playlist(s)&nbsp
+        <i class="fas fa-trash action"></i>
+      </button>
 
-    <button class="button is-warning"
-            v-bind:style="{ display: displayCancelSelectionButton}"
-            @click="cancelSelection">
-      Cancel Selection&nbsp;
-      <i class="fas fa-plus action"></i>
-    </button>
+      <button class="button is-warning"
+              v-bind:style="{ display: displayCancelSelectionButton}"
+              @click="cancelSelection">
+        Cancel Selection&nbsp;
+        <i class="fas fa-plus action"></i>
+      </button>
 
-    <div id="new-playlist-block" class="panel-block" v-bind:style="{ display: displayNewPlaylistBlock}">
-      <div class="field has-addons">
-        <div class="control">
-          <input id="new-playlist-input"
-                 class="input is-primary"
-                 type="text"
-                 placeholder="Playlist name..."
-                 value="Playlist"/>
-        </div>
-        <div class="control">
-          <button class="button is-primary" @click="createNewPlaylist">Create</button>
+      <div id="new-playlist-block" class="panel-block" v-bind:style="{ display: displayNewPlaylistBlock}">
+        <div class="field has-addons">
+          <div class="control">
+            <input id="new-playlist-input"
+                   class="input is-primary"
+                   type="text"
+                   placeholder="Playlist name..."
+                   value="Playlist"/>
+          </div>
+          <div class="control">
+            <button class="button is-primary" @click="createNewPlaylist">Create</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <br/>
-    <pulse-loader v-if="!isLoaded"></pulse-loader>
-    <playlist-overview v-else v-for="playlist in playlists"
-                       v-bind:key="playlist.id"
-                       v-bind:id="playlist.id"
-                       v-bind:name="playlist.name"
-                       v-bind:displayPlaylistSelection="displayPlaylistSelection"
-                       @playlist-selected="selectedPlaylists.push(playlist.id)"
-                       @playlist-unselected="selectedPlaylists.splice(selectedPlaylists.indexOf(playlist.id), 1)"
-                       v-bind:cancelSelection="cancelSelectionData">
-    </playlist-overview>
+      <br/>
+      <pulse-loader v-if="!isLoaded"></pulse-loader>
+      <playlist-overview v-else v-for="playlist in playlists"
+                         v-bind:key="playlist.id"
+                         v-bind:id="playlist.id"
+                         v-bind:name="playlist.name"
+                         v-bind:displayPlaylistSelection="displayPlaylistSelection"
+                         @playlist-selected="selectedPlaylists.push(playlist.id)"
+                         @playlist-unselected="selectedPlaylists.splice(selectedPlaylists.indexOf(playlist.id), 1)"
+                         v-bind:cancelSelection="cancelSelectionData">
+      </playlist-overview>
+    </div>
   </section>
 </template>
 
