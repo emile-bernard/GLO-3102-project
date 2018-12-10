@@ -5,11 +5,12 @@
         <h3 class="title has-text-white">SignUp</h3>
         <p class="subtitle has-text-white">Please create your UBeat account.</p>
         <div class="box">
+          <form>
           <div class="field">
             <label class="label">Full name</label>
             <div class="control has-icons-left">
               <input id="fullNameInput" class="input" type="text" placeholder="Full name..."
-                     @keyup.enter="createNewUser">
+                     @keyup.enter="createNewUser" autocomplete="username">
               <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
@@ -18,7 +19,7 @@
           <div class="field">
             <label class="label">Email</label>
             <div class="control has-icons-left">
-              <input id="emailInput" class="input" type="email" placeholder="email..." @keyup.enter="createNewUser">
+              <input id="emailInput" class="input" type="email" placeholder="email..." @keyup.enter="createNewUser" autocomplete="email">
               <span class="icon is-small is-left">
                     <i class="fas fa-at"></i>
                 </span>
@@ -27,12 +28,14 @@
           <div class="field">
             <label class="label">Password</label>
             <div class="control has-icons-left">
-              <input id="passwordInput" class="input" type="password" @keyup.enter="createNewUser">
+              <input id="passwordInput" class="input" type="password" @keyup.enter="createNewUser" placeholder="password..." autocomplete="previous-password">
               <span class="icon is-small is-left">
                     <i class="fas fa-key"></i>
                 </span>
             </div>
           </div>
+          </form>
+          <br>
           <button id="submitBtn" class="button is-success" @click="createNewUser">Sign Up</button>
           <pulse-loader v-if="displaySignUpSpinner"></pulse-loader>
           <p v-if="displayIsSignUpSuccessfully" id="validMessage" class="help is-success">Success! You can now log

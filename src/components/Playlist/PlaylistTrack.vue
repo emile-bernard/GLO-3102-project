@@ -91,18 +91,37 @@
         this.$emit('add-to-playlist', this.trackId);
       },
       removeTrack() {
-        const player = document.getElementById(this.trackId);
+        const trackToRemove = this.trackId;
+        const player = document.getElementById(trackToRemove);
         if (!player.paused) {
           this.togglePlay();
         }
         const baseUri = 'https://ubeat.herokuapp.com';
-        const uri = `${baseUri}/playlists/${this.$route.params.id}/tracks/${this.trackId}${getQueryParamCurrentToken()}`;
+        const uri = `${baseUri}/playlists/${this.$route.params.id}/tracks/${trackToRemove}${getQueryParamCurrentToken()}`;
         const token = getLoginToken();
         const headers = GetCORSAllowedHeader();
         const options = { method: 'delete', headers };
         if (typeof (token) !== 'undefined') {
           fetch(uri, options)
-            .then(response => response.json());
+            .then(response => response.json())
+            .then(() => {
+              const playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
+              for (let i = 0; i < playlists.length; i += 1) {
+                const playlist = playlists[i];
+                if (playlist.id === this.$route.params.id) {
+                  for (let j = 0; j < playlist.tracks.length; j += 1) {
+                    const track = playlist.tracks[j];
+                    if (track.trackId === trackToRemove) {
+                      playlists.splice(i, 1);
+                      playlist.tracks.splice(j, 1);
+                      playlists.push(playlist);
+                      localStorage.setItem(getPlaylistLocalStorageKey(), JSON.stringify(playlists));
+                      break;
+                    }
+                  }
+                }
+              }
+            });
           this.$emit('track-deleted');
         }
       },

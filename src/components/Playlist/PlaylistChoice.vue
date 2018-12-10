@@ -126,7 +126,19 @@
         const options = { method: 'post', headers, body };
         if (typeof (token) !== 'undefined') {
           fetch(uri, options)
-            .then();
+            .then(() => {
+              const playlists = JSON.parse(localStorage.getItem(getPlaylistLocalStorageKey()));
+              for (let i = 0; i < playlists.length; i += 1) {
+                const playlist = playlists[i];
+                if (playlist.id === this.currentSelection) {
+                  playlists.splice(i, 1);
+                  playlist.tracks.push(track);
+                  playlists.push(playlist);
+                  localStorage.setItem(getPlaylistLocalStorageKey(), JSON.stringify(playlists));
+                  break;
+                }
+              }
+            });
           this.closeModal();
         }
       },
