@@ -11,7 +11,6 @@ function setNewsToken(token) {
 }
 
 export function getNewsToken() {
-  debugger;
   let token = Cookies.get(NEWS_COOKIE);
   if (typeof (token) === 'undefined') {
     const tokenGenerated = tokengen.generate();
