@@ -2,7 +2,7 @@
   <div id="navigation-bar-search" class="navbar-item">
     <div class="field has-addons">
       <div id="navigation-bar-search-input" class="control has-icons-left">
-        <input v-model="query" class="input" type="text" :placeholder="name">
+        <input v-model="query" class="input" type="text" :placeholder="name" v-on:keyup.enter="search()">
         <span class="icon is-small is-left">
       <i class="fas fa-search"></i>
       </span>
@@ -41,6 +41,9 @@
     methods: {
       getResults() {
         return `${this.targetPath}?q=${this.query}`;
+      },
+      search() {
+        this.$router.push({ path: this.getResults() });
       }
     }
   };
