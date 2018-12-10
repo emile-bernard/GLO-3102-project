@@ -8,7 +8,7 @@
       </span>
       </div>
       <router-link :to="getResults()">
-        <div class="control" id="search-button">
+        <div class="control" id="search-button" v-on:click="search">
           <a class="button is-primary">
             Search
           </a>
@@ -44,6 +44,7 @@
       },
       search() {
         this.$router.push({ path: this.getResults() });
+        this.query = '';
       }
     }
   };
