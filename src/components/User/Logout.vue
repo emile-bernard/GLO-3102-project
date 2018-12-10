@@ -26,7 +26,12 @@
 
 <script>
   import { getLoginToken, removeLoginToken } from '../../LoginCookies';
-  import { getPlaylistLocalStorageKey, getUserIdLocalStorageKey, getTokenLocalStorageKey } from '../../Api';
+  import {
+    getPlaylistLocalStorageKey,
+    getUserIdLocalStorageKey,
+    getTokenLocalStorageKey,
+    getFriendsLocalStorageKey
+  } from '../../Api';
 
   export default {
     data() {
@@ -56,6 +61,7 @@
       },
       setSuccessfullyLoggedOutMessage() {
         removeLoginToken();
+        localStorage.setItem(getFriendsLocalStorageKey(), undefined);
         localStorage.setItem(getTokenLocalStorageKey(), undefined);
         localStorage.setItem(getUserIdLocalStorageKey(), undefined);
         localStorage.setItem(getPlaylistLocalStorageKey(), undefined);

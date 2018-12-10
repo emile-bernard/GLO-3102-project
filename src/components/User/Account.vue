@@ -53,7 +53,7 @@
     <div v-if="currentUser" id="account-info-logout-button" class="container">
       <router-link class="button has-text-primary is-size-3 is-white" to="/logout">
         Log Out &nbsp;
-        <i id="logOutIcon" class="fas fa-sign-out-alt is-white"></i>
+        <i id="logOutIcon" class="fas fa-sign-out-alt is-primary"></i>
       </router-link>
     </div>
   </section>

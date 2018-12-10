@@ -44,7 +44,8 @@
                                                                                          class="fas fa-exclamation-circle"></i>Invalid
           </p>
           <hr>
-          <router-link class="button is-primary" :to="logInLoc">Already have an account? Login now!
+          <p class="label">Already have an account?</p>
+          <router-link class="button is-primary" :to="logInLoc">Login now!
           </router-link>
         </div>
       </div>
@@ -59,6 +60,8 @@
 </style>
 
 <script>
+  /* eslint-disable no-lonely-if */
+
   import * as api from '@/Api';
   import { getLoginToken, redirectBackToWhereItWasBeforeOrDefault } from '../../LoginCookies';
   import PulseLoader from '../../../node_modules/vue-spinner/src/ScaleLoader';
@@ -107,8 +110,19 @@
           && this.isEmailValid(data.email)
           && this.isPasswordValid(data.password)) {
           const finaldata = signUpData.join('&');
-          const response = await api.singUpNewUser(finaldata, false);
-          this.setIsSignedUp(response);
+
+          await api.singUpNewUser(finaldata, false)
+            .then((response) => {
+              if (typeof (response) === 'undefined') {
+                this.setInvalidSignedUpMessage('Sing up failed, maybe your account already exist. Please try again.');
+              } else {
+                if (typeof (response.errorCode) === 'undefined') {
+                  this.setIsSignedUp(response);
+                } else {
+                  this.setInvalidSignedUpMessage(response.message);
+                }
+              }
+            });
         }
       },
       concatEquals(k, data) {
