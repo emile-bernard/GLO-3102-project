@@ -7,8 +7,8 @@
     </div>
     <pulse-loader v-if="displaySearchSpinner"></pulse-loader>
     <search-result-element
-      v-for="result in searchResultObjects"
-      v-bind:key="result.getId()"
+      v-for="(result, index) in searchResultObjects"
+      v-bind:key="index"
       v-bind:result="result"
     ></search-result-element>
     <hr>
