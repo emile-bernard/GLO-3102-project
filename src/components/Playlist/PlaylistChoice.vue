@@ -40,7 +40,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
   .modal-content {
     height: 75%;
     display: flex;

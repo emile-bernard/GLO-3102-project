@@ -69,7 +69,7 @@
   </nav>
 </template>
 
-<style>
+<style scoped>
   .navbar-menu {
     display: flex;
   }

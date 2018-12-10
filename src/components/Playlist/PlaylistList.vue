@@ -56,7 +56,7 @@
   </section>
 </template>
 
-<style>
+<style scoped>
   #new-playlist-block {
     background-color: white;
   }

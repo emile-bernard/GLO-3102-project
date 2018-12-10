@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
   #track-description {
     display: table;
     text-align: left;
