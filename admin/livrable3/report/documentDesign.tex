@@ -33,9 +33,12 @@ Afin de lancer l'application, il suffit de suivre les étapes suivantes:
 \end{enumerate}
 
 \chapter*{Comment voir chacune des pages}
-
 La navigation dans le site web est intuitive. \\
 
+\section*{Accès au site}
+Pour voir les pages, il faut d'abord s'inscrire. Le workflow est naturel depuis la page d'accueil de lien en lien.
+
+\section*{Description des différentes pages}
 \begin{description}[style=nextline]
   \item[\texttt{\slash{}}]\item[] Page d'accueil de l'application.
   \item[\texttt{\slash{}search}] Page de résultat de recherche de la barre du menu. Les résultats de recherche des recherches avancées (par catégories) se trouvent plutôt à leurs endroits respectifs (ex: sous \texttt{\slash{}artists} directement). Les résultats de recherche sont cliquables, et il sera possible d'interagir avec les playlists une fois rendu dans un album précis suite à plus de clicks si un résultat est un artiste.
@@ -47,21 +50,34 @@ La navigation dans le site web est intuitive. \\
   \item[\texttt{\slash{}playlists}] Consulter les playlists de l'usager. Possibilité de les éditer avec les boutons.
   \item[\texttt{\slash{}playlists\slash{}:id}] Page d'une playlist et la liste des chansons qu'elle contient. Possibilité de supprimer une chanson.
   \item[\texttt{\slash{}users}] Page de recherche par usager.
-  \item[\texttt{\slash{}account}] Page d'un usager.
-  \item[\texttt{\slash{}settings}] Page des paramètres de l'usager.
+  \item[\texttt{\slash{}account}] Page de l'utilisateur courant, excepté s'il y a des query params dans l'URL où à ce moment c'est un autre utilisateur qui est visité depuis la recherche d'utilisateurs. La fonctionnalité Gravatar est faite sur cette même page. Il faut s'inscrire avec le même email sur gravatar.
   \item[\texttt{\slash{}logout}] Déconnexion de l'usager.
 \end{description}
 
+Pour plus d'informations, voir directement le router dans \texttt{index.js}.
+
 \begin{center}
   \begin{minipage}{0.8\linewidth}
-    \textbf{Note sur la recherche}
-    \begin{itemize}
-      \item Il faut utiliser la recherche pour trouver les artistes, albums, ou chansons à partir desquelles il sera possible de se construire une playlist. Cliquer sur les catégories dans le menu et lancer des recherches.
-      \item Nous avons pris de l'avance sur les fonctionnalitées de recherche, ce qui facilitera la tâche du correcteur.
-      \item Faire \texttt{Enter} dans les barres de recherche ne fonctionne pas. Il faut cliquer le bouton juste à droite de la barre.
-    \end{itemize}
+    \textbf{Note sur la recherche} \\[10pt]
+      Il faut utiliser la recherche pour trouver les artistes, albums, ou chansons à partir desquelles il sera possible de se construire une playlist. Cliquer sur les catégories dans le menu et lancer des recherches.
   \end{minipage}
 \end{center}
 
-Pour plus d'informations, voir directement le router dans \texttt{index.js}.
+\chapter*{Fonctionnalitées au choix}
+\section*{Gravatar}
+Un gravatar est disponible dans la page account. Il faut s'inscrire sur gravatar pour qu'un gravatar s'affiche, correspondant au email de l'utilisateur se faisant consulter. \\
+Pour faciliter la correction, un gravatar est déjà créé pour au moins un utilisateur dans UBeat. Il suffit de se login avec le email et password suivant, puis de naviguer vers la page d'account (l'icône en haut complètement à droite dans les menus du site): \\
+\begin{center}
+  \begin{minipage}{0.5\linewidth}
+    \centering
+    \begin{description}
+      \item[email] guillaume-chevalier@outlook.com
+      \item[password] guillaume
+    \end{description}
+  \end{minipage}
+\end{center}
+
+\section*{Music News Page}
+Naviguez sous la page de nouvelles "News" depuis le menu du site pour voir les nouvelles sur la musique. Il est possible de choisir plusieurs tabs de nouvelles une fois rendu sur la page pour différents sujets. Les nouvelles se basent sur une API gratuite où nous nous sommes inscrits pour fetcher les nouvelles des derniers jours pour chaque sujets avec des mots clés.
+
 \end{document}
