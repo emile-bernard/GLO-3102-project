@@ -112,7 +112,7 @@
     },
     methods: {
       async getPlayList() {
-        const playList = await getPlayListCollection(this.$route.params.id, true);
+        const playList = await getPlayListCollection(this.$route.params.id, false);
         this.tracks = playList.tracks;
         this.name = playList.name;
       },

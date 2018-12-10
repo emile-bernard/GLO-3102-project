@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
   #navigation-bar-search {
     width: 100%;
     flex-grow: 2;

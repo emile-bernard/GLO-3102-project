@@ -7,7 +7,7 @@
       <router-link :to="this.path"><span>{{typeTitleCase}}</span></router-link>
     </p>
     <br/>
-    <div class="container">
+    <div id="search-container" class="container">
       <search-inline-bar
         v-bind:targetPath="path"
         v-bind:name="'Search in '+typeTitleCase+'...'"
@@ -17,7 +17,13 @@
   </section>
 </template>
 
-<style>
+<style scoped>
+  #search-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
 </style>
 
 <script>
