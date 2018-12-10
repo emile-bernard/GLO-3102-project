@@ -61,7 +61,7 @@
 </template>
 
 <style scoped>
-  .not-wrappable{
+  .not-wrappable {
     text-wrap: none;
     white-space: nowrap;
   }
@@ -118,6 +118,7 @@
         currentUser: true,
         playlistsLoaded: false,
         friendsLoaded: false,
+        inProcess: false,
       };
     },
     watch: {
@@ -209,18 +210,26 @@
         return `/account?id=${friendId}&name=${friendName}&email=${friendEmail}`;
       },
       follow() {
-        FollowAFriendAndGetFriendsListBack(this.$route.query.id, false)
-          .then((response) => {
-            localStorage.setItem(getFriendsLocalStorageKey(), JSON.stringify(response.following));
-            this.followed = true;
-          });
+        if (!this.inProcess) {
+          this.inProcess = true;
+          FollowAFriendAndGetFriendsListBack(this.$route.query.id, false)
+            .then((response) => {
+              localStorage.setItem(getFriendsLocalStorageKey(), JSON.stringify(response.following));
+              this.followed = true;
+              this.inProcess = false;
+            });
+        }
       },
       unfollow() {
-        StopFollowAFriendAndGetFriendsListBack(this.$route.query.id, false)
-          .then((response) => {
-            localStorage.setItem(getFriendsLocalStorageKey(), JSON.stringify(response.following));
-            this.followed = false;
-          });
+        if (!this.inProcess) {
+          this.inProcess = true;
+          StopFollowAFriendAndGetFriendsListBack(this.$route.query.id, false)
+            .then((response) => {
+              localStorage.setItem(getFriendsLocalStorageKey(), JSON.stringify(response.following));
+              this.followed = false;
+              this.inProcess = false;
+            });
+        }
       },
       isAlreadyFollowed() {
         const friends = JSON.parse(localStorage.getItem(getFriendsLocalStorageKey()));
