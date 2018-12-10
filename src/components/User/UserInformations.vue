@@ -7,7 +7,7 @@
         <v-gravatar :email="email"></v-gravatar>
       </figure>
       <a href="https://fr.gravatar.com/">
-        Not register to Gravatar.com? <br>
+        Not registered to Gravatar.com? <br>
         Create yout Gravatar account!</a>
     </div>
   </div>

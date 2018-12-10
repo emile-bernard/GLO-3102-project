@@ -91,6 +91,10 @@
         this.$emit('add-to-playlist', this.trackId);
       },
       removeTrack() {
+        const player = document.getElementById(this.trackId);
+        if (!player.paused) {
+          this.togglePlay();
+        }
         const baseUri = 'https://ubeat.herokuapp.com';
         const uri = `${baseUri}/playlists/${this.$route.params.id}/tracks/${this.trackId}${getQueryParamCurrentToken()}`;
         const token = getLoginToken();
