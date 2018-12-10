@@ -163,7 +163,8 @@
           return false;
         }
 
-        const regExName = /^[a-zA-Z0-9]*$/;
+        // const regExName = /^[a-zA-Z0-9]*$/;
+        const regExName = /^[a-z ,.'-]+$/i;
         if (!regExName.test(name)) {
           this.setInvalidSignedUpMessage('Name format is invalid');
           return false;
