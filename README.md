@@ -15,7 +15,7 @@
 
 # Document Design
 
-Voir `./DESIGN.md`
+Voir [documentDesign.pdf](admin/livrable3/report/documentDesign.pdf)
 
 # Dates importantes
 
@@ -51,7 +51,9 @@ npm -v
 npm install
 ```
 
-## Développement ```bash
+## Développement 
+
+```bash
 # serve with hot reload at localhost:8080
 npm start
 ```
