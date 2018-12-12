@@ -1,6 +1,22 @@
-MIT License
+Copyright
 
-Copyright (c) 2017 GLO-3102 - Développement d'application web
+All contributions by University's staff, lecturers, graders or contributors:
+Copyright (c) 2017-2018, GLO-3102 - Développement d'application web
+
+All contributions by Samuel Cabral Cruz:
+Copyright (c) 2018, Samuel Cabral Cruz.
+
+All contributions by Guillaume Chevalier:
+Copyright (c) 2018, Guillaume Chevalier.
+
+All contributions by Emile Bernard:
+Copyright (c) 2018, Emile Bernard.
+
+Each contributor holds copyright over their respective contributions.
+The project versioning (Git) records all such contribution source information.
+
+
+MIT License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +35,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
